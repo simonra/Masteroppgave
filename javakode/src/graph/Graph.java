@@ -25,7 +25,6 @@ public class Graph {
 	
 	public Graph(){
 		//Read the file:
-		String inputText = "";
 		int numberOfNodes, numberOfEdges, numberOfArcs, numberOfRequiredNodes, numberOfRequiredEdges, numberOfRequiredArcs;
 		String[] lineWithMultipleContent;
 		String elementId;
@@ -95,6 +94,16 @@ public class Graph {
 				nodes[currentElementID - 1] = createdNode;
 			}
 			
+			//Fill in the rest of the nodes
+			isRequired = false;
+			for (int i = 0; i < numberOfNodes; i++) {
+				if(nodes[i] == null){
+					elementId = "NrN" + (i + 1);
+					createdNode = new Node(elementId, 0, 0, isRequired);
+					nodes[i] = createdNode;
+				}
+			}
+			
 			//Set the required edges:
 			bufferedReader.readLine();
 			bufferedReader.readLine();
@@ -112,6 +121,8 @@ public class Graph {
 				createdEdge = new Edge(elementId, fromNode, toNode, traversalCost, servicingCost, demand, isRequired);
 				requiredEdges[i] = createdEdge;
 				edges[currentElementID - 1] = createdEdge;
+				nodes[fromNode - 1].addConnection(true, false, currentElementID);
+				nodes[toNode - 1].addConnection(true, true, currentElementID);
 			}
 			
 			
@@ -129,6 +140,8 @@ public class Graph {
 				traversalCost = Double.parseDouble(lineWithMultipleContent[3]);
 				createdEdge = new Edge(elementId, fromNode, toNode, traversalCost, 0, 0, isRequired);
 				edges[currentElementID - 1] = createdEdge;
+				nodes[fromNode - 1].addConnection(true, false, currentElementID);
+				nodes[toNode - 1].addConnection(true, true, currentElementID);
 			}
 			
 			//Set the required arcs
@@ -148,6 +161,8 @@ public class Graph {
 				createdArc = new Arc(elementId, fromNode, toNode, traversalCost, servicingCost, demand, isRequired);
 				requiredArcs[i] = createdArc;
 				arcs[currentElementID - 1] = createdArc;
+				nodes[fromNode - 1].addConnection(false, false, currentElementID);
+				nodes[toNode - 1].addConnection(false, true, currentElementID);
 			}
 			
 			//Set the rest of the arcs
@@ -164,14 +179,16 @@ public class Graph {
 				traversalCost = Double.parseDouble(lineWithMultipleContent[3]);
 				createdArc = new Arc(elementId, fromNode, toNode, traversalCost, 0, 0, isRequired);
 				arcs[currentElementID - 1] = createdArc;
+				nodes[fromNode - 1].addConnection(false, false, currentElementID);
+				nodes[toNode - 1].addConnection(false, true, currentElementID);
 			}
 			
-			inputText = stringBuilder.toString();
 			bufferedReader.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		System.out.println(Arrays.toString(nodes));
+//		System.out.println(Arrays.toString(nodes[0].outboundEdges));
 	}
 	
 	
