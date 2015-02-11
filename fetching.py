@@ -32,7 +32,7 @@ def get_all(object_type_id):
     objects = []
     for i in range(0, int(math.ceil(float(number_of_objects)/OBJECTS_PER_FETCH))):
         offset = OBJECTS_PER_FETCH * i
-        print offset, "/", number_of_objects, len(objects)
+        print offset, "/", number_of_objects
 
         query['objektTyper'][0]['start'] = offset + 1  # NVDB is one indexed
 
