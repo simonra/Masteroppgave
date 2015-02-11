@@ -25,8 +25,7 @@ def get_all(object_type_id):
     initial_result = r.json()
 
     number_of_objects = initial_result['resultater'][0]['statistikk']['antallFunnet']
-    number_of_objects = 10
-    OBJECTS_PER_FETCH = 10
+    OBJECTS_PER_FETCH = 1000
 
     query['objektTyper'][0]['antall'] = OBJECTS_PER_FETCH
 
