@@ -8,8 +8,9 @@ TRONDHEIM_KOMMUNE = 1601
 VEGREFERANSE = 532
 FARTSGRENSE = 105
 
+OBJECTS_PER_FETCH = 1000
 
-def get_all(object_type_id):
+def get_road_objects(object_type_id, count=None):
     query = {
         "lokasjon": {
             "kommune": [TRONDHEIM_KOMMUNE]
@@ -20,21 +21,23 @@ def get_all(object_type_id):
         }]
     }
 
-    r = requests.get("https://www.vegvesen.no/nvdb/api/sok?kriterie="+json.dumps(query))
+    if not count:
+        r = requests.get("https://www.vegvesen.no/nvdb/api/sok?kriterie="+json.dumps(query))
 
-    initial_result = r.json()
+        initial_result = r.json()
 
-    number_of_objects = initial_result['resultater'][0]['statistikk']['antallFunnet']
-    OBJECTS_PER_FETCH = 1000
-
-    query['objektTyper'][0]['antall'] = OBJECTS_PER_FETCH
+        number_of_objects = initial_result['resultater'][0]['statistikk']['antallFunnet']
+    else:
+        number_of_objects = count
 
     objects = []
     for i in range(0, int(math.ceil(float(number_of_objects)/OBJECTS_PER_FETCH))):
         offset = OBJECTS_PER_FETCH * i
         print offset, "/", number_of_objects
 
-        query['objektTyper'][0]['start'] = offset + 1  # NVDB is one indexed
+        pagination = query['objektTyper'][0]
+        pagination['start'] = offset + 1  # NVDB is one indexed
+        pagination['antall'] = min(OBJECTS_PER_FETCH, number_of_objects-offset)
 
         r = requests.get("https://www.vegvesen.no/nvdb/api/sok?kriterie="+json.dumps(query))
 
@@ -47,5 +50,5 @@ def get_all(object_type_id):
     print len(objects)
 
 
-print get_all(FARTSGRENSE)
-print get_all(VEGREFERANSE)
+print get_road_objects(FARTSGRENSE, count=10)
+print get_road_objects(VEGREFERANSE, count=10)
