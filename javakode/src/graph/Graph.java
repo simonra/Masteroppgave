@@ -1,8 +1,8 @@
 package graph;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.Arrays;
 
 public class Graph {
 	String problemName;
@@ -27,9 +27,19 @@ public class Graph {
 		//Read the file:
 		String inputText = "";
 		int numberOfNodes, numberOfEdges, numberOfArcs, numberOfRequiredNodes, numberOfRequiredEdges, numberOfRequiredArcs;
+		String[] lineWithMultipleContent;
+		String elementId;
+		int currentElementID;
+		int fromNode, toNode;
+		double traversalCost, demand, servicingCost;
+		boolean isRequired;
+		Node createdNode;
+		Edge createdEdge;
+		Arc createdArc;
 		try {
 			BufferedReader bufferedReader = new BufferedReader(new FileReader(parameterFiles.GraphParams.graphFilePath));
 			StringBuilder stringBuilder = new StringBuilder();
+			//Read parameters of graph:
 			String line = bufferedReader.readLine();
 			problemName = line.replaceAll("Name:\t\t", "");
 			
@@ -57,27 +67,111 @@ public class Graph {
 			numberOfArcs = Integer.parseInt(line.replaceAll("#Arcs:\t\t", ""));
 			arcs = new Arc[numberOfArcs];
 			
+			line = bufferedReader.readLine();
+			numberOfRequiredNodes = Integer.parseInt(line.replaceAll("#Required N:\t", ""));
+			requiredNodes = new Node[numberOfRequiredNodes];
 			
-			while(line != null){
-				stringBuilder.append(line);
-				stringBuilder.append(System.lineSeparator());
+			line = bufferedReader.readLine();
+			numberOfRequiredEdges = Integer.parseInt(line.replaceAll("#Required E:\t", ""));
+			requiredEdges = new Edge[numberOfRequiredEdges];
+			
+			line = bufferedReader.readLine();
+			numberOfRequiredArcs = Integer.parseInt(line.replaceAll("#Required A:\t", ""));
+			requiredArcs = new Arc[numberOfRequiredArcs];
+			
+			//Set the required nodes:
+			bufferedReader.readLine();
+			bufferedReader.readLine();
+			isRequired = true;
+			for (int i = 0; i < numberOfRequiredNodes; i++) {
 				line = bufferedReader.readLine();
+				lineWithMultipleContent = line.split("\t");
+				elementId = lineWithMultipleContent[0];
+				currentElementID = Integer.parseInt(elementId.replaceAll("N", ""));
+				demand = Double.parseDouble(lineWithMultipleContent[1]);
+				servicingCost = Double.parseDouble(lineWithMultipleContent[2]);
+				createdNode = new Node(elementId, demand, servicingCost, isRequired);
+				requiredNodes[i] = createdNode;
+				nodes[currentElementID - 1] = createdNode;
 			}
+			
+			//Set the required edges:
+			bufferedReader.readLine();
+			bufferedReader.readLine();
+			isRequired = true;
+			for (int i = 0; i < numberOfRequiredEdges; i++) {
+				line = bufferedReader.readLine();
+				lineWithMultipleContent = line.split("\t");
+				elementId = lineWithMultipleContent[0];
+				currentElementID = Integer.parseInt(elementId.replaceAll("E", ""));
+				fromNode = Integer.parseInt(lineWithMultipleContent[1]);
+				toNode = Integer.parseInt(lineWithMultipleContent[2]);
+				traversalCost = Double.parseDouble(lineWithMultipleContent[3]);
+				demand = Double.parseDouble(lineWithMultipleContent[4]);
+				servicingCost = Double.parseDouble(lineWithMultipleContent[5]);
+				createdEdge = new Edge(elementId, fromNode, toNode, traversalCost, servicingCost, demand, isRequired);
+				requiredEdges[i] = createdEdge;
+				edges[currentElementID - 1] = createdEdge;
+			}
+			
+			
+			//Set the rest of the edges
+			bufferedReader.readLine();
+			bufferedReader.readLine();
+			isRequired = false;
+			for (int i = 0; i < numberOfEdges - numberOfRequiredEdges; i++) {
+				line = bufferedReader.readLine();
+				lineWithMultipleContent = line.split("\t");
+				elementId = lineWithMultipleContent[0];
+				currentElementID = Integer.parseInt(elementId.replaceAll("NrE", ""));
+				fromNode = Integer.parseInt(lineWithMultipleContent[1]);
+				toNode = Integer.parseInt(lineWithMultipleContent[2]);
+				traversalCost = Double.parseDouble(lineWithMultipleContent[3]);
+				createdEdge = new Edge(elementId, fromNode, toNode, traversalCost, 0, 0, isRequired);
+				edges[currentElementID - 1] = createdEdge;
+			}
+			
+			//Set the required arcs
+			bufferedReader.readLine();
+			bufferedReader.readLine();
+			isRequired = true;
+			for (int i = 0; i < numberOfRequiredArcs; i++) {
+				line = bufferedReader.readLine();
+				lineWithMultipleContent = line.split("\t");
+				elementId = lineWithMultipleContent[0];
+				currentElementID = Integer.parseInt(elementId.replaceAll("A", ""));
+				fromNode = Integer.parseInt(lineWithMultipleContent[1]);
+				toNode = Integer.parseInt(lineWithMultipleContent[2]);
+				traversalCost = Double.parseDouble(lineWithMultipleContent[3]);
+				demand = Double.parseDouble(lineWithMultipleContent[4]);
+				servicingCost = Double.parseDouble(lineWithMultipleContent[5]);
+				createdArc = new Arc(elementId, fromNode, toNode, traversalCost, servicingCost, demand, isRequired);
+				requiredArcs[i] = createdArc;
+				arcs[currentElementID - 1] = createdArc;
+			}
+			
+			//Set the rest of the arcs
+			bufferedReader.readLine();
+			bufferedReader.readLine();
+			isRequired = false;
+			for (int i = 0; i < numberOfArcs - numberOfRequiredArcs; i++) {
+				line = bufferedReader.readLine();
+				lineWithMultipleContent = line.split("\t");
+				elementId = lineWithMultipleContent[0];
+				currentElementID = Integer.parseInt(elementId.replaceAll("NrA", ""));
+				fromNode = Integer.parseInt(lineWithMultipleContent[1]);
+				toNode = Integer.parseInt(lineWithMultipleContent[2]);
+				traversalCost = Double.parseDouble(lineWithMultipleContent[3]);
+				createdArc = new Arc(elementId, fromNode, toNode, traversalCost, 0, 0, isRequired);
+				arcs[currentElementID - 1] = createdArc;
+			}
+			
 			inputText = stringBuilder.toString();
 			bufferedReader.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		System.out.println(inputText);
-		System.out.println("Problem name: " + problemName);
-		System.out.println("Optimal value: " + optimalValue);
-		System.out.println("Number of vehicles: " + numberOfVehicles);
-		System.out.println("Capacity: " + vehicleCapacity);
-		System.out.println("Deopt node index: " + depotNodeIndex);
-		System.out.println("Number of nodes: " + nodes.length);
-		System.out.println("Number of edges: " + edges.length);
-		System.out.println("Number of arcs: " + arcs.length);
+		System.out.println(Arrays.toString(nodes));
 	}
 	
 	
