@@ -1,29 +1,36 @@
 package graph;
 
 public class Arc implements ElementProperties, Cost{
+	
+	String ID;
+	double servicingCost;
+	double passThroughCost;
+	double demand;
+	boolean isRequired;
 
 	@Override
 	public double getServicingCost() {
-		// TODO Auto-generated method stub
-		return 0;
+		return servicingCost;
 	}
 
 	@Override
-	public double getDeadHeadingCost() {
-		// TODO Auto-generated method stub
-		return 0;
+	public double getPassThroughCost() {
+		return passThroughCost;
 	}
 
 	@Override
 	public String getID() {
-		// TODO Auto-generated method stub
-		return null;
+		return ID;
 	}
 
 	@Override
 	public boolean getIsRequired() {
-		// TODO Auto-generated method stub
-		return false;
+		return isRequired;
+	}
+
+	@Override
+	public double getDemand() {
+		return demand;
 	}
 
 }
