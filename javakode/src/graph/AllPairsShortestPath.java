@@ -5,13 +5,13 @@ import java.util.LinkedList;
 public class AllPairsShortestPath {
 
 	double[][] allPairShortestDistances;
-	double[][] predecessors;
+	int[][] predecessors;
 	
 	
 	public double[][] allPairsShortestPath(Graph graph){
 		int numberOfElementsInGraph = graph.nodes.length + graph.edges.length + graph.arcs.length;
 		allPairShortestDistances = new double[numberOfElementsInGraph][numberOfElementsInGraph];
-		predecessors = new double[numberOfElementsInGraph][numberOfElementsInGraph];
+		predecessors = new int[numberOfElementsInGraph][numberOfElementsInGraph];
 		boolean[] fixed = new boolean[numberOfElementsInGraph];
 		
 		
