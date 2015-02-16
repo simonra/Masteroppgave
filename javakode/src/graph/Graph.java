@@ -37,7 +37,6 @@ public class Graph {
 		Arc createdArc;
 		try {
 			BufferedReader bufferedReader = new BufferedReader(new FileReader(parameterFiles.GraphParams.graphFilePath));
-			StringBuilder stringBuilder = new StringBuilder();
 			//Read parameters of graph:
 			String line = bufferedReader.readLine();
 			problemName = line.replaceAll("Name:\t\t", "");
@@ -196,6 +195,19 @@ public class Graph {
 	
 	public static void main(String[] args) {
 		Graph g = new Graph();
+		System.out.println("Graph done, here comes flw:");
+		FloydWarshallInterpretation flw = new FloydWarshallInterpretation();
+		double[][] allPairsShortest;
+		allPairsShortest = flw.FloydWarshall(g);
+		String outputAllPairsString = "";
+		for (int i = 0; i < allPairsShortest.length; i++) {
+			for (int j = 0; j < allPairsShortest.length; j++) {
+				outputAllPairsString += allPairsShortest[i][j] + "\t";
+			}
+			outputAllPairsString += "\n";
+		}
+		System.out.println(outputAllPairsString);
+		
 	}
 
 }

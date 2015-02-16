@@ -53,7 +53,7 @@ public class FloydWarshallInterpretation {
 		 * For each node, set the distance between each connected edge and
 		 * outbound arc as the traversal cost of the node
 		 */
-		//The -1 is to compensate for 1-indexing of edges and arc.
+		// The -1 is to compensate for 1-indexing of edges and arc.
 		int edgeOffset = graph.nodes.length - 1;
 		int arcOffset = graph.nodes.length + graph.edges.length - 1;
 		for (int i = 0; i < graph.nodes.length; i++) {
@@ -160,7 +160,12 @@ public class FloydWarshallInterpretation {
 		for (int k = 0; k < numberOfElementsInGraph; k++) {
 			for (int i = 0; i < numberOfElementsInGraph; i++) {
 				for (int j = 0; j < numberOfElementsInGraph; j++) {
-					
+					if (allPairShortestDistances[i][j] > allPairShortestDistances[i][k]
+							+ allPairShortestDistances[k][j]) {
+						allPairShortestDistances[i][j] = allPairShortestDistances[i][k]
+								+ allPairShortestDistances[k][j];
+					}
+
 				}
 			}
 
