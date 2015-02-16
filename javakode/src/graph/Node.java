@@ -92,7 +92,7 @@ public class Node implements ElementProperties, Cost{
 		output += "Is required: " + isRequired + "\t";
 		output += "Inbound Edges: " + Arrays.toString(inboundEdges) + "\t";
 		output += "Outbound Edges: " + Arrays.toString(outboundEdges) + "\t";
-		output += "Inbound Arcs: " + Arrays.toString(outboundArcs) + "\t";
+		output += "Inbound Arcs: " + Arrays.toString(inboundArcs) + "\t";
 		output += "Outbound Arcs: " + Arrays.toString(outboundArcs);
 		return output;
 	}
