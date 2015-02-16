@@ -187,7 +187,6 @@ public class Graph {
 			e.printStackTrace();
 		}
 		System.out.println(Arrays.toString(nodes));
-//		System.out.println(Arrays.toString(nodes[0].outboundEdges));
 	}
 	
 	
@@ -195,7 +194,7 @@ public class Graph {
 	
 	public static void main(String[] args) {
 		Graph g = new Graph();
-		System.out.println("Graph done, here comes flw:");
+		System.out.println("─────────────────────");
 		FloydWarshallInterpretation flw = new FloydWarshallInterpretation();
 		double[][] allPairsShortest;
 		allPairsShortest = flw.FloydWarshall(g);

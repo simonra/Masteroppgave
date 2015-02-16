@@ -156,6 +156,16 @@ public class FloydWarshallInterpretation {
 			}
 		}
 
+		String outputAllPairsString = "";
+		for (int i = 0; i < allPairShortestDistances.length; i++) {
+			for (int j = 0; j < allPairShortestDistances.length; j++) {
+				outputAllPairsString += allPairShortestDistances[i][j] + "\t";
+			}
+			outputAllPairsString += "\n";
+		}
+		outputAllPairsString += "─────────────────────";
+		System.out.println(outputAllPairsString);
+		
 		// Do floyd-warshall
 		for (int k = 0; k < numberOfElementsInGraph; k++) {
 			for (int i = 0; i < numberOfElementsInGraph; i++) {
