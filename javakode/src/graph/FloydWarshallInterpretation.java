@@ -33,12 +33,6 @@ public class FloydWarshallInterpretation {
 			int node1 = currentEdge.fromNodeId - 1;
 			int node2 = currentEdge.toNodeId - 1;
 
-//			if (currentEdge.passThroughCost < allPairShortestDistances[node1][node2]) {
-//				allPairShortestDistances[node1][node2] = currentEdge.passThroughCost;
-//			}
-//			if (currentEdge.passThroughCost < allPairShortestDistances[node2][node1]) {
-//				allPairShortestDistances[node2][node1] = currentEdge.passThroughCost;
-//			}
 			allPairShortestDistances[edgeOffset + i][node1] = graph.nodes[node1].passThroughCost;
 			allPairShortestDistances[node1][edgeOffset + i] = graph.edges[i].passThroughCost;
 			allPairShortestDistances[edgeOffset + i][node2] = graph.nodes[node2].passThroughCost;
@@ -52,9 +46,6 @@ public class FloydWarshallInterpretation {
 			int fromNode = currentArc.fromNodeId - 1;
 			int toNode = currentArc.toNodeId - 1;
 
-//			if (currentArc.passThroughCost < allPairShortestDistances[fromNode][toNode]) {
-//				allPairShortestDistances[fromNode][toNode] = currentArc.passThroughCost;
-//			}
 			allPairShortestDistances[arcOffset + i][toNode] = graph.nodes[toNode].passThroughCost;
 			allPairShortestDistances[fromNode][arcOffset + i] = graph.arcs[i].passThroughCost;
 		}
