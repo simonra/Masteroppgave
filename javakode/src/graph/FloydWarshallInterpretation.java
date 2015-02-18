@@ -109,4 +109,52 @@ public class FloydWarshallInterpretation {
 
 		return allPairShortestDistances;
 	}
+	
+	
+	public String allPairsToString(){
+		String outputString = "";
+		for (int i = 0; i < allPairShortestDistances.length; i++) {
+			for (int j = 0; j < allPairShortestDistances.length; j++) {
+				outputString += allPairShortestDistances[i][j] + "\t";
+			}
+			outputString += "\n";
+		}
+		return outputString;
+	}
+	
+	public String sucessorsToString(){
+		String outputString = "";
+		for (int i = 0; i < successors.length; i++) {
+			for (int j = 0; j < successors.length; j++) {
+				outputString += successors[i][j] + "\t";
+			}
+			outputString += "\n";
+		}
+		return outputString;
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
