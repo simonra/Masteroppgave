@@ -3,18 +3,19 @@ package graph;
 public class FloydWarshallInterpretation {
 
 	double[][] allPairShortestDistances;
-	int[][] predecessors;
+	int[][] successors;
 
 	public double[][] FloydWarshall(Graph graph) {
 		int numberOfElementsInGraph = graph.nodes.length + graph.edges.length
 				+ graph.arcs.length;
 		allPairShortestDistances = new double[numberOfElementsInGraph][numberOfElementsInGraph];
-		predecessors = new int[numberOfElementsInGraph][numberOfElementsInGraph];
+		successors = new int[numberOfElementsInGraph][numberOfElementsInGraph];
 
 		// Initialize all distances as infinite
 		for (int i = 0; i < numberOfElementsInGraph; i++) {
 			for (int j = 0; j < numberOfElementsInGraph; j++) {
 				allPairShortestDistances[i][j] = Double.POSITIVE_INFINITY;
+				successors[i][j] = -1;
 			}
 			allPairShortestDistances[i][i] = 0;
 		}
@@ -37,6 +38,11 @@ public class FloydWarshallInterpretation {
 			allPairShortestDistances[node1][edgeOffset + i] = graph.edges[i].passThroughCost;
 			allPairShortestDistances[edgeOffset + i][node2] = graph.nodes[node2].passThroughCost;
 			allPairShortestDistances[node2][edgeOffset + i] = graph.edges[i].passThroughCost;
+			
+			successors[edgeOffset + i][node1] = node1;
+			successors[node1][edgeOffset + i] = edgeOffset + i;
+			successors[edgeOffset + i][node2] = node2;
+			successors[node2][edgeOffset + i] = edgeOffset + i;
 		}
 
 		// For each arc, set the distance {startnode,endnode} to the arc
@@ -48,6 +54,9 @@ public class FloydWarshallInterpretation {
 
 			allPairShortestDistances[arcOffset + i][toNode] = graph.nodes[toNode].passThroughCost;
 			allPairShortestDistances[fromNode][arcOffset + i] = graph.arcs[i].passThroughCost;
+			
+			successors[arcOffset + i][toNode] = toNode;
+			successors[fromNode][arcOffset + i] = arcOffset + i;
 		}
 
 
@@ -70,6 +79,7 @@ public class FloydWarshallInterpretation {
 							+ allPairShortestDistances[k][j]) {
 						allPairShortestDistances[i][j] = allPairShortestDistances[i][k]
 								+ allPairShortestDistances[k][j];
+						successors[i][j] = successors[i][k];
 					}
 
 				}
