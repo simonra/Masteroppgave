@@ -18,8 +18,6 @@ public class Graph {
 	Arc[] requiredArcs;
 	
 	/*TODO:
-	 * -graph constructor that reads from file
-	 * -the grea dijkstra-table
 	 * -getters for individual graph elements?
 	 * -fields for best known stuff for this graph that the algorithm can use?*/
 	
@@ -119,9 +117,9 @@ public class Graph {
 				servicingCost = Double.parseDouble(lineWithMultipleContent[5]);
 				createdEdge = new Edge(elementId, fromNode, toNode, traversalCost, servicingCost, demand, isRequired);
 				requiredEdges[i] = createdEdge;
-				edges[currentElementID - 1] = createdEdge;
-				nodes[fromNode - 1].addConnection(true, false, currentElementID);
-				nodes[toNode - 1].addConnection(true, true, currentElementID);
+				edges[i] = createdEdge;
+				nodes[fromNode - 1].addConnection(true, false, i);
+				nodes[toNode - 1].addConnection(true, true, i);
 			}
 			
 			
@@ -138,9 +136,9 @@ public class Graph {
 				toNode = Integer.parseInt(lineWithMultipleContent[2]);
 				traversalCost = Double.parseDouble(lineWithMultipleContent[3]);
 				createdEdge = new Edge(elementId, fromNode, toNode, traversalCost, 0, 0, isRequired);
-				edges[currentElementID - 1] = createdEdge;
-				nodes[fromNode - 1].addConnection(true, false, currentElementID);
-				nodes[toNode - 1].addConnection(true, true, currentElementID);
+				edges[numberOfRequiredEdges + i] = createdEdge;
+				nodes[fromNode - 1].addConnection(true, false, numberOfRequiredEdges + i);
+				nodes[toNode - 1].addConnection(true, true, numberOfRequiredEdges + i);
 			}
 			
 			//Set the required arcs
@@ -159,9 +157,9 @@ public class Graph {
 				servicingCost = Double.parseDouble(lineWithMultipleContent[5]);
 				createdArc = new Arc(elementId, fromNode, toNode, traversalCost, servicingCost, demand, isRequired);
 				requiredArcs[i] = createdArc;
-				arcs[currentElementID - 1] = createdArc;
-				nodes[fromNode - 1].addConnection(false, false, currentElementID);
-				nodes[toNode - 1].addConnection(false, true, currentElementID);
+				arcs[i] = createdArc;
+				nodes[fromNode - 1].addConnection(false, false, i);
+				nodes[toNode - 1].addConnection(false, true, i);
 			}
 			
 			//Set the rest of the arcs
@@ -177,9 +175,9 @@ public class Graph {
 				toNode = Integer.parseInt(lineWithMultipleContent[2]);
 				traversalCost = Double.parseDouble(lineWithMultipleContent[3]);
 				createdArc = new Arc(elementId, fromNode, toNode, traversalCost, 0, 0, isRequired);
-				arcs[currentElementID - 1] = createdArc;
-				nodes[fromNode - 1].addConnection(false, false, currentElementID);
-				nodes[toNode - 1].addConnection(false, true, currentElementID);
+				arcs[numberOfRequiredArcs + i] = createdArc;
+				nodes[fromNode - 1].addConnection(false, false, numberOfRequiredArcs + i);
+				nodes[toNode - 1].addConnection(false, true, numberOfRequiredArcs + i);
 			}
 			
 			bufferedReader.close();
@@ -198,14 +196,7 @@ public class Graph {
 		FloydWarshallInterpretation flw = new FloydWarshallInterpretation();
 		double[][] allPairsShortest;
 		allPairsShortest = flw.FloydWarshall(g);
-		String outputAllPairsString = "";
-		for (int i = 0; i < allPairsShortest.length; i++) {
-			for (int j = 0; j < allPairsShortest.length; j++) {
-				outputAllPairsString += allPairsShortest[i][j] + "\t";
-			}
-			outputAllPairsString += "\n";
-		}
-		System.out.println(outputAllPairsString);
+		System.out.println("All pairs shortest complete in " + flw.timeTakenToComputeFloydWarshall/1000.0 + " seconds");
 		
 	}
 

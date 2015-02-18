@@ -4,8 +4,10 @@ public class FloydWarshallInterpretation {
 
 	double[][] allPairShortestDistances;
 	int[][] successors;
+	double timeTakenToComputeFloydWarshall;
 
 	public double[][] FloydWarshall(Graph graph) {
+		double startTime = System.currentTimeMillis();
 		int numberOfElementsInGraph = graph.nodes.length + graph.edges.length
 				+ graph.arcs.length;
 		allPairShortestDistances = new double[numberOfElementsInGraph][numberOfElementsInGraph];
@@ -20,6 +22,7 @@ public class FloydWarshallInterpretation {
 			allPairShortestDistances[i][i] = 0;
 		}
 
+		System.out.println("Distances initialized to infin and 0");
 		
 		int edgeOffset = graph.nodes.length;
 		int arcOffset = graph.nodes.length + graph.edges.length;
@@ -44,6 +47,8 @@ public class FloydWarshallInterpretation {
 			successors[edgeOffset + i][node2] = node2;
 			successors[node2][edgeOffset + i] = edgeOffset + i;
 		}
+		
+		System.out.println("Edge-distances initialized");
 
 		// For each arc, set the distance {startnode,endnode} to the arc
 		// traversal cost
@@ -59,20 +64,11 @@ public class FloydWarshallInterpretation {
 			successors[fromNode][arcOffset + i] = arcOffset + i;
 		}
 
-
-
-		String outputAllPairsString = "";
-		for (int i = 0; i < allPairShortestDistances.length; i++) {
-			for (int j = 0; j < allPairShortestDistances.length; j++) {
-				outputAllPairsString += allPairShortestDistances[i][j] + "\t";
-			}
-			outputAllPairsString += "\n";
-		}
-		outputAllPairsString += "─────────────────────";
-		System.out.println(outputAllPairsString);
+		System.out.println("Arc-distances initialized");
 		
 		// Do floyd-warshall
 		for (int k = 0; k < numberOfElementsInGraph; k++) {
+//			if(k%10 == 0) System.out.println("Now on the " + k + "th of " +numberOfElementsInGraph +"th iteration");
 			for (int i = 0; i < numberOfElementsInGraph; i++) {
 				for (int j = 0; j < numberOfElementsInGraph; j++) {
 					if (allPairShortestDistances[i][j] > allPairShortestDistances[i][k]
@@ -86,6 +82,8 @@ public class FloydWarshallInterpretation {
 			}
 
 		}
+		
+		System.out.println("Floyd-Warshall main itteration complete");
 		
 		//Subtract destination cost from destinations
 		double amountToSubtract;
@@ -105,6 +103,9 @@ public class FloydWarshallInterpretation {
 				allPairShortestDistances[j][i] -= amountToSubtract;
 			}
 		}
+		
+		System.out.println("Floyd-Warshall weights fixed");
+		timeTakenToComputeFloydWarshall = 0.0 + System.currentTimeMillis() - startTime;
 
 		return allPairShortestDistances;
 	}
