@@ -197,7 +197,7 @@ public class Graph {
 		double[][] allPairsShortest;
 		allPairsShortest = flw.FloydWarshall(g);
 		System.out.println("All pairs shortest complete in " + flw.timeTakenToComputeFloydWarshall/1000.0 + " seconds");
-		
+		System.out.println("Problem size (|N|+|E|+|A|):" + allPairsShortest.length);
 	}
 
 }
