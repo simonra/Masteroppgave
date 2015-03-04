@@ -32,13 +32,21 @@ public class Utilities {
 		}
 		
 		//Copy the rest
+		int firstChildIndexToPlace = (secondCrossoverPoint + 1) % genomeLength;
+		int secondChildIndexToPlace = (secondCrossoverPoint + 1) % genomeLength;
 		for (int i = 0; i < genomeLength; i++) {
 			indexToCopy = (secondCrossoverPoint + i) % genomeLength;
 			if(!doesArrayContainInt(firstChildGenome, secondParent.genome[indexToCopy])){
-				
+				firstChildGenome[firstChildIndexToPlace] = secondParent.genome[indexToCopy];
+				firstChildIndexToPlace = (firstChildIndexToPlace + 1) % genomeLength;
+			}
+			if(!doesArrayContainInt(secondChildGenome, firstParent.genome[indexToCopy])){
+				secondChildGenome[secondChildIndexToPlace] = firstParent.genome[indexToCopy];
+				secondChildIndexToPlace = (secondChildIndexToPlace + 1) % genomeLength;
 			}
 		}
 		
+		//TODO: update fitness here?
 
 		firstChild = new Genotype(firstChildGenome);
 		secondChild = new Genotype(secondChildGenome);
