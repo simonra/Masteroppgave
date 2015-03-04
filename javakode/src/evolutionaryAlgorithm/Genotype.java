@@ -2,6 +2,21 @@ package evolutionaryAlgorithm;
 
 public class Genotype {
 	
+	public Genotype(){
+		
+	}
+	
+	public Genotype(int[] genome){
+//		this.genome = new int[genome.length];
+//		System.arraycopy(genome, 0, this.genome, 0, genome.length);
+		this.genome = genome;
+	}
+	
+	
+	int[] genome;
+	double finess;
+	
+	/*har lyst på: indeksen i requiredWhatever*/
 	
 	/*TODO:
 	 * have representation
