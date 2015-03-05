@@ -22,7 +22,7 @@ public class Utilities {
 		
 		int indexToCopy;
 		//Copy the part of the parent that should be copied entirely as-is
-		for (int i = 0; i < rangeToBeCopied; i++) {
+		for (int i = 0; i <= rangeToBeCopied; i++) {
 			indexToCopy = firstCrossoverPoint + i;
 			if (rangeWraps) {
 				indexToCopy %= genomeLength;
