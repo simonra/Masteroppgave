@@ -35,7 +35,7 @@ public class Utilities {
 		int firstChildIndexToPlace = (secondCrossoverPoint + 1) % genomeLength;
 		int secondChildIndexToPlace = (secondCrossoverPoint + 1) % genomeLength;
 		for (int i = 0; i < genomeLength; i++) {
-			indexToCopy = (secondCrossoverPoint + i) % genomeLength;
+			indexToCopy = (secondCrossoverPoint + 1 + i) % genomeLength;
 			if(!doesArrayContainInt(firstChildGenome, secondParent.genome[indexToCopy])){
 				firstChildGenome[firstChildIndexToPlace] = secondParent.genome[indexToCopy];
 				firstChildIndexToPlace = (firstChildIndexToPlace + 1) % genomeLength;
