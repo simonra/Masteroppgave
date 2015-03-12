@@ -7,7 +7,7 @@ import java.util.Arrays;
 public class Graph {
 	String problemName;
 	double optimalValue;
-	int numberOfVehicles;
+	public int numberOfVehicles;
 	double vehicleCapacity;
 	int depotNodeIndex;
 	Node[] nodes;
@@ -16,6 +16,9 @@ public class Graph {
 	Edge[] requiredEdges;
 	Arc[] arcs;
 	Arc[] requiredArcs;
+	
+	public int numberOfRequiredElements;
+	public int numberOfElements;
 	
 	/*TODO:
 	 * -getters for individual graph elements?
@@ -184,6 +187,8 @@ public class Graph {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		numberOfRequiredElements = requiredNodes.length + requiredEdges.length + requiredArcs.length;
+		numberOfElements = nodes.length + edges.length + arcs.length;
 		System.out.println(Arrays.toString(nodes));
 	}
 	
