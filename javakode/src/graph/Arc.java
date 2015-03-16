@@ -52,7 +52,8 @@ public class Arc implements ElementProperties, Cost{
 	
 	public String toString(){
 		String output = "\n";
-		output += "Arc ID: " + name + "\t";
+		output += "Arc ID: " + ID + "\t";
+		output += "Arc name: " + name + "\t";
 		output += "From Node: " + fromNodeId + "\t";
 		output += "To Node: " + toNodeId + "\t";
 		output += "Servicing Cost: " + servicingCost + "\t";

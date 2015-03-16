@@ -87,7 +87,8 @@ public class Node implements ElementProperties, Cost{
 	
 	public String toString(){
 		String output = "\n";
-		output += "Node ID: " + name + "\t";
+		output += "Node ID: " + ID + "\t";
+		output += "Node name: " + name + "\t";
 		output += "Servicing Cost: " + servicingCost + "\t";
 		output += "Pass Through Cost: " + passThroughCost + "\t";
 		output += "Demand: " + demand + "\t";

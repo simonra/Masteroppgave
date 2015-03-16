@@ -52,7 +52,8 @@ public class Edge implements ElementProperties, Cost{
 	
 	public String toString(){
 		String output = "\n";
-		output += "Edge ID: " + name + "\t";
+		output += "Edge ID: " + ID + "\t";
+		output += "Edge name: " + name + "\t";
 		output += "From Node: " + fromNodeId + "\t";
 		output += "To Node: " + toNodeId + "\t";
 		output += "Servicing Cost: " + servicingCost + "\t";
