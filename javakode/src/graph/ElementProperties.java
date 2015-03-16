@@ -1,6 +1,7 @@
 package graph;
 
 public interface ElementProperties {
-	public String getID();
+	public int getID();
+	public String getName();
 	public boolean getIsRequired();
 }

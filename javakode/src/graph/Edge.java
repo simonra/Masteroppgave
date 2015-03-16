@@ -2,7 +2,8 @@ package graph;
 
 public class Edge implements ElementProperties, Cost{
 
-	String ID;
+	int ID;
+	String name;
 	double servicingCost;
 	double passThroughCost;
 	double demand;
@@ -10,10 +11,11 @@ public class Edge implements ElementProperties, Cost{
 	int fromNodeId;
 	int toNodeId;
 
-	public Edge(String elementId, int fromNode, int toNode,
+	public Edge(int globalElementID, String elementName, int fromNode, int toNode,
 			double traversalCost, double servicingCost, double demand,
 			boolean isRequired) {
-		this.ID = elementId;
+		this.ID = globalElementID;
+		this.name = elementName;
 		this.fromNodeId = fromNode;
 		this.toNodeId = toNode;
 		this.passThroughCost = traversalCost;
@@ -33,8 +35,8 @@ public class Edge implements ElementProperties, Cost{
 	}
 
 	@Override
-	public String getID() {
-		return ID;
+	public String getName() {
+		return name;
 	}
 
 	@Override
@@ -50,7 +52,7 @@ public class Edge implements ElementProperties, Cost{
 	
 	public String toString(){
 		String output = "\n";
-		output += "Edge ID: " + ID + "\t";
+		output += "Edge ID: " + name + "\t";
 		output += "From Node: " + fromNodeId + "\t";
 		output += "To Node: " + toNodeId + "\t";
 		output += "Servicing Cost: " + servicingCost + "\t";
@@ -58,5 +60,10 @@ public class Edge implements ElementProperties, Cost{
 		output += "Demand: " + demand + "\t";
 		output += "Is required: " + isRequired;
 		return output;
+	}
+
+	@Override
+	public int getID() {
+		return ID;
 	}
 }

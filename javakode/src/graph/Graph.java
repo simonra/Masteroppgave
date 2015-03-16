@@ -36,8 +36,9 @@ public class Graph {
 		//Read the file:
 		int numberOfNodes, numberOfEdges, numberOfArcs, numberOfRequiredNodes, numberOfRequiredEdges, numberOfRequiredArcs;
 		String[] lineWithMultipleContent;
-		String elementId;
+		String elementName;
 		int currentElementID;
+		int globalElementID = 0;
 		int fromNode, toNode;
 		double traversalCost, demand, servicingCost;
 		boolean isRequired;
@@ -93,22 +94,26 @@ public class Graph {
 			for (int i = 0; i < numberOfRequiredNodes; i++) {
 				line = bufferedReader.readLine();
 				lineWithMultipleContent = line.split("\t");
-				elementId = lineWithMultipleContent[0];
-				currentElementID = Integer.parseInt(elementId.replaceAll("N", ""));
+				elementName = lineWithMultipleContent[0];
+				currentElementID = Integer.parseInt(elementName.replaceAll("N", ""));
 				demand = Double.parseDouble(lineWithMultipleContent[1]);
 				servicingCost = Double.parseDouble(lineWithMultipleContent[2]);
-				createdNode = new Node(elementId, demand, servicingCost, isRequired);
+				createdNode = new Node(globalElementID, elementName, demand, servicingCost, isRequired);
 				requiredNodes[i] = createdNode;
 				nodes[currentElementID - 1] = createdNode;
+				
+				globalElementID++;
 			}
 			
 			//Fill in the rest of the nodes
 			isRequired = false;
 			for (int i = 0; i < numberOfNodes; i++) {
 				if(nodes[i] == null){
-					elementId = "NrN" + (i + 1);
-					createdNode = new Node(elementId, 0, 0, isRequired);
+					elementName = "NrN" + (i + 1);
+					createdNode = new Node(globalElementID, elementName, 0, 0, isRequired);
 					nodes[i] = createdNode;
+					
+					globalElementID++;
 				}
 			}
 			
@@ -119,18 +124,20 @@ public class Graph {
 			for (int i = 0; i < numberOfRequiredEdges; i++) {
 				line = bufferedReader.readLine();
 				lineWithMultipleContent = line.split("\t");
-				elementId = lineWithMultipleContent[0];
-				currentElementID = Integer.parseInt(elementId.replaceAll("E", ""));
+				elementName = lineWithMultipleContent[0];
+				currentElementID = Integer.parseInt(elementName.replaceAll("E", ""));
 				fromNode = Integer.parseInt(lineWithMultipleContent[1]);
 				toNode = Integer.parseInt(lineWithMultipleContent[2]);
 				traversalCost = Double.parseDouble(lineWithMultipleContent[3]);
 				demand = Double.parseDouble(lineWithMultipleContent[4]);
 				servicingCost = Double.parseDouble(lineWithMultipleContent[5]);
-				createdEdge = new Edge(elementId, fromNode, toNode, traversalCost, servicingCost, demand, isRequired);
+				createdEdge = new Edge(globalElementID, elementName, fromNode, toNode, traversalCost, servicingCost, demand, isRequired);
 				requiredEdges[i] = createdEdge;
 				edges[i] = createdEdge;
 				nodes[fromNode - 1].addConnection(true, false, i);
 				nodes[toNode - 1].addConnection(true, true, i);
+				
+				globalElementID++;
 			}
 			
 			
@@ -141,15 +148,17 @@ public class Graph {
 			for (int i = 0; i < numberOfEdges - numberOfRequiredEdges; i++) {
 				line = bufferedReader.readLine();
 				lineWithMultipleContent = line.split("\t");
-				elementId = lineWithMultipleContent[0];
-				currentElementID = Integer.parseInt(elementId.replaceAll("NrE", ""));
+				elementName = lineWithMultipleContent[0];
+				currentElementID = Integer.parseInt(elementName.replaceAll("NrE", ""));
 				fromNode = Integer.parseInt(lineWithMultipleContent[1]);
 				toNode = Integer.parseInt(lineWithMultipleContent[2]);
 				traversalCost = Double.parseDouble(lineWithMultipleContent[3]);
-				createdEdge = new Edge(elementId, fromNode, toNode, traversalCost, 0, 0, isRequired);
+				createdEdge = new Edge(globalElementID, elementName, fromNode, toNode, traversalCost, 0, 0, isRequired);
 				edges[numberOfRequiredEdges + i] = createdEdge;
 				nodes[fromNode - 1].addConnection(true, false, numberOfRequiredEdges + i);
 				nodes[toNode - 1].addConnection(true, true, numberOfRequiredEdges + i);
+				
+				globalElementID++;
 			}
 			
 			//Set the required arcs
@@ -159,18 +168,20 @@ public class Graph {
 			for (int i = 0; i < numberOfRequiredArcs; i++) {
 				line = bufferedReader.readLine();
 				lineWithMultipleContent = line.split("\t");
-				elementId = lineWithMultipleContent[0];
-				currentElementID = Integer.parseInt(elementId.replaceAll("A", ""));
+				elementName = lineWithMultipleContent[0];
+				currentElementID = Integer.parseInt(elementName.replaceAll("A", ""));
 				fromNode = Integer.parseInt(lineWithMultipleContent[1]);
 				toNode = Integer.parseInt(lineWithMultipleContent[2]);
 				traversalCost = Double.parseDouble(lineWithMultipleContent[3]);
 				demand = Double.parseDouble(lineWithMultipleContent[4]);
 				servicingCost = Double.parseDouble(lineWithMultipleContent[5]);
-				createdArc = new Arc(elementId, fromNode, toNode, traversalCost, servicingCost, demand, isRequired);
+				createdArc = new Arc(globalElementID, elementName, fromNode, toNode, traversalCost, servicingCost, demand, isRequired);
 				requiredArcs[i] = createdArc;
 				arcs[i] = createdArc;
 				nodes[fromNode - 1].addConnection(false, false, i);
 				nodes[toNode - 1].addConnection(false, true, i);
+				
+				globalElementID++;
 			}
 			
 			//Set the rest of the arcs
@@ -180,15 +191,17 @@ public class Graph {
 			for (int i = 0; i < numberOfArcs - numberOfRequiredArcs; i++) {
 				line = bufferedReader.readLine();
 				lineWithMultipleContent = line.split("\t");
-				elementId = lineWithMultipleContent[0];
-				currentElementID = Integer.parseInt(elementId.replaceAll("NrA", ""));
+				elementName = lineWithMultipleContent[0];
+				currentElementID = Integer.parseInt(elementName.replaceAll("NrA", ""));
 				fromNode = Integer.parseInt(lineWithMultipleContent[1]);
 				toNode = Integer.parseInt(lineWithMultipleContent[2]);
 				traversalCost = Double.parseDouble(lineWithMultipleContent[3]);
-				createdArc = new Arc(elementId, fromNode, toNode, traversalCost, 0, 0, isRequired);
+				createdArc = new Arc(globalElementID, elementName, fromNode, toNode, traversalCost, 0, 0, isRequired);
 				arcs[numberOfRequiredArcs + i] = createdArc;
 				nodes[fromNode - 1].addConnection(false, false, numberOfRequiredArcs + i);
 				nodes[toNode - 1].addConnection(false, true, numberOfRequiredArcs + i);
+				
+				globalElementID++;
 			}
 			
 			bufferedReader.close();
@@ -196,7 +209,7 @@ public class Graph {
 			e.printStackTrace();
 		}
 		numberOfRequiredElements = requiredNodes.length + requiredEdges.length + requiredArcs.length;
-		numberOfElements = nodes.length + edges.length + arcs.length;
+		numberOfElements = globalElementID;
 		System.out.println(Arrays.toString(nodes));
 	}
 	

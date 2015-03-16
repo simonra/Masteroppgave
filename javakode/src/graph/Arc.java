@@ -2,7 +2,8 @@ package graph;
 
 public class Arc implements ElementProperties, Cost{
 	
-	String ID;
+	int ID;
+	String name;
 	double servicingCost;
 	double passThroughCost;
 	double demand;
@@ -10,11 +11,12 @@ public class Arc implements ElementProperties, Cost{
 	int fromNodeId;
 	int toNodeId;
 
-	public Arc(String elementId, int fromNode, int toNode,
+	public Arc(int globalElementID, String elementName, int fromNode, int toNode,
 			double traversalCost, double servicingCost, double demand,
 			boolean isRequired) {
 		// TODO Auto-generated constructor stub
-		this.ID = elementId;
+		this.ID = globalElementID;
+		this.name = elementName;
 		this.fromNodeId = fromNode;
 		this.toNodeId = toNode;
 		this.passThroughCost = traversalCost;
@@ -34,8 +36,8 @@ public class Arc implements ElementProperties, Cost{
 	}
 
 	@Override
-	public String getID() {
-		return ID;
+	public String getName() {
+		return name;
 	}
 
 	@Override
@@ -50,7 +52,7 @@ public class Arc implements ElementProperties, Cost{
 	
 	public String toString(){
 		String output = "\n";
-		output += "Arc ID: " + ID + "\t";
+		output += "Arc ID: " + name + "\t";
 		output += "From Node: " + fromNodeId + "\t";
 		output += "To Node: " + toNodeId + "\t";
 		output += "Servicing Cost: " + servicingCost + "\t";
@@ -58,6 +60,11 @@ public class Arc implements ElementProperties, Cost{
 		output += "Demand: " + demand + "\t";
 		output += "Is required: " + isRequired;
 		return output;
+	}
+
+	@Override
+	public int getID() {
+		return ID;
 	}
 
 }

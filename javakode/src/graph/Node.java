@@ -4,7 +4,8 @@ import java.util.Arrays;
 
 public class Node implements ElementProperties, Cost{
 
-	String ID;
+	int ID;
+	String name;
 	double servicingCost;
 	double passThroughCost;
 	double demand;
@@ -15,8 +16,9 @@ public class Node implements ElementProperties, Cost{
 	int[] inboundArcs;
 	int[] outboundArcs;
 
-	public Node(String elementId, double demand, double servicingCost, boolean isRequired) {
-		this.ID = elementId;
+	public Node(int globalElementID, String elementName, double demand, double servicingCost, boolean isRequired) {
+		this.ID = globalElementID;
+		this.name = elementName;
 		this.demand = demand;
 		this.servicingCost = servicingCost;
 		this.passThroughCost = 0;
@@ -69,8 +71,8 @@ public class Node implements ElementProperties, Cost{
 	}
 
 	@Override
-	public String getID() {
-		return ID;
+	public String getName() {
+		return name;
 	}
 
 	@Override
@@ -85,7 +87,7 @@ public class Node implements ElementProperties, Cost{
 	
 	public String toString(){
 		String output = "\n";
-		output += "Node ID: " + ID + "\t";
+		output += "Node ID: " + name + "\t";
 		output += "Servicing Cost: " + servicingCost + "\t";
 		output += "Pass Through Cost: " + passThroughCost + "\t";
 		output += "Demand: " + demand + "\t";
@@ -95,5 +97,10 @@ public class Node implements ElementProperties, Cost{
 		output += "Inbound Arcs: " + Arrays.toString(inboundArcs) + "\t";
 		output += "Outbound Arcs: " + Arrays.toString(outboundArcs);
 		return output;
+	}
+
+	@Override
+	public int getID() {
+		return ID;
 	}
 }
