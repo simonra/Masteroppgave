@@ -15,7 +15,7 @@ public class Genotype {
 	
 	int[] genome;
 	double finess;
-	/**Phenotype: genome with trip delimeters?*/
+	/**Phenotype: genome with trip delimiters?*/
 	
 	/*har lyst på: indeksen i requiredWhatever*/
 	

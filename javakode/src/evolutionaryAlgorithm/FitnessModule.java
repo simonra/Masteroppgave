@@ -22,6 +22,7 @@ public class FitnessModule {
 		int numberOfRequiredGraphElements = graph.numberOfRequiredElements;
 		double load;
 		double cost;
+		double[] costOfGoingToTasks = new double[numberOfRequiredGraphElements];
 		
 		//TODO: Determine whether the following statement should be a ternary
 		if(graph.numberOfVehicles == -1){
@@ -32,6 +33,14 @@ public class FitnessModule {
 			numberOfVehicles = graph.numberOfVehicles;
 		}
 		
+		for (int i = 0; i < costOfGoingToTasks.length; i++) {
+			costOfGoingToTasks[i] = Double.POSITIVE_INFINITY;
+		}
+		
+		for (int i = 0; i < numberOfRequiredGraphElements; i++) {
+			load = 0;
+			cost = 0;
+		}
 		
 		
 	}

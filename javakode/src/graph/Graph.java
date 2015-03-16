@@ -20,6 +20,14 @@ public class Graph {
 	public int numberOfRequiredElements;
 	public int numberOfElements;
 	
+	public int getDeoptNodeIndex(){
+		if(depotNodeIndex != -1){
+			return depotNodeIndex;
+		} else{
+			return 1;
+		}
+	}
+	
 	/*TODO:
 	 * -getters for individual graph elements?
 	 * -fields for best known stuff for this graph that the algorithm can use?*/
