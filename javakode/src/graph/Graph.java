@@ -28,6 +28,14 @@ public class Graph {
 		}
 	}
 	
+	public int getDepotNodeIndex(int IDOfFirstElementInTour){
+		if(depotNodeIndex != -1){
+			return depotNodeIndex;
+		} else{
+			return IDOfFirstElementInTour;
+		}
+	}
+	
 	public ElementProperties getElementByID(int ID){
 		//TODO: Test this code
 		ElementProperties requestedElement;
