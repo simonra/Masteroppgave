@@ -28,6 +28,11 @@ public class Graph {
 		}
 	}
 	
+	public ElementProperties getElementByID(int ID){
+		//TODO: return the correct element
+		return null;
+	}
+	
 	/*TODO:
 	 * -getters for individual graph elements?
 	 * -fields for best known stuff for this graph that the algorithm can use?*/
