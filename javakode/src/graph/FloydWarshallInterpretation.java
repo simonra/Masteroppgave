@@ -5,6 +5,10 @@ public class FloydWarshallInterpretation {
 	double[][] allPairShortestDistances;
 	int[][] successors;
 	double timeTakenToComputeFloydWarshall;
+	
+	public double getShortestDistanceFromAToB(int graphElementAID, int graphElementBID){
+		return allPairShortestDistances[graphElementAID][graphElementBID];
+	}
 
 	public double[][] FloydWarshall(Graph graph) {
 		double startTime = System.currentTimeMillis();

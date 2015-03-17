@@ -29,8 +29,16 @@ public class Graph {
 	}
 	
 	public ElementProperties getElementByID(int ID){
-		//TODO: return the correct element
-		return null;
+		//TODO: Test this code
+		ElementProperties requestedElement;
+		if(ID < nodes.length){
+			requestedElement = nodes[ID];
+		}else if(ID < nodes.length + edges.length){
+			requestedElement = edges[ID - nodes.length];
+		}else{
+			requestedElement = arcs[ID - (edges.length + nodes.length)];
+		}
+		return requestedElement;
 	}
 	
 	/*TODO:
@@ -229,6 +237,10 @@ public class Graph {
 		allPairsShortest = flw.FloydWarshall(g);
 		System.out.println("All pairs shortest complete in " + flw.timeTakenToComputeFloydWarshall/1000.0 + " seconds");
 		System.out.println("Problem size (|N|+|E|+|A|):" + allPairsShortest.length);
+		System.out.println(flw.allPairsToString());
+		for (int i = 0; i < g.numberOfElements; i++) {
+			System.out.print(g.getElementByID(i).toString());
+		}
 	}
 
 }
