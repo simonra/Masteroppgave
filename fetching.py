@@ -6,6 +6,7 @@ import requests
 
 TRONDHEIM_KOMMUNE = 1601
 VEGREFERANSE = 532
+VEGBREDDE = 583
 FARTSGRENSE = 105
 
 OBJECTS_PER_FETCH = 1000
@@ -49,6 +50,9 @@ def get_road_objects(object_type_id, count=None):
     print json.dumps(objects[0], indent=2)
     print len(objects)
 
+    return objects
 
-print get_road_objects(FARTSGRENSE, count=10)
-print get_road_objects(VEGREFERANSE, count=10)
+for object_type_id in [FARTSGRENSE, VEGBREDDE, VEGREFERANSE]:
+    objects = get_road_objects(object_type_id)
+    with open(str(object_type_id)+'.json', 'w') as outfile:
+        json.dump(objects, outfile)
