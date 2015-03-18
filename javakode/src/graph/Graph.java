@@ -5,20 +5,47 @@ import java.io.FileReader;
 import java.util.Arrays;
 
 public class Graph {
+	/**The problem name given in the input file*/
 	String problemName;
+	/**The optimal value given in the input file. 
+	 * It is -1 if unknown.*/
 	double optimalValue;
+	/**The number of available vehicles given in the input file. 
+	 * Is -1 if unspecified/unconstrained.*/
 	public int numberOfVehicles;
+	/**The capacity of each vehicle, given in the input file.*/
 	double vehicleCapacity;
+	/**The index/id of the depot node as given in the input file.
+	 * Is -1 if */
 	int depotNodeIndex;
+	/**The array holding all the nodes, including the required nodes.*/
 	Node[] nodes;
+	/**The array containing only the nodes that the problem states
+	 * must be traversed for the problem to be solved.*/
 	Node[] requiredNodes;
 	Edge[] edges;
 	Edge[] requiredEdges;
 	Arc[] arcs;
 	Arc[] requiredArcs;
 	
+	public double sumOfServicingCostsOfRequiredElements;
+	
 	public int numberOfRequiredElements;
 	public int numberOfElements;
+	
+	private void calculateSumOfServicingCostsOfRequiredElements(){
+		sumOfServicingCostsOfRequiredElements = 0;
+		
+		for (int i = 0; i < requiredNodes.length; i++) {
+			sumOfServicingCostsOfRequiredElements += requiredNodes[i].servicingCost;
+		}
+		for (int i = 0; i < requiredEdges.length; i++) {
+			sumOfServicingCostsOfRequiredElements += requiredEdges[i].servicingCost;
+		}
+		for (int i = 0; i < requiredArcs.length; i++) {
+			sumOfServicingCostsOfRequiredElements += requiredArcs[i].servicingCost;
+		}
+	}
 	
 	public int getDeoptNodeIndex(){
 		if(depotNodeIndex != -1){
@@ -231,6 +258,7 @@ public class Graph {
 		}
 		numberOfRequiredElements = requiredNodes.length + requiredEdges.length + requiredArcs.length;
 		numberOfElements = globalElementID;
+		calculateSumOfServicingCostsOfRequiredElements();
 		System.out.println(Arrays.toString(nodes));
 	}
 	
@@ -245,6 +273,7 @@ public class Graph {
 		allPairsShortest = flw.FloydWarshall(g);
 		System.out.println("All pairs shortest complete in " + flw.timeTakenToComputeFloydWarshall/1000.0 + " seconds");
 		System.out.println("Problem size (|N|+|E|+|A|):" + allPairsShortest.length);
+		System.out.println("Cost of servicing all the required elements exactly once: " + g.sumOfServicingCostsOfRequiredElements);
 		System.out.println(flw.allPairsToString());
 		for (int i = 0; i < g.numberOfElements; i++) {
 			System.out.print(g.getElementByID(i).toString());
