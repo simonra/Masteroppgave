@@ -14,7 +14,7 @@ public class Graph {
 	 * Is -1 if unspecified/unconstrained.*/
 	public int numberOfVehicles;
 	/**The capacity of each vehicle, given in the input file.*/
-	double vehicleCapacity;
+	public double vehicleCapacity;
 	/**The index/id of the depot node as given in the input file.
 	 * Is -1 if */
 	int depotNodeIndex;

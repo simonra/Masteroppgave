@@ -6,8 +6,10 @@ public class FloydWarshallInterpretation {
 	int[][] successors;
 	double timeTakenToComputeFloydWarshall;
 	
-	public double getShortestDistanceFromAToB(int graphElementAID, int graphElementBID){
-		return allPairShortestDistances[graphElementAID][graphElementBID];
+	/**Returns the distance between and origin and destination in the graph.
+	 * Is used to make accessing the all pairs shortest path matrix more neat.*/
+	public double distance(int originElementID, int destinationElementID){
+		return allPairShortestDistances[originElementID][destinationElementID];
 	}
 
 	public double[][] FloydWarshall(Graph graph) {
