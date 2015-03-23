@@ -5,6 +5,20 @@ import graph.Graph;
 
 public class FitnessModule {
 	
+	/**Takes a trip as a sequence of tasks, and returns the cost of traversing the trip
+	 * using one uncapacitated vehicle. Useful for evaluating costs of each vehicle in
+	 * a multi-vehicle tour, and for evaluating a grand tour if there is only one single
+	 * vehicle.*/
+	public double tripCost(int[] trip, FloydWarshallInterpretation floydWarshall, Graph graph){
+		double cost = 0;
+		cost += floydWarshall.distance(graph.getDeoptNodeIndex(), trip[0]);
+		for (int i = 1; i < trip.length; i++) {
+			cost += floydWarshall.distance(i - 1, i);
+		}
+		cost += floydWarshall.distance(trip[trip.length - 1], graph.getDeoptNodeIndex());
+		return cost;
+	}
+	
 	public void split(Genotype genotype, Graph graph, FloydWarshallInterpretation floydWarshall){
 		/**Cost of going from depot to each task in the auxiliary graph.
 		 * The +1 is added so that the depot node can be the 0th element
