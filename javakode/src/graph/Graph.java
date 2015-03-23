@@ -2,7 +2,7 @@ package graph;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.Arrays;
+//import java.util.Arrays;
 
 public class Graph {
 	/**The problem name given in the input file*/
@@ -144,26 +144,25 @@ public class Graph {
 				lineWithMultipleContent = line.split("\t");
 				elementName = lineWithMultipleContent[0];
 				currentElementID = Integer.parseInt(elementName.replaceAll("N", ""));
+				globalElementID = currentElementID - 1;
 				demand = Double.parseDouble(lineWithMultipleContent[1]);
 				servicingCost = Double.parseDouble(lineWithMultipleContent[2]);
 				createdNode = new Node(globalElementID, elementName, demand, servicingCost, isRequired);
 				requiredNodes[i] = createdNode;
-				nodes[currentElementID - 1] = createdNode;
-				
-				globalElementID++;
+				nodes[globalElementID] = createdNode;
 			}
 			
 			//Fill in the rest of the nodes
 			isRequired = false;
 			for (int i = 0; i < numberOfNodes; i++) {
 				if(nodes[i] == null){
+					globalElementID = i;
 					elementName = "NrN" + (i + 1);
 					createdNode = new Node(globalElementID, elementName, 0, 0, isRequired);
 					nodes[i] = createdNode;
-					
-					globalElementID++;
 				}
 			}
+			globalElementID = numberOfNodes;
 			
 			//Set the required edges:
 			bufferedReader.readLine();
@@ -174,16 +173,16 @@ public class Graph {
 				lineWithMultipleContent = line.split("\t");
 				elementName = lineWithMultipleContent[0];
 				currentElementID = Integer.parseInt(elementName.replaceAll("E", ""));
-				fromNode = Integer.parseInt(lineWithMultipleContent[1]);
-				toNode = Integer.parseInt(lineWithMultipleContent[2]);
+				fromNode = Integer.parseInt(lineWithMultipleContent[1]) - 1;
+				toNode = Integer.parseInt(lineWithMultipleContent[2]) - 1;
 				traversalCost = Double.parseDouble(lineWithMultipleContent[3]);
 				demand = Double.parseDouble(lineWithMultipleContent[4]);
 				servicingCost = Double.parseDouble(lineWithMultipleContent[5]);
 				createdEdge = new Edge(globalElementID, elementName, fromNode, toNode, traversalCost, servicingCost, demand, isRequired);
 				requiredEdges[i] = createdEdge;
 				edges[i] = createdEdge;
-				nodes[fromNode - 1].addConnection(true, false, i);
-				nodes[toNode - 1].addConnection(true, true, i);
+				nodes[fromNode].addConnection(true, false, i);
+				nodes[toNode].addConnection(true, true, i);
 				
 				globalElementID++;
 			}
@@ -198,13 +197,13 @@ public class Graph {
 				lineWithMultipleContent = line.split("\t");
 				elementName = lineWithMultipleContent[0];
 				currentElementID = Integer.parseInt(elementName.replaceAll("NrE", ""));
-				fromNode = Integer.parseInt(lineWithMultipleContent[1]);
-				toNode = Integer.parseInt(lineWithMultipleContent[2]);
+				fromNode = Integer.parseInt(lineWithMultipleContent[1]) - 1;
+				toNode = Integer.parseInt(lineWithMultipleContent[2]) - 1;
 				traversalCost = Double.parseDouble(lineWithMultipleContent[3]);
 				createdEdge = new Edge(globalElementID, elementName, fromNode, toNode, traversalCost, 0, 0, isRequired);
 				edges[numberOfRequiredEdges + i] = createdEdge;
-				nodes[fromNode - 1].addConnection(true, false, numberOfRequiredEdges + i);
-				nodes[toNode - 1].addConnection(true, true, numberOfRequiredEdges + i);
+				nodes[fromNode].addConnection(true, false, numberOfRequiredEdges + i);
+				nodes[toNode].addConnection(true, true, numberOfRequiredEdges + i);
 				
 				globalElementID++;
 			}
@@ -218,16 +217,16 @@ public class Graph {
 				lineWithMultipleContent = line.split("\t");
 				elementName = lineWithMultipleContent[0];
 				currentElementID = Integer.parseInt(elementName.replaceAll("A", ""));
-				fromNode = Integer.parseInt(lineWithMultipleContent[1]);
-				toNode = Integer.parseInt(lineWithMultipleContent[2]);
+				fromNode = Integer.parseInt(lineWithMultipleContent[1]) - 1;
+				toNode = Integer.parseInt(lineWithMultipleContent[2]) - 1;
 				traversalCost = Double.parseDouble(lineWithMultipleContent[3]);
 				demand = Double.parseDouble(lineWithMultipleContent[4]);
 				servicingCost = Double.parseDouble(lineWithMultipleContent[5]);
 				createdArc = new Arc(globalElementID, elementName, fromNode, toNode, traversalCost, servicingCost, demand, isRequired);
 				requiredArcs[i] = createdArc;
 				arcs[i] = createdArc;
-				nodes[fromNode - 1].addConnection(false, false, i);
-				nodes[toNode - 1].addConnection(false, true, i);
+				nodes[fromNode].addConnection(false, false, i);
+				nodes[toNode].addConnection(false, true, i);
 				
 				globalElementID++;
 			}
@@ -241,13 +240,13 @@ public class Graph {
 				lineWithMultipleContent = line.split("\t");
 				elementName = lineWithMultipleContent[0];
 				currentElementID = Integer.parseInt(elementName.replaceAll("NrA", ""));
-				fromNode = Integer.parseInt(lineWithMultipleContent[1]);
-				toNode = Integer.parseInt(lineWithMultipleContent[2]);
+				fromNode = Integer.parseInt(lineWithMultipleContent[1]) - 1;
+				toNode = Integer.parseInt(lineWithMultipleContent[2]) - 1;
 				traversalCost = Double.parseDouble(lineWithMultipleContent[3]);
 				createdArc = new Arc(globalElementID, elementName, fromNode, toNode, traversalCost, 0, 0, isRequired);
 				arcs[numberOfRequiredArcs + i] = createdArc;
-				nodes[fromNode - 1].addConnection(false, false, numberOfRequiredArcs + i);
-				nodes[toNode - 1].addConnection(false, true, numberOfRequiredArcs + i);
+				nodes[fromNode].addConnection(false, false, numberOfRequiredArcs + i);
+				nodes[toNode].addConnection(false, true, numberOfRequiredArcs + i);
 				
 				globalElementID++;
 			}
@@ -259,25 +258,8 @@ public class Graph {
 		numberOfRequiredElements = requiredNodes.length + requiredEdges.length + requiredArcs.length;
 		numberOfElements = globalElementID;
 		calculateSumOfServicingCostsOfRequiredElements();
-		System.out.println(Arrays.toString(nodes));
 	}
 	
 	
-	
-	
-	public static void main(String[] args) {
-		Graph g = new Graph();
-		System.out.println("─────────────────────");
-		FloydWarshallInterpretation flw = new FloydWarshallInterpretation();
-		double[][] allPairsShortest;
-		allPairsShortest = flw.FloydWarshall(g);
-		System.out.println("All pairs shortest complete in " + flw.timeTakenToComputeFloydWarshall/1000.0 + " seconds");
-		System.out.println("Problem size (|N|+|E|+|A|):" + allPairsShortest.length);
-		System.out.println("Cost of servicing all the required elements exactly once: " + g.sumOfServicingCostsOfRequiredElements);
-		System.out.println(flw.allPairsToString());
-		for (int i = 0; i < g.numberOfElements; i++) {
-			System.out.print(g.getElementByID(i).toString());
-		}
-	}
 
 }

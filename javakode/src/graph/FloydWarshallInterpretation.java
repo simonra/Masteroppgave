@@ -4,7 +4,7 @@ public class FloydWarshallInterpretation {
 
 	double[][] allPairShortestDistances;
 	int[][] successors;
-	double timeTakenToComputeFloydWarshall;
+	public double timeTakenToComputeFloydWarshall;
 	
 	/**Returns the distance between and origin and destination in the graph.
 	 * Is used to make accessing the all pairs shortest path matrix more neat.*/
@@ -27,8 +27,6 @@ public class FloydWarshallInterpretation {
 			}
 			allPairShortestDistances[i][i] = 0;
 		}
-
-		System.out.println("Distances initialized to infin and 0");
 		
 		int edgeOffset = graph.nodes.length;
 		int arcOffset = graph.nodes.length + graph.edges.length;
@@ -40,8 +38,8 @@ public class FloydWarshallInterpretation {
 		 */
 		for (int i = 0; i < graph.edges.length; i++) {
 			Edge currentEdge = graph.edges[i];
-			int node1 = currentEdge.fromNodeId - 1;
-			int node2 = currentEdge.toNodeId - 1;
+			int node1 = currentEdge.fromNodeId;
+			int node2 = currentEdge.toNodeId;
 
 			allPairShortestDistances[edgeOffset + i][node1] = graph.nodes[node1].passThroughCost;
 			allPairShortestDistances[node1][edgeOffset + i] = graph.edges[i].passThroughCost;
@@ -53,15 +51,13 @@ public class FloydWarshallInterpretation {
 			successors[edgeOffset + i][node2] = node2;
 			successors[node2][edgeOffset + i] = edgeOffset + i;
 		}
-		
-		System.out.println("Edge-distances initialized");
 
 		// For each arc, set the distance {startnode,endnode} to the arc
 		// traversal cost
 		for (int i = 0; i < graph.arcs.length; i++) {
 			Arc currentArc = graph.arcs[i];
-			int fromNode = currentArc.fromNodeId - 1;
-			int toNode = currentArc.toNodeId - 1;
+			int fromNode = currentArc.fromNodeId;
+			int toNode = currentArc.toNodeId;
 
 			allPairShortestDistances[arcOffset + i][toNode] = graph.nodes[toNode].passThroughCost;
 			allPairShortestDistances[fromNode][arcOffset + i] = graph.arcs[i].passThroughCost;
@@ -69,8 +65,6 @@ public class FloydWarshallInterpretation {
 			successors[arcOffset + i][toNode] = toNode;
 			successors[fromNode][arcOffset + i] = arcOffset + i;
 		}
-
-		System.out.println("Arc-distances initialized");
 		
 		// Do floyd-warshall
 		for (int k = 0; k < numberOfElementsInGraph; k++) {
@@ -88,8 +82,6 @@ public class FloydWarshallInterpretation {
 			}
 
 		}
-		
-		System.out.println("Floyd-Warshall main itteration complete");
 		
 		//Subtract destination cost from destinations
 		double amountToSubtract;
@@ -110,7 +102,6 @@ public class FloydWarshallInterpretation {
 			}
 		}
 		
-		System.out.println("Floyd-Warshall weights fixed");
 		timeTakenToComputeFloydWarshall = 0.0 + System.currentTimeMillis() - startTime;
 
 		return allPairShortestDistances;
