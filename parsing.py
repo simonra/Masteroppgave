@@ -5,7 +5,9 @@ import utm
 def show_at_google_maps(coordinate):
     lat, lon = coordinate
     print "https://www.google.no/maps/@"+str(lat)+","+str(lon)+",21z?hl=no"
-class Road:
+
+
+class RoadPart:
     def __init__(self, veglenke_id, coordinates):
         self.veglenke_id = veglenke_id
         self.coordinates = coordinates
@@ -40,21 +42,63 @@ class NodeTree:
 
 nodes = NodeTree()
 
+vegreferanser = json.load(open("532.json", "r"))
+
+veglenke_ids = set()
+for vegreferanse in vegreferanser.values():
+    veglenke_ids.add(vegreferanse['lokasjon']['veglenker'][0]['id'])
+
+
+class Edge:
+    def __init__(self, veglenke_id, from_node, to_node):
+        # edge id (to be converted into EDGE INDEX)
+        self.veglenke_id = veglenke_id
+
+        # FROM NODE
+        self.from_node = from_node
+
+        # TO NODE
+        self.to_node = to_node
+
+        # traversal cost
+        # TODO
+
+        # demand
+        # TODO
+
+        # service cost
+        # TODO
+
+edges = []
+
 for feature in vegnett['features']:
     veglenke_id = feature['properties']['lokalId']
     coordinates = feature['geometry']['coordinates']
 
-    road = Road(veglenke_id, coordinates)
+    road = RoadPart(veglenke_id, coordinates)
 
-    show_at_google_maps(road.coordinates_as_latlon[0])
+    if veglenke_id == 41628:
+        print json.dumps(feature, indent=4)
 
-    road.show_veg_lenke_in_nvdb()
+    # show_at_google_maps(road.coordinates_as_latlon[0])
+
+    # road.show_veg_lenke_in_nvdb()
 
     startnode = feature['properties']['startnode']['Identifikator']['lokalId']
     sluttnode = feature['properties']['sluttnode']['Identifikator']['lokalId']
 
+    edges.append(Edge(veglenke_id, startnode, sluttnode))
+
     nodes.add_node(startnode, road)
     nodes.add_node(sluttnode, road)
 
-for (node_id, roads) in nodes.nodes.items():
-    print node_id, len(roads)
+print edges[0].__dict__
+
+# max = 0
+# for (node_id, roads) in nodes.nodes.items():
+#     if len(roads) > max:
+#         max = len(roads)
+#         print "Node: ", node_id
+#         print "Roads crossing: ", len(roads)
+#         print [road.veglenke_id for road in roads]
+#         show_at_google_maps(roads[0].coordinates_as_latlon[0])
