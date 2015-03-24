@@ -26,7 +26,7 @@ class RoadPart:
         print "https://www.vegvesen.no/nvdb/api/vegreferanse/lenke?id="+str(self.veglenke_id)+"&posisjon=0.0"
         print "https://www.vegvesen.no/nvdb/api/vegreferanse/lenke?id="+str(self.veglenke_id)+"&posisjon=1.0"
 
-vegnett = json.load(open("vegnett_trondheim.json", "r"))
+vegnett = json.load(open("nvdb-data/vegnett_trondheim.json", "r"))
 
 
 class NodeTree:
@@ -42,7 +42,7 @@ class NodeTree:
 
 nodes = NodeTree()
 
-vegreferanser = json.load(open("532.json", "r"))
+vegreferanser = json.load(open("nvdb-data/532.json", "r"))
 
 veglenke_ids = set()
 for vegreferanse in vegreferanser.values():

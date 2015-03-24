@@ -52,5 +52,5 @@ def get_road_objects(object_type_id, count=None):
 
 for object_type_id in [FARTSGRENSE, VEGBREDDE, VEGREFERANSE]:
     objects = get_road_objects(object_type_id)
-    with open(str(object_type_id)+'.json', 'w') as outfile:
+    with open('nvdb-data/'+str(object_type_id)+'.json', 'w') as outfile:
         json.dump(objects, outfile)
