@@ -1,5 +1,7 @@
 package evolutionaryAlgorithm;
 
+import java.util.ArrayList;
+
 import graph.FloydWarshallInterpretation;
 import graph.Graph;
 
@@ -11,12 +13,32 @@ public class FitnessModule {
 	 * vehicle.*/
 	public double tripCost(int[] trip, FloydWarshallInterpretation floydWarshall, Graph graph){
 		double cost = 0;
-		cost += floydWarshall.distance(graph.getDeoptNodeIndex(), trip[0]);
+		cost += floydWarshall.distance(graph.getDeoptNodeIndex(), trip[0])
+				+ graph.getElementByID(trip[0]).getServicingCost();
 		for (int i = 1; i < trip.length; i++) {
-			cost += floydWarshall.distance(i - 1, i);
+			cost += floydWarshall.distance(trip[i - 1], trip[i])
+					+ graph.getElementByID(trip[i]).getServicingCost();
 		}
 		cost += floydWarshall.distance(trip[trip.length - 1], graph.getDeoptNodeIndex());
 		return cost;
+	}
+	
+	
+	public ArrayList<int[]> tripsSplittedFromTour(double[] costs, int[] predecessors, Genotype genotype){
+		ArrayList<int[]> ListOfTrips = new ArrayList<>();	//L in the papers
+		int j = genotype.genome.length;	//The number of tasks in the problem
+		int i;
+		do {
+			i = predecessors[j];
+			int[] currentTrip = new int[j - (i + 1)];	//Trip T in the papers
+			for (int k = i + 1; k < j; k++) {
+				currentTrip[k-(i + 1)] = genotype.genome[k];
+			}
+			ListOfTrips.add(0, currentTrip);
+			j = i;
+		} while (i != 0);
+		
+		return ListOfTrips;
 	}
 	
 	public void split(Genotype genotype, Graph graph, FloydWarshallInterpretation floydWarshall){
@@ -50,6 +72,10 @@ public class FitnessModule {
 				//Update load to include the load of servicing the current element
 				load += graph.getElementByID(genotype.genome[j-1]).getDemand();
 				//Update cost
+				/*Remember to subtract 1 more than the general algorithm
+				 * when accessing 0-indexed graph elements (i.e. not V and
+				 * P), because they don't have the depot node
+				 * as the 0th element*/
 				if( i == j ){
 					cost = floydWarshall.distance(depot, genotype.genome[i-1])
 							+ graph.getElementByID(genotype.genome[i-1]).getServicingCost()
@@ -69,7 +95,10 @@ public class FitnessModule {
 			} while ( (j < V.length) && (load < graph.vehicleCapacity) );
 		}//End for
 		
-		//TODO: Calculate fitness(total cost) and feed it into the genotype
+		/*The sum of costs of trips is the cost of the last element in 
+		 * the auxiliary graph, can be interpreted as the cost of the 
+		 * shortest path through the auxiliary graph.*/ 
+		genotype.finess = V[V.length - 1];
 	}//End split
 	
 }
