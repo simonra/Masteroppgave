@@ -84,21 +84,12 @@ public class FloydWarshallInterpretation {
 		}
 		
 		//Subtract destination cost from destinations
-		double amountToSubtract;
 		for (int i = 0; i < numberOfElementsInGraph; i++) {
-			if(i < edgeOffset){
-				amountToSubtract = graph.nodes[i].passThroughCost;
-			}
-			else if(i < arcOffset){
-				amountToSubtract = graph.edges[i - edgeOffset].passThroughCost;
-			}else {
-				amountToSubtract = graph.arcs[i - arcOffset].passThroughCost;
-			}
 			for (int j = 0; j < numberOfElementsInGraph; j++) {
 				if(i == j){
 					continue;
 				}
-				allPairShortestDistances[j][i] -= amountToSubtract;
+				allPairShortestDistances[j][i] -= graph.getElementByID(i).getPassThroughCost();
 			}
 		}
 		
