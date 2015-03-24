@@ -92,7 +92,8 @@ for feature in vegnett['features']:
     nodes.add_node(startnode, road)
     nodes.add_node(sluttnode, road)
 
-print edges[0].__dict__
+with open('edges.json', 'w') as outfile:
+    json.dump([edge.__dict__ for edge in edges], outfile)
 
 # max = 0
 # for (node_id, roads) in nodes.nodes.items():
