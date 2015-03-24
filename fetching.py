@@ -31,7 +31,7 @@ def get_road_objects(object_type_id, count=None):
     else:
         number_of_objects = count
 
-    objects = []
+    objects = {}
     for i in range(0, int(math.ceil(float(number_of_objects)/OBJECTS_PER_FETCH))):
         offset = OBJECTS_PER_FETCH * i
         print offset, "/", number_of_objects
@@ -45,10 +45,8 @@ def get_road_objects(object_type_id, count=None):
         result = r.json()
 
         for veg_objekt in result['resultater'][0]['vegObjekter']:
-            objects.append(veg_objekt)
-
-    print json.dumps(objects[0], indent=2)
-    print len(objects)
+            object_id = veg_objekt['objektId']
+            objects[object_id] = veg_objekt
 
     return objects
 
