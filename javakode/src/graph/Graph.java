@@ -28,10 +28,32 @@ public class Graph {
 	Arc[] arcs;
 	Arc[] requiredArcs;
 	
+	int[] requiredElementIDs;
+	
 	public double sumOfServicingCostsOfRequiredElements;
 	
 	public int numberOfRequiredElements;
 	public int numberOfElements;
+	
+	public int[] getRequiredElementsIDs(){
+		if(requiredElementIDs == null){
+			requiredElementIDs = new int[numberOfRequiredElements];
+			int iterator = 0;
+			for (int i = 0; i < requiredNodes.length; i++) {
+				requiredElementIDs[iterator] = requiredNodes[i].getID();
+				iterator++;
+			}
+			for (int i = 0; i < requiredEdges.length; i++) {
+				requiredElementIDs[iterator] = requiredEdges[i].getID();
+				iterator++;
+			}
+			for (int i = 0; i < requiredArcs.length; i++) {
+				requiredElementIDs[iterator] = requiredArcs[i].getID();
+				iterator++;
+			}
+		}
+		return requiredElementIDs;
+	}
 	
 	private void calculateSumOfServicingCostsOfRequiredElements(){
 		sumOfServicingCostsOfRequiredElements = 0;

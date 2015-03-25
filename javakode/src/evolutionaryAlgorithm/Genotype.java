@@ -1,9 +1,11 @@
 package evolutionaryAlgorithm;
 
-public class Genotype {
+import graph.Graph;
+
+public class Genotype implements Comparable<Genotype>{
 	
-	public Genotype(){
-		
+	public Genotype(Graph graph){
+		initializeRandomly(graph);
 	}
 	
 	public Genotype(int[] genome){
@@ -17,14 +19,20 @@ public class Genotype {
 	double finess;
 	/**Phenotype: genome with trip delimiters?*/
 	
-	/*har lyst på: indeksen i requiredWhatever*/
-	
-	/*TODO:
-	 * have representation
-	 * store fitness
-	 * have mating function?
-	 * have phenotype (route)-generating function?
-	 * have fitness evaluation function?
-	 * implement comparator so that comparing genotypes becomes neater
-	 * */
+
+	void initializeRandomly(Graph graph){
+		genome = graph.getRequiredElementsIDs();
+		Utilities.shuffle(genome);
+	}
+
+	@Override
+	public int compareTo(Genotype otherGenotype) {
+		if(this.finess < otherGenotype.finess){
+			return -1;
+		}else if(this.finess > otherGenotype.finess){
+			return 1;
+		}else{
+			return 0;			
+		}
+	}
 }

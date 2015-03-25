@@ -1,8 +1,28 @@
 package evolutionaryAlgorithm;
 
-public class Utilities {
+import java.util.Random;
 
-	public Genotype[] crossover(Genotype firstParent, Genotype secondParent,
+public class Utilities {
+	
+	static Random random;
+	/** Code from method java.util.Collections.shuffle();
+	 * as reproduced on http://stackoverflow.com/a/19333201*/
+	public static void shuffle(int[] array){
+		if(random == null){
+			random = new Random();
+		}
+		int count = array.length;
+		for (int i = 0; i < count; i++) {
+			swap(array, i - 1, random.nextInt(i));
+		}
+	}
+	private static void swap(int[] array, int i, int j){
+		int temp = array[i];
+		array[i] = array[j];
+		array[j] = array[temp];
+	}
+
+	public static Genotype[] crossover(Genotype firstParent, Genotype secondParent,
 			int firstCrossoverPoint, int secondCrossoverPoint) {
 		Genotype firstChild;
 		Genotype secondChild;
@@ -59,7 +79,7 @@ public class Utilities {
 	
 	
 	
-	boolean doesArrayContainInt(int[] arrayToBeSearhced, int numberToCheckFor){
+	static boolean doesArrayContainInt(int[] arrayToBeSearhced, int numberToCheckFor){
 		for (int i = 0; i < arrayToBeSearhced.length; i++) {
 			if(arrayToBeSearhced[i] == numberToCheckFor){
 				return true;
