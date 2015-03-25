@@ -2,7 +2,7 @@ package evolutionaryAlgorithm;
 
 import java.util.ArrayList;
 
-import graph.FloydWarshallInterpretation;
+import graph.FloydWarshall;
 import graph.Graph;
 
 public class FitnessModule {
@@ -11,20 +11,20 @@ public class FitnessModule {
 	 * using one uncapacitated vehicle. Useful for evaluating costs of each vehicle in
 	 * a multi-vehicle tour, and for evaluating a grand tour if there is only one single
 	 * vehicle.*/
-	public double tripCost(int[] trip, FloydWarshallInterpretation floydWarshall, Graph graph){
+	public static double tripCost(int[] trip){
 		double cost = 0;
-		cost += floydWarshall.distance(graph.getDeoptNodeIndex(), trip[0])
-				+ graph.getElementByID(trip[0]).getServicingCost();
+		cost += FloydWarshall.distance(Graph.getDeoptNodeIndex(), trip[0])
+				+ Graph.getElementByID(trip[0]).getServicingCost();
 		for (int i = 1; i < trip.length; i++) {
-			cost += floydWarshall.distance(trip[i - 1], trip[i])
-					+ graph.getElementByID(trip[i]).getServicingCost();
+			cost += FloydWarshall.distance(trip[i - 1], trip[i])
+					+ Graph.getElementByID(trip[i]).getServicingCost();
 		}
-		cost += floydWarshall.distance(trip[trip.length - 1], graph.getDeoptNodeIndex());
+		cost += FloydWarshall.distance(trip[trip.length - 1], Graph.getDeoptNodeIndex());
 		return cost;
 	}
 	
 	
-	public ArrayList<int[]> tripsSplittedFromTour(double[] costs, int[] predecessors, Genotype genotype){
+	public static ArrayList<int[]> tripsSplittedFromTour(double[] costs, int[] predecessors, Genotype genotype){
 		ArrayList<int[]> ListOfTrips = new ArrayList<>();	//L in the papers
 		int j = genotype.genome.length;	//The number of tasks in the problem
 		int i;
@@ -41,11 +41,11 @@ public class FitnessModule {
 		return ListOfTrips;
 	}
 	
-	public void split(Genotype genotype, Graph graph, FloydWarshallInterpretation floydWarshall){
+	public static void split(Genotype genotype){
 		/**Cost of going from depot to each task in the auxiliary graph.
 		 * The +1 is added so that the depot node can be the 0th element
 		 * used in this representation.*/
-		double[] V = new double[graph.numberOfRequiredElements + 1];
+		double[] V = new double[Graph.numberOfRequiredElements + 1];
 		/**The list of predecessors in the */
 		int[] P = new int[V.length];
 		V[0] = 0;	//The cost of going to the depot is 0
@@ -55,7 +55,7 @@ public class FitnessModule {
 		}
 		
 		/**The index of the depot node*/
-		int depot = graph.getDeoptNodeIndex();
+		int depot = Graph.getDeoptNodeIndex();
 		/**Iterator used to iterate over the remaining tasks.*/
 		int j;
 		/**The demand collected in the current trip*/
@@ -70,35 +70,35 @@ public class FitnessModule {
 			
 			do {
 				//Update load to include the load of servicing the current element
-				load += graph.getElementByID(genotype.genome[j-1]).getDemand();
+				load += Graph.getElementByID(genotype.genome[j-1]).getDemand();
 				//Update cost
 				/*Remember to subtract 1 more than the general algorithm
 				 * when accessing 0-indexed graph elements (i.e. not V and
 				 * P), because they don't have the depot node
 				 * as the 0th element*/
 				if( i == j ){
-					cost = floydWarshall.distance(depot, genotype.genome[i-1])
-							+ graph.getElementByID(genotype.genome[i-1]).getServicingCost()
-							+ floydWarshall.distance(genotype.genome[i-1], depot);
+					cost = FloydWarshall.distance(depot, genotype.genome[i-1])
+							+ Graph.getElementByID(genotype.genome[i-1]).getServicingCost()
+							+ FloydWarshall.distance(genotype.genome[i-1], depot);
 				}else{
-					cost = cost - floydWarshall.distance(genotype.genome[j-2], depot)
-							+ floydWarshall.distance(genotype.genome[j-2], genotype.genome[j-1])
-							+ graph.getElementByID(genotype.genome[j-1]).getServicingCost()
-							+ floydWarshall.distance(genotype.genome[j-1], depot);
+					cost = cost - FloydWarshall.distance(genotype.genome[j-2], depot)
+							+ FloydWarshall.distance(genotype.genome[j-2], genotype.genome[j-1])
+							+ Graph.getElementByID(genotype.genome[j-1]).getServicingCost()
+							+ FloydWarshall.distance(genotype.genome[j-1], depot);
 				}
 				//If load and cost are manageable, update V and P
-				if ( (load <= graph.vehicleCapacity) && (V[i-1] + cost < V[j]) ) {
+				if ( (load <= Graph.vehicleCapacity) && (V[i-1] + cost < V[j]) ) {
 					V[j] = V[i-1] + cost;
 					P[j] = i - 1;
 				}
 				j++;
-			} while ( (j < V.length) && (load < graph.vehicleCapacity) );
+			} while ( (j < V.length) && (load < Graph.vehicleCapacity) );
 		}//End for
 		
 		/*The sum of costs of trips is the cost of the last element in 
 		 * the auxiliary graph, can be interpreted as the cost of the 
 		 * shortest path through the auxiliary graph.*/ 
-		genotype.finess = V[V.length - 1];
+		genotype.fitness = V[V.length - 1];
 	}//End split
 	
 }

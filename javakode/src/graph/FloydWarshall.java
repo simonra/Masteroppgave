@@ -1,21 +1,21 @@
 package graph;
 
-public class FloydWarshallInterpretation {
+public class FloydWarshall {
 
-	double[][] allPairShortestDistances;
-	int[][] successors;
-	public double timeTakenToComputeFloydWarshall;
+	static double[][] allPairShortestDistances;
+	static int[][] successors;
+	static public double timeTakenToComputeFloydWarshall;
 	
 	/**Returns the distance between and origin and destination in the graph.
 	 * Is used to make accessing the all pairs shortest path matrix more neat.*/
-	public double distance(int originElementID, int destinationElementID){
+	public static double distance(int originElementID, int destinationElementID){
 		return allPairShortestDistances[originElementID][destinationElementID];
 	}
 
-	public double[][] FloydWarshall(Graph graph) {
+	public static double[][] doFloydWarshall() {
 		double startTime = System.currentTimeMillis();
-		int numberOfElementsInGraph = graph.nodes.length + graph.edges.length
-				+ graph.arcs.length;
+		int numberOfElementsInGraph = Graph.nodes.length + Graph.edges.length
+				+ Graph.arcs.length;
 		allPairShortestDistances = new double[numberOfElementsInGraph][numberOfElementsInGraph];
 		successors = new int[numberOfElementsInGraph][numberOfElementsInGraph];
 
@@ -28,23 +28,23 @@ public class FloydWarshallInterpretation {
 			allPairShortestDistances[i][i] = 0;
 		}
 		
-		int edgeOffset = graph.nodes.length;
-		int arcOffset = graph.nodes.length + graph.edges.length;
+		int edgeOffset = Graph.nodes.length;
+		int arcOffset = Graph.nodes.length + Graph.edges.length;
 		
 		/*
 		 * For each edge, set the distance between the nodes at both end as the
 		 * traversal cost of the edge, it it's shorter than the currently set
 		 * shortest distance
 		 */
-		for (int i = 0; i < graph.edges.length; i++) {
-			Edge currentEdge = graph.edges[i];
+		for (int i = 0; i < Graph.edges.length; i++) {
+			Edge currentEdge = Graph.edges[i];
 			int node1 = currentEdge.fromNodeId;
 			int node2 = currentEdge.toNodeId;
 
-			allPairShortestDistances[edgeOffset + i][node1] = graph.nodes[node1].passThroughCost;
-			allPairShortestDistances[node1][edgeOffset + i] = graph.edges[i].passThroughCost;
-			allPairShortestDistances[edgeOffset + i][node2] = graph.nodes[node2].passThroughCost;
-			allPairShortestDistances[node2][edgeOffset + i] = graph.edges[i].passThroughCost;
+			allPairShortestDistances[edgeOffset + i][node1] = Graph.nodes[node1].passThroughCost;
+			allPairShortestDistances[node1][edgeOffset + i] = Graph.edges[i].passThroughCost;
+			allPairShortestDistances[edgeOffset + i][node2] = Graph.nodes[node2].passThroughCost;
+			allPairShortestDistances[node2][edgeOffset + i] = Graph.edges[i].passThroughCost;
 			
 			successors[edgeOffset + i][node1] = node1;
 			successors[node1][edgeOffset + i] = edgeOffset + i;
@@ -54,13 +54,13 @@ public class FloydWarshallInterpretation {
 
 		// For each arc, set the distance {startnode,endnode} to the arc
 		// traversal cost
-		for (int i = 0; i < graph.arcs.length; i++) {
-			Arc currentArc = graph.arcs[i];
+		for (int i = 0; i < Graph.arcs.length; i++) {
+			Arc currentArc = Graph.arcs[i];
 			int fromNode = currentArc.fromNodeId;
 			int toNode = currentArc.toNodeId;
 
-			allPairShortestDistances[arcOffset + i][toNode] = graph.nodes[toNode].passThroughCost;
-			allPairShortestDistances[fromNode][arcOffset + i] = graph.arcs[i].passThroughCost;
+			allPairShortestDistances[arcOffset + i][toNode] = Graph.nodes[toNode].passThroughCost;
+			allPairShortestDistances[fromNode][arcOffset + i] = Graph.arcs[i].passThroughCost;
 			
 			successors[arcOffset + i][toNode] = toNode;
 			successors[fromNode][arcOffset + i] = arcOffset + i;
@@ -89,7 +89,7 @@ public class FloydWarshallInterpretation {
 				if(i == j){
 					continue;
 				}
-				allPairShortestDistances[j][i] -= graph.getElementByID(i).getPassThroughCost();
+				allPairShortestDistances[j][i] -= Graph.getElementByID(i).getPassThroughCost();
 			}
 		}
 		
@@ -99,7 +99,7 @@ public class FloydWarshallInterpretation {
 	}
 	
 	
-	public String allPairsToString(){
+	public static String allPairsToString(){
 		String outputString = "";
 		for (int i = 0; i < allPairShortestDistances.length; i++) {
 			for (int j = 0; j < allPairShortestDistances.length; j++) {
@@ -110,7 +110,7 @@ public class FloydWarshallInterpretation {
 		return outputString;
 	}
 	
-	public String sucessorsToString(){
+	public static String sucessorsToString(){
 		String outputString = "";
 		for (int i = 0; i < successors.length; i++) {
 			for (int j = 0; j < successors.length; j++) {

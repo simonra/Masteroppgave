@@ -6,36 +6,36 @@ import java.io.FileReader;
 
 public class Graph {
 	/**The problem name given in the input file*/
-	String problemName;
+	static String problemName;
 	/**The optimal value given in the input file. 
 	 * It is -1 if unknown.*/
-	double optimalValue;
+	static double optimalValue;
 	/**The number of available vehicles given in the input file. 
 	 * Is -1 if unspecified/unconstrained.*/
-	public int numberOfVehicles;
+	public static int numberOfVehicles;
 	/**The capacity of each vehicle, given in the input file.*/
-	public double vehicleCapacity;
+	public static double vehicleCapacity;
 	/**The index/id of the depot node as given in the input file.
 	 * Is -1 if */
-	int depotNodeIndex;
+	static int depotNodeIndex;
 	/**The array holding all the nodes, including the required nodes.*/
-	Node[] nodes;
+	static Node[] nodes;
 	/**The array containing only the nodes that the problem states
 	 * must be traversed for the problem to be solved.*/
-	Node[] requiredNodes;
-	Edge[] edges;
-	Edge[] requiredEdges;
-	Arc[] arcs;
-	Arc[] requiredArcs;
+	static Node[] requiredNodes;
+	static Edge[] edges;
+	static Edge[] requiredEdges;
+	static Arc[] arcs;
+	static Arc[] requiredArcs;
 	
-	int[] requiredElementIDs;
+	static int[] requiredElementIDs;
 	
-	public double sumOfServicingCostsOfRequiredElements;
+	public static double sumOfServicingCostsOfRequiredElements;
 	
-	public int numberOfRequiredElements;
-	public int numberOfElements;
+	public static int numberOfRequiredElements;
+	public static int numberOfElements;
 	
-	public int[] getRequiredElementsIDs(){
+	public static int[] getRequiredElementsIDs(){
 		if(requiredElementIDs == null){
 			requiredElementIDs = new int[numberOfRequiredElements];
 			int iterator = 0;
@@ -55,7 +55,7 @@ public class Graph {
 		return requiredElementIDs;
 	}
 	
-	private void calculateSumOfServicingCostsOfRequiredElements(){
+	private static void calculateSumOfServicingCostsOfRequiredElements(){
 		sumOfServicingCostsOfRequiredElements = 0;
 		
 		for (int i = 0; i < requiredNodes.length; i++) {
@@ -69,7 +69,7 @@ public class Graph {
 		}
 	}
 	
-	public int getDeoptNodeIndex(){
+	public static int getDeoptNodeIndex(){
 		if(depotNodeIndex != -1){
 			return depotNodeIndex;
 		} else{
@@ -77,7 +77,7 @@ public class Graph {
 		}
 	}
 	
-	public int getDepotNodeIndex(int IDOfFirstElementInTour){
+	public static int getDepotNodeIndex(int IDOfFirstElementInTour){
 		if(depotNodeIndex != -1){
 			return depotNodeIndex;
 		} else{
@@ -85,7 +85,7 @@ public class Graph {
 		}
 	}
 	
-	public ElementProperties getElementByID(int ID){
+	public static ElementProperties getElementByID(int ID){
 		//TODO: Test this code
 		ElementProperties requestedElement;
 		if(ID < nodes.length){
@@ -98,11 +98,7 @@ public class Graph {
 		return requestedElement;
 	}
 	
-	/*TODO:
-	 * -getters for individual graph elements?
-	 * -fields for best known stuff for this graph that the algorithm can use?*/
-	
-	public Graph(){
+	public static void initialize(){
 		//Read the file:
 		int numberOfNodes, numberOfEdges, numberOfArcs, numberOfRequiredNodes, numberOfRequiredEdges, numberOfRequiredArcs;
 		String[] lineWithMultipleContent;

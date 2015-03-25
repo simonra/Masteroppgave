@@ -9,7 +9,6 @@ public class Main {
 	
 	
 	public static void main(String[] args) {
-		Utilities util = new Utilities();
 		int[] firstGenome = {1, 2, 3, 4, 5, 6};
 		int[] secondGenome = {1, 4, 5, 6, 2, 3};
 		Genotype parent1 = new Genotype(firstGenome);
@@ -22,7 +21,7 @@ public class Main {
 		System.out.println(Arrays.toString(parent2.genome));
 		
 		
-		Genotype[] children = util.crossover(parent1, parent2, 1, 3);
+		Genotype[] children = Utilities.crossover(parent1, parent2, 1, 3);
 		
 		System.out.println(Arrays.toString(children[0].genome));
 		System.out.println(Arrays.toString(children[1].genome));

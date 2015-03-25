@@ -1,6 +1,7 @@
 package parameterFiles;
 
 public class EvolutionaryAlgorithmParams {
-	int populationSize;
+	public static final int populationSize = 200;
+	public static final boolean noSplitOnlyTour = true; 
 	//mut-chance: always there?
 }

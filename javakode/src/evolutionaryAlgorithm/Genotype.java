@@ -1,11 +1,12 @@
 package evolutionaryAlgorithm;
 
+import parameterFiles.EvolutionaryAlgorithmParams;
 import graph.Graph;
 
 public class Genotype implements Comparable<Genotype>{
 	
-	public Genotype(Graph graph){
-		initializeRandomly(graph);
+	public Genotype(){
+		initializeRandomly();
 	}
 	
 	public Genotype(int[] genome){
@@ -16,20 +17,32 @@ public class Genotype implements Comparable<Genotype>{
 	
 	
 	int[] genome;
-	double finess;
-	/**Phenotype: genome with trip delimiters?*/
+	double fitness = -1;
+	
+	public double getFitness(){
+		if(fitness == -1){
+			setFitness();
+		}
+		return fitness;
+	}
+	
+	public void setFitness(){
+		if(EvolutionaryAlgorithmParams.noSplitOnlyTour){
+			FitnessModule.tripCost(genome);
+		}
+	}
 	
 
-	void initializeRandomly(Graph graph){
-		genome = graph.getRequiredElementsIDs();
+	void initializeRandomly(){
+		genome = Graph.getRequiredElementsIDs();
 		Utilities.shuffle(genome);
 	}
 
 	@Override
 	public int compareTo(Genotype otherGenotype) {
-		if(this.finess < otherGenotype.finess){
+		if(this.fitness < otherGenotype.fitness){
 			return -1;
-		}else if(this.finess > otherGenotype.finess){
+		}else if(this.fitness > otherGenotype.fitness){
 			return 1;
 		}else{
 			return 0;			
