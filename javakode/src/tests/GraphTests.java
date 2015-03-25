@@ -1,5 +1,6 @@
 package tests;
 
+import generalUtilities.FileSaving;
 import graph.FloydWarshall;
 import graph.Graph;
 
@@ -35,6 +36,21 @@ public class GraphTests {
 		System.out.println(FloydWarshall.sucessorsToString());
 	}
 	
+	public void saveFloydWarshall(){
+		System.out.println("Saving floydWarshall");
+		FileSaving.writeFloydWarshall();
+	}
+	
+	public void saveGraph(){
+		System.out.println("Saving graph");
+		FileSaving.writeGraph();
+	}
+	
+	public void saveEntireRun(){
+		System.out.println("Saving all files related to run in one folder");
+		FileSaving.writeEntireRun();
+	}
+	
 	
 	public static void main(String[] args) {
 		GraphTests testingModule = new GraphTests();
@@ -42,7 +58,7 @@ public class GraphTests {
 		FloydWarshall.doFloydWarshall();
 		
 		
-		testingModule.printAllGraphElementsOneByOne();
+//		testingModule.printAllGraphElementsOneByOne();
 		
 		testingModule.printProblemSize();
 		
@@ -50,7 +66,13 @@ public class GraphTests {
 		
 		testingModule.printFloydWarshallComputationTime();
 
-		testingModule.printFloydWarshallShortestPathMatrix();
+//		testingModule.printFloydWarshallShortestPathMatrix();
+		
+//		testingModule.saveFloydWarshall();
+//		
+//		testingModule.saveGraph();
+//		
+//		testingModule.saveEntireRun();
 		
 	}
 

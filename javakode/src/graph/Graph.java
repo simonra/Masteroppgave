@@ -6,7 +6,7 @@ import java.io.FileReader;
 
 public class Graph {
 	/**The problem name given in the input file*/
-	static String problemName;
+	public static String problemName;
 	/**The optimal value given in the input file. 
 	 * It is -1 if unknown.*/
 	static double optimalValue;

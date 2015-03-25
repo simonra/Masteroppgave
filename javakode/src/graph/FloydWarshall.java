@@ -26,6 +26,7 @@ public class FloydWarshall {
 				successors[i][j] = -1;
 			}
 			allPairShortestDistances[i][i] = 0;
+			successors[i][i] = i;
 		}
 		
 		int edgeOffset = Graph.nodes.length;
