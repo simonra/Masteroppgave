@@ -7,6 +7,24 @@ import graph.Graph;
 
 public class FitnessModule {
 	
+	/**Takes in a trip, and calculates the penalty for doing low priority stuff
+	 * before high priority stuff. Should not penalize doing unimportant task
+	 * while on the way to important tasks significantly.*/
+	public static double priorityPenalty(int[] trip){
+		/*TODO:
+		 * Want an f(place in route, demand) with there properties:
+		 * f(low,low) = low
+		 * f(low,high) = low
+		 * f(mid,whatever) = mid
+		 * f(whatever,mid) = mid
+		 * f(high,high) = huge
+		 * f(high,low) = low*/
+		
+		return -1;
+	}
+	
+	
+	
 	/**Takes a trip as a sequence of tasks, and returns the cost of traversing the trip
 	 * using one uncapacitated vehicle. Useful for evaluating costs of each vehicle in
 	 * a multi-vehicle tour, and for evaluating a grand tour if there is only one single

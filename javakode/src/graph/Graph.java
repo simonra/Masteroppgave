@@ -31,6 +31,9 @@ public class Graph {
 	static int[] requiredElementIDs;
 	
 	public static double sumOfServicingCostsOfRequiredElements;
+	public static double sumOfDemand;
+	public static double averageDeamnd;
+	public static double demandStandardDeviation;
 	
 	public static int numberOfRequiredElements;
 	public static int numberOfElements;
@@ -55,18 +58,23 @@ public class Graph {
 		return requiredElementIDs;
 	}
 	
-	private static void calculateSumOfServicingCostsOfRequiredElements(){
-		sumOfServicingCostsOfRequiredElements = 0;
+	private static void calculateDemandStandardDeviation(){
+		if(numberOfRequiredElements <= 1){
+			return;
+		}
+		demandStandardDeviation = 0;
 		
 		for (int i = 0; i < requiredNodes.length; i++) {
-			sumOfServicingCostsOfRequiredElements += requiredNodes[i].servicingCost;
+			demandStandardDeviation += Math.pow((requiredNodes[i].demand - averageDeamnd),2);
 		}
 		for (int i = 0; i < requiredEdges.length; i++) {
-			sumOfServicingCostsOfRequiredElements += requiredEdges[i].servicingCost;
+			demandStandardDeviation += Math.pow((requiredEdges[i].demand - averageDeamnd),2);
 		}
 		for (int i = 0; i < requiredArcs.length; i++) {
-			sumOfServicingCostsOfRequiredElements += requiredArcs[i].servicingCost;
+			demandStandardDeviation += Math.pow((requiredArcs[i].demand - averageDeamnd),2);
 		}
+		demandStandardDeviation = demandStandardDeviation / (numberOfRequiredElements);
+		demandStandardDeviation = Math.sqrt(demandStandardDeviation);
 	}
 	
 	public static int getDeoptNodeIndex(){
@@ -111,6 +119,9 @@ public class Graph {
 		Node createdNode;
 		Edge createdEdge;
 		Arc createdArc;
+		
+		sumOfDemand = 0;
+		sumOfServicingCostsOfRequiredElements = 0;
 		try {
 			BufferedReader bufferedReader = new BufferedReader(new FileReader(parameterFiles.GraphParams.graphFilePath));
 			//Read parameters of graph:
@@ -164,7 +175,9 @@ public class Graph {
 				currentElementID = Integer.parseInt(elementName.replaceAll("N", ""));
 				globalElementID = currentElementID - 1;
 				demand = Double.parseDouble(lineWithMultipleContent[1]);
+				sumOfDemand += demand;
 				servicingCost = Double.parseDouble(lineWithMultipleContent[2]);
+				sumOfServicingCostsOfRequiredElements += servicingCost;
 				createdNode = new Node(globalElementID, elementName, demand, servicingCost, isRequired);
 				requiredNodes[i] = createdNode;
 				nodes[globalElementID] = createdNode;
@@ -195,7 +208,9 @@ public class Graph {
 				toNode = Integer.parseInt(lineWithMultipleContent[2]) - 1;
 				traversalCost = Double.parseDouble(lineWithMultipleContent[3]);
 				demand = Double.parseDouble(lineWithMultipleContent[4]);
+				sumOfDemand += demand;
 				servicingCost = Double.parseDouble(lineWithMultipleContent[5]);
+				sumOfServicingCostsOfRequiredElements += servicingCost;
 				createdEdge = new Edge(globalElementID, elementName, fromNode, toNode, traversalCost, servicingCost, demand, isRequired);
 				requiredEdges[i] = createdEdge;
 				edges[i] = createdEdge;
@@ -239,7 +254,9 @@ public class Graph {
 				toNode = Integer.parseInt(lineWithMultipleContent[2]) - 1;
 				traversalCost = Double.parseDouble(lineWithMultipleContent[3]);
 				demand = Double.parseDouble(lineWithMultipleContent[4]);
+				sumOfDemand += demand;
 				servicingCost = Double.parseDouble(lineWithMultipleContent[5]);
+				sumOfServicingCostsOfRequiredElements += servicingCost;
 				createdArc = new Arc(globalElementID, elementName, fromNode, toNode, traversalCost, servicingCost, demand, isRequired);
 				requiredArcs[i] = createdArc;
 				arcs[i] = createdArc;
@@ -275,7 +292,8 @@ public class Graph {
 		}
 		numberOfRequiredElements = requiredNodes.length + requiredEdges.length + requiredArcs.length;
 		numberOfElements = globalElementID;
-		calculateSumOfServicingCostsOfRequiredElements();
+		averageDeamnd = sumOfDemand / numberOfRequiredElements;
+		calculateDemandStandardDeviation();
 	}
 	
 	

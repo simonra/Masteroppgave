@@ -1,19 +1,24 @@
 package evolutionaryAlgorithm;
 
+import graph.Graph;
+
 import java.util.Random;
 
 public class Utilities {
 	
 	static Random random;
-	/** Code from method java.util.Collections.shuffle();
-	 * as reproduced on http://stackoverflow.com/a/19333201*/
-	public static void shuffle(int[] array){
+	private static Random getRandom(){
 		if(random == null){
 			random = new Random();
 		}
+		return random;
+	}
+	/** Code from method java.util.Collections.shuffle();
+	 * as reproduced on http://stackoverflow.com/a/19333201*/
+	public static void shuffle(int[] array){
 		int count = array.length;
 		for (int i = count; i > 1; i--) {
-			swap(array, i - 1, random.nextInt(i));
+			swap(array, i - 1, getRandom().nextInt(i));
 		}
 	}
 	private static void swap(int[] array, int i, int j){
@@ -21,6 +26,14 @@ public class Utilities {
 		array[i] = array[j];
 		array[j] = temp;
 	}
+	
+	
+	public static int[] getRandomCrossoverPoints(){
+		int point1 = getRandom().nextInt(Graph.numberOfRequiredElements);
+		int point2 = getRandom().nextInt(Graph.numberOfRequiredElements);
+		return new int[] {point1, point2};
+	}
+	
 
 	public static Genotype[] crossover(Genotype firstParent, Genotype secondParent,
 			int firstCrossoverPoint, int secondCrossoverPoint) {

@@ -27,15 +27,37 @@ public class EATests {
 		children[0].setFitness();
 		children[1].setFitness();
 		
-		Genotype[] result = {firstParent, secondParent, children[0], children[1]};
-		return result;
+		validateCrossover(firstParent, secondParent, children[0], children[1], firstCrossoverPoint, secondCrossoverPoint);
+		
+		return new Genotype[] {firstParent, secondParent, children[0], children[1]};
 	}
 	
 	
 	public void validateCrossover(Genotype firstParent, Genotype secondParent,
-			Genotype fistChild, Genotype secondChile,
+			Genotype firstChild, Genotype secondChild,
 			int firstCrossoverPoint, int secondCrossoverPoint){
+		boolean firstChildFails = false;
+		boolean secondChildFails = false;
 		
+		validateGenome(firstParent);
+		validateGenome(secondParent);
+		validateGenome(firstChild);
+		validateGenome(secondChild);
+		
+		for (int i = firstCrossoverPoint; i != secondCrossoverPoint; i=(i+1)%Graph.numberOfRequiredElements) {
+			if(firstChild.getGenome()[i] != firstParent.getGenome()[i]){
+				firstChildFails = true;
+			}
+			if(secondChild.getGenome()[i] != secondParent.getGenome()[i]){
+				secondChildFails = true;
+			}
+		}
+		if(firstChildFails){
+			System.out.println("Something was wrong with the first child");
+		}
+		if(secondChildFails){
+			System.out.println("Something was wrong with the second child");			
+		}
 	}
 	
 	

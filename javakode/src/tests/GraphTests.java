@@ -36,6 +36,14 @@ public class GraphTests {
 		System.out.println(FloydWarshall.sucessorsToString());
 	}
 	
+	public void printDemandStatistics(){
+		System.out.println("Total demand:\t" + Graph.sumOfDemand);
+		System.out.println("Average demand:\t" + Graph.averageDeamnd);
+		System.out.println("Deamand standard deviation:\t" + Graph.demandStandardDeviation);
+		System.out.println("Distribution: N("+Graph.averageDeamnd+","+Graph.demandStandardDeviation*Graph.demandStandardDeviation+")");
+	}
+	
+	
 	public void saveFloydWarshall(){
 		System.out.println("Saving floydWarshall");
 		FileSaving.writeFloydWarshall();
@@ -67,6 +75,8 @@ public class GraphTests {
 		testingModule.printFloydWarshallComputationTime();
 
 //		testingModule.printFloydWarshallShortestPathMatrix();
+		
+		testingModule.printDemandStatistics();
 		
 //		testingModule.saveFloydWarshall();
 //		
