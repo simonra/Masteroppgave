@@ -32,6 +32,10 @@ public class Genotype implements Comparable<Genotype>{
 		}
 	}
 	
+	public int[] getGenome(){
+		return this.genome.clone();
+	}
+	
 
 	void initializeRandomly(){
 		genome = Graph.getRequiredElementsIDs().clone();

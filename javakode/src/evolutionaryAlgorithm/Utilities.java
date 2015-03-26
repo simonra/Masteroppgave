@@ -65,8 +65,6 @@ public class Utilities {
 				secondChildIndexToPlace = (secondChildIndexToPlace + 1) % genomeLength;
 			}
 		}
-		
-		//TODO: update fitness here?
 
 		firstChild = new Genotype(firstChildGenome);
 		secondChild = new Genotype(secondChildGenome);
