@@ -35,4 +35,25 @@ for fartsgrense in fartsgrenser.values():
 print len(links)
 print len(set([edge['veglenke_id'] for edge in edges]))
 
-print edge_dict.values()[0]
+edge_id_to_veglenke_id = {el[0]: el[1] for el in list(enumerate([edge['veglenke_id'] for edge in edge_dict.values()], start=1))}
+veglenke_id_to_edge_id = {el[1]: el[0] for el in list(enumerate([edge['veglenke_id'] for edge in edge_dict.values()], start=1))}
+
+with open('edge_id_to_veglenke_id.json', 'w') as outfile:
+    json.dump(edge_id_to_veglenke_id, outfile)
+
+with open('veglenke_id_to_edge_id.json', 'w') as outfile:
+    json.dump(veglenke_id_to_edge_id, outfile)
+
+nodes = set()
+for edge in edges:
+    nodes.add(edge['to_node'])
+    nodes.add(edge['from_node'])
+
+node_id_to_nvdb_node_id = {el[0]: el[1] for el in list(enumerate(nodes, start=1))}
+nvdb_node_id_to_node_id = {el[1]: el[0] for el in list(enumerate(nodes, start=1))}
+
+with open('node_id_to_nvdb_node_id.json', 'w') as outfile:
+    json.dump(node_id_to_nvdb_node_id, outfile)
+
+with open('nvdb_node_id_to_node_id.json', 'w') as outfile:
+    json.dump(nvdb_node_id_to_node_id, outfile)
