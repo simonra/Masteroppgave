@@ -57,3 +57,42 @@ with open('node_id_to_nvdb_node_id.json', 'w') as outfile:
 
 with open('nvdb_node_id_to_node_id.json', 'w') as outfile:
     json.dump(nvdb_node_id_to_node_id, outfile)
+
+
+def node_to_sintef_format(node):
+    # NODE INDEX, DEMAND, SERVICE COST
+    print nvdb_node_id_to_node_id[node], 1, 0
+
+
+def edge_to_sintef_format(edge):
+    # EDGE INDEX, FROM NODE, TO NODE, TRAVERSAL COST, DEMAND, SERVICE COST
+    if 'distance_in_meters' in edge and 'speed_limit' in edge:
+        print veglenke_id_to_edge_id[edge['veglenke_id']], nvdb_node_id_to_node_id[edge['from_node']], nvdb_node_id_to_node_id[edge['to_node']], edge['distance_in_meters'] * float(edge['speed_limit']), 1, edge['distance_in_meters']*1000
+
+print "Name:            nvdb-data"
+print "Optimal value:   -1"
+print "#Vehicles:       -1"
+print "Capacity:        1234" # TODO
+print "Depot:           1" #TODO
+print "#Nodes:          "+str(len(nodes))
+print "#Edges:          "+str(len(edges))
+print "#Arcs:           0" # TODO
+print "#Required N:     "+str(len(nodes))
+print "#Required E:     "+str(len(edges))
+print "#Required A:     0"
+print
+print "% Required nodes:  Ni q_i s_ij"
+for node in nodes:
+    node_to_sintef_format(node)
+
+print ""
+print "% Required edges: Ek i j q_ij c_ij s_ij "
+for edge in edge_dict.values():
+    edge_to_sintef_format(edge)
+
+print "% Non-required edges: NrEl i j c_ij"
+print
+print "% Required arcs: Ar i j q_ij c_ij"
+print
+print "% Non-required arcs: NrAs i j c_ij"
+print
