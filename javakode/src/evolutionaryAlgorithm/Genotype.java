@@ -34,7 +34,7 @@ public class Genotype implements Comparable<Genotype>{
 	
 
 	void initializeRandomly(){
-		genome = Graph.getRequiredElementsIDs();
+		genome = Graph.getRequiredElementsIDs().clone();
 		Utilities.shuffle(genome);
 	}
 
