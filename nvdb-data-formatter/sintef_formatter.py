@@ -90,6 +90,7 @@ print "% Required edges: Ek i j q_ij c_ij s_ij "
 for edge in edge_dict.values():
     edge_to_sintef_format(edge)
 
+print ""
 print "% Non-required edges: NrEl i j c_ij"
 print
 print "% Required arcs: Ar i j q_ij c_ij"
