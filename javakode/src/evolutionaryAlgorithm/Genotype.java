@@ -12,15 +12,15 @@ public class Genotype implements Comparable<Genotype>{
 	public Genotype(int[] genome){
 //		this.genome = new int[genome.length];
 //		System.arraycopy(genome, 0, this.genome, 0, genome.length);
-		this.genome = genome;
+		this.genome = genome.clone();
 	}
 	
 	
 	int[] genome;
-	double fitness = -1;
+	double fitness = -1.0;
 	
 	public double getFitness(){
-		if(fitness == -1){
+		if(fitness == -1.0){
 			setFitness();
 		}
 		return fitness;
@@ -28,7 +28,7 @@ public class Genotype implements Comparable<Genotype>{
 	
 	public void setFitness(){
 		if(EvolutionaryAlgorithmParams.noSplitOnlyTour){
-			FitnessModule.tripCost(genome);
+			this.fitness = FitnessModule.tripCost(genome);
 		}
 	}
 	

@@ -17,7 +17,6 @@ public class Utilities {
 		}
 	}
 	private static void swap(int[] array, int i, int j){
-		System.out.println("Swapping " + i + " and " + j + " of " + array.length);
 		int temp = array[i];
 		array[i] = array[j];
 		array[j] = temp;

@@ -20,11 +20,13 @@ public class EATests {
 		Graph.initialize();
 		FloydWarshall.doFloydWarshall();
 		System.out.println("Number of elements in graph" + Graph.numberOfElements);
+		System.out.println("Required element IDs:");
 		System.out.println(FileSaving.getGson().toJson(Graph.getRequiredElementsIDs()));
 		
 		Genotype genotype = test.createSingleGenoe();
 		System.out.println("Random genome:");
 		System.out.println(FileSaving.getGson().toJson(genotype));
-		System.out.println(FileSaving.getGson().toJson(Graph.getRequiredElementsIDs()));
+		genotype.setFitness();
+		System.out.println("Genotype fitness: " + genotype.getFitness());
 	}
 }
