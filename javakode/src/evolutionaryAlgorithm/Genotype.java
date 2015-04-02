@@ -18,6 +18,7 @@ public class Genotype implements Comparable<Genotype>{
 	
 	int[] genome;
 	double fitness = -1.0;
+	double normalizedFitness = -1;
 	
 	public double getFitness(){
 		if(fitness == -1.0){
@@ -27,13 +28,13 @@ public class Genotype implements Comparable<Genotype>{
 	}
 	
 	public void setFitness(){
-		if(EvolutionaryAlgorithmParams.noSplitOnlyTour){
+		if(EvolutionaryAlgorithmParams.NO_SPLIT_ONLY_TOUR){
 			this.fitness = FitnessModule.tripCost(genome);
 		}
 	}
 	
 	public void mutate(){
-		if(!EvolutionaryAlgorithmParams.randomMutation){
+		if(!EvolutionaryAlgorithmParams.RANDOM_MUTATION){
 			//else swap two and two and evaluate each switch until better
 			for (int i = 0; i < genome.length; i++) {
 				/*j = i because no need to check swaps already checked*/

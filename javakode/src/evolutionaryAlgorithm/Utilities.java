@@ -7,7 +7,7 @@ import java.util.Random;
 public class Utilities {
 	
 	static Random random;
-	private static Random getRandom(){
+	public static Random getRandom(){
 		if(random == null){
 			random = new Random();
 		}

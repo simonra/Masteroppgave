@@ -125,7 +125,7 @@ public class Graph {
 		sumOfDemand = 0;
 		sumOfServicingCostsOfRequiredElements = 0;
 		try {
-			BufferedReader bufferedReader = new BufferedReader(new FileReader(parameterFiles.GraphParams.graphFilePath));
+			BufferedReader bufferedReader = new BufferedReader(new FileReader(parameterFiles.GraphParams.GRAPH_FILE_PATH));
 			//Read parameters of graph:
 			String line = bufferedReader.readLine();
 			problemName = line.replaceAll("Name:\t\t", "");

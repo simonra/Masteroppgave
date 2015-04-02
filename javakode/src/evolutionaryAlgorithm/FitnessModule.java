@@ -34,7 +34,7 @@ public class FitnessModule {
 		double demandSlope = (sumOfDemandTimesTripNumber - Graph.averageNumberOfRequiredElements*Graph.averageDeamnd)/Graph.varianceOfRequiredElements;
 		/*If the slope is positive we are handeling increasingly 
 		 * more demanded tasks, which is bad, hence penalize.*/
-		if(EvolutionaryAlgorithmParams.penalizeDemandOutOfOrder && demandSlope > 0){
+		if(EvolutionaryAlgorithmParams.PENALIZE_DEMAND_OUT_OF_ORDER && demandSlope > 0){
 			cost += demandSlope * Graph.averageDeamnd;	//This might be a sin against the admissibility of the heuristic, but then again we don't really have an absolute measure of demand in terms of cost anywat...
 		}
 
