@@ -2,6 +2,8 @@ package evolutionaryAlgorithm;
 
 import java.util.ArrayList;
 
+import parameterFiles.EvolutionaryAlgorithmParams;
+
 import graph.FloydWarshall;
 import graph.Graph;
 
@@ -24,20 +26,34 @@ public class FitnessModule {
 	}
 	
 	
-	
 	/**Takes a trip as a sequence of tasks, and returns the cost of traversing the trip
 	 * using one uncapacitated vehicle. Useful for evaluating costs of each vehicle in
 	 * a multi-vehicle tour, and for evaluating a grand tour if there is only one single
 	 * vehicle.*/
 	public static double tripCost(int[] trip){
 		double cost = 0;
+		double sumOfDemandTimesTripNumber = 0;
+
 		cost += FloydWarshall.distance(Graph.getDeoptNodeIndex(), trip[0])
 				+ Graph.getElementByID(trip[0]).getServicingCost();
+		sumOfDemandTimesTripNumber += 1 * Graph.getElementByID(trip[0]).getDemand();
 		for (int i = 1; i < trip.length; i++) {
 			cost += FloydWarshall.distance(trip[i - 1], trip[i])
 					+ Graph.getElementByID(trip[i]).getServicingCost();
+			sumOfDemandTimesTripNumber += (i+1)*Graph.getElementByID(trip[i]).getDemand(); //Add 1 because number of trips is 1 indexed due to math
 		}
 		cost += FloydWarshall.distance(trip[trip.length - 1], Graph.getDeoptNodeIndex());
+
+		/**This is the slope of the demand throughout the trip.
+		 * Used to determine if prioritized tasks are handeled
+		 * early on or late in the trip*/
+		double demandSlope = (sumOfDemandTimesTripNumber - Graph.averageNumberOfRequiredElements*Graph.averageDeamnd)/Graph.varianceOfRequiredElements;
+		/*If the slope is positive we are handeling increasingly 
+		 * more demanded tasks, which is bad, hence penalize.*/
+		if(EvolutionaryAlgorithmParams.penalizeDemandOutOfOrder && demandSlope > 0){
+			cost += demandSlope * Graph.averageDeamnd;	//This might be a sin against the admissibility of the heuristic, but then again we don't really have an absolute measure of demand in terms of cost anywat...
+		}
+
 		return cost;
 	}
 	

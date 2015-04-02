@@ -37,6 +37,8 @@ public class Graph {
 	
 	public static int numberOfRequiredElements;
 	public static int numberOfElements;
+	public static double averageNumberOfRequiredElements;
+	public static double varianceOfRequiredElements;
 	
 	public static int[] getRequiredElementsIDs(){
 		if(requiredElementIDs == null){
@@ -293,6 +295,8 @@ public class Graph {
 		numberOfRequiredElements = requiredNodes.length + requiredEdges.length + requiredArcs.length;
 		numberOfElements = globalElementID;
 		averageDeamnd = sumOfDemand / numberOfRequiredElements;
+		averageNumberOfRequiredElements = (numberOfRequiredElements + 1)/2.0;
+		varianceOfRequiredElements = (numberOfRequiredElements*numberOfRequiredElements - 1)/12.0;
 		calculateDemandStandardDeviation();
 	}
 	
