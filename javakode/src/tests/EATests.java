@@ -22,10 +22,10 @@ public class EATests {
 		int firstCrossoverPoint = (int) Math.random() * Graph.numberOfRequiredElements;
 		int secondCrossoverPoint = (int) Math.random() * Graph.numberOfRequiredElements;
 		Genotype[] children = Utilities.crossover(firstParent, secondParent, firstCrossoverPoint, secondCrossoverPoint);
-		firstParent.setFitness();
-		secondParent.setFitness();
-		children[0].setFitness();
-		children[1].setFitness();
+		firstParent.updateFitness();
+		secondParent.updateFitness();
+		children[0].updateFitness();
+		children[1].updateFitness();
 		
 		validateCrossover(firstParent, secondParent, children[0], children[1], firstCrossoverPoint, secondCrossoverPoint);
 		

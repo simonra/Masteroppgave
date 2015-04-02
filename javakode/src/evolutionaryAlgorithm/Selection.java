@@ -52,7 +52,31 @@ public class Selection {
 		}
 		
 		else if(parameterFiles.EvolutionaryAlgorithmParams.PARENT_SELECTION== parameterFiles.EvolutionaryAlgorithmParams.ParentSelection.FitnessProportionateSelection){
-			
+			while(selectedParents.size() < parameterFiles.EvolutionaryAlgorithmParams.NUMBER_OF_CROSSOVER_PAIRS * 2){
+				/*Normalize fitnesses
+				 * iterate upwards till you find the first genotype
+				 * with a higher cdf than the random number. Remove it,
+				 * normalize again, and pick the next one the same way
+				 * untill you have enough parents*/
+				double sumOfFitnesses = 0;
+				for (Genotype genotype : population) {
+					sumOfFitnesses += genotype.getFitness();
+				}
+				double cumulativeDensityOfPrevious = 0;
+				for (Genotype genotype : population) {
+					genotype.setFitness((genotype.getFitness()/sumOfFitnesses) + cumulativeDensityOfPrevious);
+					cumulativeDensityOfPrevious += genotype.getFitness();
+				}
+				Collections.sort(population);
+				double random = Utilities.getRandom().nextDouble();
+				for (int i = 0; i < population.size(); i++) {
+					if(random < population.get(i).fitness){
+						selectedParents.add(population.remove(i));
+						break;
+					}
+				}
+				
+			}
 		}
 		
 		return selectedParents;

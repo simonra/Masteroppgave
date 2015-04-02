@@ -18,19 +18,24 @@ public class Genotype implements Comparable<Genotype>{
 	
 	int[] genome;
 	double fitness = -1.0;
-	double normalizedFitness = -1;
 	
 	public double getFitness(){
 		if(fitness == -1.0){
-			setFitness();
+			updateFitness();
 		}
 		return fitness;
 	}
 	
-	public void setFitness(){
-		if(EvolutionaryAlgorithmParams.NO_SPLIT_ONLY_TOUR){
+	public void updateFitness(){
+		if(EvolutionaryAlgorithmParams.FINTESS_TYPE == EvolutionaryAlgorithmParams.fitnessType.GRAND_TOUR){
 			this.fitness = FitnessModule.tripCost(genome);
+		}else if(EvolutionaryAlgorithmParams.FINTESS_TYPE == EvolutionaryAlgorithmParams.fitnessType.SPLITTED){
+			FitnessModule.split(this);
 		}
+	}
+	
+	public void setFitness(double fitness){
+		this.fitness = fitness;
 	}
 	
 	public void mutate(){
@@ -41,7 +46,7 @@ public class Genotype implements Comparable<Genotype>{
 				for (int j = i; j < genome.length - i; j++) {
 					Utilities.swap(genome, i, j);
 					if(FitnessModule.tripCost(genome) > this.fitness){
-						setFitness();
+						updateFitness();
 						return;
 					}
 					Utilities.swap(genome, i, j);	//Undo the attempt before continuing
@@ -51,7 +56,7 @@ public class Genotype implements Comparable<Genotype>{
 		//No improvement was found or random was selected, flip two randomly
 		int[] randomPoints = Utilities.getRandomCrossoverPoints();
 		Utilities.swap(genome, randomPoints[0], randomPoints[1]);
-		setFitness();
+		updateFitness();
 	}
 	
 	public int[] getGenome(){

@@ -4,10 +4,13 @@ public class EvolutionaryAlgorithmParams {
 	public enum ParentSelection{
 		FitnessProportionateSelection, UniformSelection, TournamentSelection;
 	}
+	public enum fitnessType{
+		GRAND_TOUR, SPLITTED;
+	}
 	
 	public static final int POPULATION_SIZE = 200;
 	public static final int NUMBER_OF_CROSSOVER_PAIRS = 70;
-	public static final boolean NO_SPLIT_ONLY_TOUR = true; 
+	public static fitnessType FINTESS_TYPE = fitnessType.GRAND_TOUR;
 	//mut-chance: always there?
 	public static final boolean PENALIZE_DEMAND_OUT_OF_ORDER = true;
 	public static final boolean RANDOM_MUTATION = false;
