@@ -32,6 +32,27 @@ public class Genotype implements Comparable<Genotype>{
 		}
 	}
 	
+	public void mutate(){
+		if(!EvolutionaryAlgorithmParams.randomMutation){
+			//else swap two and two and evaluate each switch until better
+			for (int i = 0; i < genome.length; i++) {
+				/*j = i because no need to check swaps already checked*/
+				for (int j = i; j < genome.length - i; j++) {
+					Utilities.swap(genome, i, j);
+					if(FitnessModule.tripCost(genome) > this.fitness){
+						setFitness();
+						return;
+					}
+					Utilities.swap(genome, i, j);	//Undo the attempt before continuing
+				}
+			}
+		}
+		//No improvement was found or random was selected, flip two randomly
+		int[] randomPoints = Utilities.getRandomCrossoverPoints();
+		Utilities.swap(genome, randomPoints[0], randomPoints[1]);
+		setFitness();
+	}
+	
 	public int[] getGenome(){
 		return this.genome.clone();
 	}

@@ -5,4 +5,5 @@ public class EvolutionaryAlgorithmParams {
 	public static final boolean noSplitOnlyTour = true; 
 	//mut-chance: always there?
 	public static final boolean penalizeDemandOutOfOrder = true;
+	public static final boolean randomMutation = false;
 }
