@@ -18,7 +18,7 @@ public class FileSaving {
 	static Gson gson;
 	static GsonBuilder gsonBuilder = new GsonBuilder();
 	static TimeZone timeZone = TimeZone.getTimeZone("UTC");
-	static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+	static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss'Z'");
 	
 	public static void writeFloydWarshall(){
 		String contentToBeWritten = getGson().toJson(new FloydWarshall());
