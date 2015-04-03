@@ -6,11 +6,12 @@ import java.util.Random;
 
 public class Utilities {
 	
+	public static void init(){
+		random = new Random();
+	}
+	
 	static Random random;
 	public static Random getRandom(){
-		if(random == null){
-			random = new Random();
-		}
 		return random;
 	}
 	/** Code from method java.util.Collections.shuffle();

@@ -11,6 +11,8 @@ public class EvolutionaryAlgorithmParams {
 		FULL_REPLACEMENT, ELITIST_MIXING, OVERPRODUCTION;
 	}
 	
+	public static final long MAX_GENERATIONS = Long.MAX_VALUE;
+	
 	public static final int POPULATION_SIZE = 200;
 	public static final int NUMBER_OF_CROSSOVER_PAIRS = 70;
 	public static fitnessType FINTESS_TYPE = fitnessType.GRAND_TOUR;

@@ -15,7 +15,7 @@ public class Selection {
 	
 	/**Depending on how the run is configured moves a combination
 	 * of old adults and new children to the next generation and clears children*/
-	public void adultSelection(ArrayList<Genotype> adultPopulation, ArrayList<Genotype> children){
+	public static void adultSelection(ArrayList<Genotype> adultPopulation, ArrayList<Genotype> children){
 
 		if(EvolutionaryAlgorithmParams.ADULT_SELECTION == AdultSelection.FULL_REPLACEMENT){
 			adultPopulation.clear();
@@ -40,7 +40,7 @@ public class Selection {
 
 	}
 
-	public ArrayList<Genotype> selectParents(ArrayList<Genotype> adultPopulation){
+	public static ArrayList<Genotype> selectParents(ArrayList<Genotype> adultPopulation){
 		ArrayList<Genotype> population = new ArrayList<>();
 		population.addAll(adultPopulation);
 		ArrayList<Genotype> selectedParents = new ArrayList<>();
