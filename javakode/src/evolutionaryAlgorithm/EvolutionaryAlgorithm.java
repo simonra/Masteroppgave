@@ -9,7 +9,6 @@ import java.util.Collections;
 
 import parameterFiles.EvolutionaryAlgorithmParams;
 import parameterFiles.EvolutionaryAlgorithmParams.AdultSelection;
-import parameterFiles.EvolutionaryAlgorithmParams.ParentSelection;
 
 public class EvolutionaryAlgorithm {
 
@@ -38,7 +37,9 @@ public class EvolutionaryAlgorithm {
 		long generationNumber = 0;
 		long startTime = System.currentTimeMillis();
 		long timeTaken;
+		long lastGenerationFitnessWasUpdated = 0;
 		Genotype bestIndividual;
+		Genotype copyOfBestIndividual;
 		Genotype currentGenerationsCandidate;
 		
 		ArrayList<Genotype> adults = new ArrayList<>();
@@ -51,7 +52,7 @@ public class EvolutionaryAlgorithm {
 		for (Genotype individual : adults) {
 			individual.calculateFitness();
 		}
-		bestIndividual = Collections.max(adults);
+		bestIndividual = new Genotype(Collections.max(adults));
 		
 		while(true){
 			selectedParents.clear();
@@ -70,8 +71,9 @@ public class EvolutionaryAlgorithm {
 			/*Resets the fitness of the parents before adult selection
 			 * in case we did fitness proportionate scaling or something like that.*/
 			for (Genotype adult : adults) {
-				adult.resetFitness();
+				adult.calculateFitness();
 			}
+			bestIndividual.calculateFitness();
 			
 			Selection.adultSelection(adults, children);
 			
@@ -79,22 +81,28 @@ public class EvolutionaryAlgorithm {
 			
 			currentGenerationsCandidate = Collections.max(adults);
 			if (currentGenerationsCandidate.compareTo(bestIndividual) >  0) {
-				System.out.println("CurGenCanFit:\t" + currentGenerationsCandidate.getFitness() + "\tOldBestFit:\t" + bestIndividual.getFitness());
-				bestIndividual = currentGenerationsCandidate;
+//				System.out.println("CurGenCanFit:\t" + currentGenerationsCandidate.getFitness() + "\tOldBestFit:\t" + bestIndividual.getFitness());
+				bestIndividual = new Genotype(currentGenerationsCandidate);
+				lastGenerationFitnessWasUpdated = generationNumber;
 			}
 			/*Make sure the previous best is always in the set before we update it so that we don't casually discard a good solution*/
 			adults.remove(Collections.min(adults));
-			adults.add(bestIndividual);
+			copyOfBestIndividual = new Genotype(bestIndividual);
+			adults.add(copyOfBestIndividual);
 			generationNumber++;
-			if(generationNumber % 8 == 0){
+			
+			/*Give regular output so human can track interestingness of progress*/
+			if(generationNumber % 16 == 0){
 				System.out.println("Generation:\t" + generationNumber + "\t" + "best fitness:\t" + bestIndividual.getFitness() + "\t" + "Population size:\t" + adults.size());
 				FileSaving.appendRunStats(generationalStats(adults, bestIndividual, generationNumber), startTime);
 			}
+			/*Save regularly so that crashes are less catastrophic*/
 			if(generationNumber % 100 == 0){
 				timeTaken = System.currentTimeMillis() - startTime;
 				FileSaving.writeEntireRun(makeOutputString(adults, bestIndividual, timeTaken, generationNumber), bestIndividual.getFitness(), startTime);
+				System.out.println("Run saved");
 			}
-			if(generationNumber > EvolutionaryAlgorithmParams.MAX_GENERATIONS){
+			if( (generationNumber - lastGenerationFitnessWasUpdated > 50000) || generationNumber > EvolutionaryAlgorithmParams.MAX_GENERATIONS){
 				break;
 			}
 		}
@@ -135,20 +143,22 @@ public class EvolutionaryAlgorithm {
 		output += "EA best genome:\t" + Arrays.toString(bestIndividual.getGenome()) + "\n";
 		output += "EA best genome fitness:\t" + bestIndividual.getFitness() + "\n";
 		output += "\n";
-		output += "EA param:\t" + "MAX_GENERATIONS\t= Long.MAX_VALUE" + "\n";
-		output += "EA param:\t" + "POPULATION_SIZE\t= 200" + "\n";
-		output += "EA param:\t" + "NUMBER_OF_CROSSOVER_PAIRS\t= 70" + "\n";
-		output += "EA param:\t" + "FINTESS_TYPE\t= fitnessType.GRAND_TOUR" + "\n";
-		output += "EA param:\t" + "PENALIZE_DEMAND_OUT_OF_ORDER\t= true" + "\n";
-		output += "EA param:\t" + "RANDOM_MUTATION\t= false" + "\n";
-		output += "EA param:\t" + "PARENT_SELECTION\t= ParentSelection.UNIFORM_SELECTION" + "\n";
-		output += "EA param:\t" + "ADULT_SELECTION\t= AdultSelection.FULL_REPLACEMENT" + "\n";
-		output += "EA param:\t" + "TOURNAMENT_SIZE\t= 5" + "\n";
-		output += "EA param:\t" + "TOURNAMEN_SELECTION_PROBABILITY\t= 0.8" + "\n";
+		output += "EA param:\t" + "MAX_GENERATIONS\t=" + EvolutionaryAlgorithmParams.MAX_GENERATIONS + "\n";
+		output += "EA param:\t" + "MAX_GENERATIONS_WITHOUT_CHANGE\t=" + EvolutionaryAlgorithmParams.MAX_GENERATIONS_WITHOUT_CHANGE + "\n";
+		output += "EA param:\t" + "POPULATION_SIZE\t=" + EvolutionaryAlgorithmParams.POPULATION_SIZE + "\n";
+		output += "EA param:\t" + "NUMBER_OF_CROSSOVER_PAIRS\t=" + EvolutionaryAlgorithmParams.NUMBER_OF_CROSSOVER_PAIRS + "\n";
+		output += "EA param:\t" + "FINTESS_TYPE\t=" + EvolutionaryAlgorithmParams.FINTESS_TYPE + "\n";
+		output += "EA param:\t" + "PENALIZE_DEMAND_OUT_OF_ORDER\t=" + EvolutionaryAlgorithmParams.PENALIZE_DEMAND_OUT_OF_ORDER + "\n";
+		output += "EA param:\t" + "RANDOM_MUTATION\t=" + EvolutionaryAlgorithmParams.RANDOM_MUTATION + "\n";
+		output += "EA param:\t" + "PARENT_SELECTION\t=" + EvolutionaryAlgorithmParams.PARENT_SELECTION + "\n";
+		output += "EA param:\t" + "ADULT_SELECTION\t=" + EvolutionaryAlgorithmParams.ADULT_SELECTION + "\n";
+		output += "EA param:\t" + "TOURNAMENT_SIZE\t=" + EvolutionaryAlgorithmParams.TOURNAMENT_SIZE + "\n";
+		output += "EA param:\t" + "TOURNAMEN_SELECTION_PROBABILITY\t=" + EvolutionaryAlgorithmParams.TOURNAMEN_SELECTION_PROBABILITY + "\n";
 		output += "\n";
 		output += "\n";
-		output += "EA trips from best tour splitted:\n";
 		ArrayList<int[]> trips = FitnessModule.split(bestIndividual,true);
+		output += "EA best genome fitness when using split:\t" + bestIndividual.getFitness() + "\n";
+		output += "EA trips from best tour splitted:\n";
 		for (int i = 0; i < trips.size(); i++) {
 			output += "\tTrip " + i + ":\t" + Arrays.toString(trips.get(i)) + "\n";
 		}

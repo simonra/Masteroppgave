@@ -13,7 +13,8 @@ public class EvolutionaryAlgorithmParams {
 	
 	/**Set to Long.MAX_VALUE for in practice infinite runtime*/
 	public static final long MAX_GENERATIONS = Long.MAX_VALUE;
-//	public static final long MAX_GENERATIONS = 10;
+//	public static final long MAX_GENERATIONS = 1000;
+	public static final long MAX_GENERATIONS_WITHOUT_CHANGE = 50000;
 	
 	public static final int POPULATION_SIZE = 200;
 	public static final int NUMBER_OF_CROSSOVER_PAIRS = 100;

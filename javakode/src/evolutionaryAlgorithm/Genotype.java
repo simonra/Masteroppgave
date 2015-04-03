@@ -9,20 +9,17 @@ public class Genotype implements Comparable<Genotype>{
 		initializeRandomly();
 	}
 	
+	public Genotype(Genotype genotype){
+		this.genome = genotype.getGenome().clone();
+		this.calculateFitness();
+	}
 	public Genotype(int[] genome){
-//		this.genome = new int[genome.length];
-//		System.arraycopy(genome, 0, this.genome, 0, genome.length);
 		this.genome = genome.clone();
 	}
 	
 	/**The indexes of the (required) graph-elements of the trip this genome encodes in the order they are in the tour.*/
 	int[] genome;
 	double fitness = -1.0;
-	/**If the fitness has been forcibly set to a number,
-	 * for an instance due to normalization, this can be
-	 * used to reset the fitness to it's original value
-	 * without having to recalculate it.*/
-	double previousFitness = -1.0;
 	
 	/**Returns the fitness of this genome. If it hasn't
 	 * been calculated already it calculates and sets it
@@ -48,17 +45,7 @@ public class Genotype implements Comparable<Genotype>{
 	/**Sets this genomes fitness to the given value.
 	 * Useful for normalizing fitnesses*/
 	public void setFitness(double fitness){
-		this.previousFitness = this.fitness;
 		this.fitness = fitness;
-	}
-	
-	/**If the fitness has been forcibly set to a number,
-	 * for an instance due to normalization, this resets
-	 * the fitness to it's original value without recalculating it.*/
-	public void resetFitness(){
-		if(this.previousFitness != -1){
-			this.fitness = this.previousFitness;
-		}
 	}
 	
 	public void mutate(){

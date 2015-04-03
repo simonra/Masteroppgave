@@ -92,7 +92,7 @@ public class Selection {
 			while(selectedParents.size() < EvolutionaryAlgorithmParams.NUMBER_OF_CROSSOVER_PAIRS * 2){
 				double cumulativeDensityOfPrevious = 0;
 				for (Genotype genotype : population) {
-					genotype.resetFitness();	//For when we have removed one of its brethren in a previous iteration
+					genotype.calculateFitness();	//For when we have removed one of its brethren in a previous iteration
 					genotype.setFitness((genotype.getFitness()/sumOfFitnesses) + cumulativeDensityOfPrevious);
 					cumulativeDensityOfPrevious += genotype.getFitness();
 				}
@@ -100,7 +100,7 @@ public class Selection {
 				double random = Utilities.getRandom().nextDouble();
 				for (int i = 0; i < population.size(); i++) {
 					if(random < population.get(i).getFitness()){
-						population.get(i).resetFitness();
+						population.get(i).calculateFitness();
 						sumOfFitnesses -= population.get(i).getFitness();
 						selectedParents.add(population.remove(i));
 						break;
