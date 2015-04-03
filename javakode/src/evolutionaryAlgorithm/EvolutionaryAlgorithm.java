@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import parameterFiles.EvolutionaryAlgorithmParams;
+import parameterFiles.EvolutionaryAlgorithmParams.AdultSelection;
 
 public class EvolutionaryAlgorithm {
 
@@ -20,8 +21,14 @@ public class EvolutionaryAlgorithm {
 	 * 		kill some at random
 	 * 		make new population and all that stuff
 	 * 	output logging data*/
-	
+
 	public void run(){
+		if(EvolutionaryAlgorithmParams.ADULT_SELECTION == AdultSelection.FULL_REPLACEMENT && (EvolutionaryAlgorithmParams.NUMBER_OF_CROSSOVER_PAIRS + 0.0) != (EvolutionaryAlgorithmParams.POPULATION_SIZE + 0.0) / 2.0){
+			System.out.println("Full generational replacement requires that there are exactly as many new children as there are spots in the population. " +
+					"Aborting because number of crossoverpair is not equal to half the population size.");
+			return;
+		}
+		
 		long generationNumber = 0;
 		double startTime = System.currentTimeMillis();
 		Genotype bestIndividual;
@@ -31,7 +38,13 @@ public class EvolutionaryAlgorithm {
 		ArrayList<Genotype> selectedParents = new ArrayList<>();
 		ArrayList<Genotype> children = new ArrayList<>();
 		
-		bestIndividual = null;
+		while(adults.size() < EvolutionaryAlgorithmParams.POPULATION_SIZE){
+			adults.add(new Genotype());
+		}
+		for (Genotype individual : adults) {
+			individual.calculateFitness();
+		}
+		bestIndividual = Collections.max(adults);
 		
 		while(true){
 			selectedParents.clear();
@@ -71,6 +84,5 @@ public class EvolutionaryAlgorithm {
 		
 		double timeTaken = 0.0 + System.currentTimeMillis() - startTime;
 	}
-	
-	
+
 }
