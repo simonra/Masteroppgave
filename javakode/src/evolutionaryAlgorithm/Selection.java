@@ -6,8 +6,6 @@ import java.util.Collections;
 public class Selection {
 	
 	/*TODO:
-	 * Parent selection
-	 * 	matching up pairs
 	 * Adult selection
 	 * 	deciding who goes on to the next round
 	 * */
@@ -52,25 +50,28 @@ public class Selection {
 		}
 		
 		else if(parameterFiles.EvolutionaryAlgorithmParams.PARENT_SELECTION== parameterFiles.EvolutionaryAlgorithmParams.ParentSelection.FitnessProportionateSelection){
+			/*Normalize fitnesses
+			 * iterate upwards till you find the first genotype
+			 * with a higher cdf than the random number. Remove it,
+			 * normalize again, and pick the next one the same way
+			 * untill you have enough parents*/
+			double sumOfFitnesses = 0;
+			for (Genotype genotype : population) {
+				sumOfFitnesses += genotype.getFitness();
+			}
 			while(selectedParents.size() < parameterFiles.EvolutionaryAlgorithmParams.NUMBER_OF_CROSSOVER_PAIRS * 2){
-				/*Normalize fitnesses
-				 * iterate upwards till you find the first genotype
-				 * with a higher cdf than the random number. Remove it,
-				 * normalize again, and pick the next one the same way
-				 * untill you have enough parents*/
-				double sumOfFitnesses = 0;
-				for (Genotype genotype : population) {
-					sumOfFitnesses += genotype.getFitness();
-				}
 				double cumulativeDensityOfPrevious = 0;
 				for (Genotype genotype : population) {
+					genotype.resetFitness();	//For when we have removed one of its brethren in a previous iteration
 					genotype.setFitness((genotype.getFitness()/sumOfFitnesses) + cumulativeDensityOfPrevious);
 					cumulativeDensityOfPrevious += genotype.getFitness();
 				}
 				Collections.sort(population);
 				double random = Utilities.getRandom().nextDouble();
 				for (int i = 0; i < population.size(); i++) {
-					if(random < population.get(i).fitness){
+					if(random < population.get(i).getFitness()){
+						population.get(i).resetFitness();
+						sumOfFitnesses -= population.get(i).getFitness();
 						selectedParents.add(population.remove(i));
 						break;
 					}

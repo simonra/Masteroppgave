@@ -15,18 +15,29 @@ public class Genotype implements Comparable<Genotype>{
 		this.genome = genome.clone();
 	}
 	
-	
+	/**The indexes of the (required) graph-elements of the trip this genome encodes in the order they are in the tour.*/
 	int[] genome;
 	double fitness = -1.0;
+	/**If the fitness has been forcibly set to a number,
+	 * for an instance due to normalization, this can be
+	 * used to reset the fitness to it's original value
+	 * without having to recalculate it.*/
+	double previousFitness = -1.0;
 	
+	/**Returns the fitness of this genome. If it hasn't
+	 * been calculated already it calculates and sets it
+	 * before it returns it.*/
 	public double getFitness(){
 		if(fitness == -1.0){
-			updateFitness();
+			calculateFitness();
 		}
 		return fitness;
 	}
 	
-	public void updateFitness(){
+	/**Calculates the fitness of this genome. Chooses how
+	 * to calculate it based on the FITNESS_TYPE variable
+	 * in EA-params*/
+	public void calculateFitness(){
 		if(EvolutionaryAlgorithmParams.FINTESS_TYPE == EvolutionaryAlgorithmParams.fitnessType.GRAND_TOUR){
 			this.fitness = FitnessModule.tripCost(genome);
 		}else if(EvolutionaryAlgorithmParams.FINTESS_TYPE == EvolutionaryAlgorithmParams.fitnessType.SPLITTED){
@@ -34,8 +45,20 @@ public class Genotype implements Comparable<Genotype>{
 		}
 	}
 	
+	/**Sets this genomes fitness to the given value.
+	 * Useful for normalizing fitnesses*/
 	public void setFitness(double fitness){
+		this.previousFitness = this.fitness;
 		this.fitness = fitness;
+	}
+	
+	/**If the fitness has been forcibly set to a number,
+	 * for an instance due to normalization, this resets
+	 * the fitness to it's original value without recalculating it.*/
+	public void resetFitness(){
+		if(this.previousFitness != -1){
+			this.fitness = this.previousFitness;
+		}
 	}
 	
 	public void mutate(){
@@ -46,7 +69,7 @@ public class Genotype implements Comparable<Genotype>{
 				for (int j = i; j < genome.length - i; j++) {
 					Utilities.swap(genome, i, j);
 					if(FitnessModule.tripCost(genome) > this.fitness){
-						updateFitness();
+						calculateFitness();
 						return;
 					}
 					Utilities.swap(genome, i, j);	//Undo the attempt before continuing
@@ -56,7 +79,7 @@ public class Genotype implements Comparable<Genotype>{
 		//No improvement was found or random was selected, flip two randomly
 		int[] randomPoints = Utilities.getRandomCrossoverPoints();
 		Utilities.swap(genome, randomPoints[0], randomPoints[1]);
-		updateFitness();
+		calculateFitness();
 	}
 	
 	public int[] getGenome(){
