@@ -59,7 +59,7 @@ public class FitnessModule {
 		return ListOfTrips;
 	}
 	
-	public static void split(Genotype genotype){
+	public static ArrayList<int[]> split(Genotype genotype, boolean generateTrips){
 		/**Cost of going from depot to each task in the auxiliary graph.
 		 * The +1 is added so that the depot node can be the 0th element
 		 * used in this representation.*/
@@ -117,6 +117,12 @@ public class FitnessModule {
 		 * the auxiliary graph, can be interpreted as the cost of the 
 		 * shortest path through the auxiliary graph.*/ 
 		genotype.fitness = V[V.length - 1];
+		
+		if(generateTrips){
+			return tripsSplittedFromTour(V, P, genotype);
+		}else{
+			return null;
+		}
 	}//End split
 	
 }

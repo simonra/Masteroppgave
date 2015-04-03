@@ -54,11 +54,6 @@ public class GraphTests {
 		FileSaving.writeGraph();
 	}
 	
-	public void saveEntireRun(){
-		System.out.println("Saving all files related to run in one folder");
-		FileSaving.writeEntireRun();
-	}
-	
 	
 	public static void main(String[] args) {
 		GraphTests testingModule = new GraphTests();

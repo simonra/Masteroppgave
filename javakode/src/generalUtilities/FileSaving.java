@@ -3,7 +3,9 @@ package generalUtilities;
 import graph.FloydWarshall;
 import graph.Graph;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -42,21 +44,34 @@ public class FileSaving {
 		}
 	}
 	
-	public static void writeEntireRun(){
+	public static void appendRunStats(String generationStats, long startTime){
 		dateFormat.setTimeZone(timeZone);
 		String path = "./results/runs/"
 				+ Graph.problemName + "/"
-				+ dateFormat.format(new Date()) + "/";
+				+ dateFormat.format(new Date(startTime)) + "/";
 		
 		new File(path).mkdirs();
 		
 		try {
-			PrintWriter writer = new PrintWriter(path + "Graph", "UTF-8");
-			writer.println(getGson().toJson(new Graph()));
+			PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(path + "GenerationalStats.txt", true)));
+			writer.println(generationStats);
 			writer.close();
-			
-			writer = new PrintWriter(path + "FloydWarshall", "UTF-8");
-			writer.println(getGson().toJson(new FloydWarshall()));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void writeEntireRun(String runDataFromEA, double bestFitness, long startTime){
+		dateFormat.setTimeZone(timeZone);
+		String path = "./results/runs/"
+				+ Graph.problemName + "/"
+				+ dateFormat.format(new Date(startTime)) + "/";
+		
+		new File(path).mkdirs();
+		
+		try {
+			PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(path + "Run Stats.txt")) );
+			writer.println(runDataFromEA);
 			writer.close();
 		} catch (Exception e) {
 			e.printStackTrace();

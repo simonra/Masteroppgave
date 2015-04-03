@@ -94,6 +94,7 @@ public class EATests {
 		EATests test = new EATests();
 		Graph.initialize();
 		FloydWarshall.doFloydWarshall();
+		Utilities.init();
 		System.out.println("Number of required elements in graph " + Graph.numberOfRequiredElements);
 		System.out.println("Required element IDs:");
 		System.out.println(FileSaving.getGson().toJson(Graph.getRequiredElementsIDs()));

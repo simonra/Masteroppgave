@@ -11,10 +11,12 @@ public class EvolutionaryAlgorithmParams {
 		FULL_REPLACEMENT, ELITIST_MIXING, OVERPRODUCTION;
 	}
 	
+	/**Set to Long.MAX_VALUE for in practice infinite runtime*/
 	public static final long MAX_GENERATIONS = Long.MAX_VALUE;
+//	public static final long MAX_GENERATIONS = 10;
 	
 	public static final int POPULATION_SIZE = 200;
-	public static final int NUMBER_OF_CROSSOVER_PAIRS = 70;
+	public static final int NUMBER_OF_CROSSOVER_PAIRS = 100;
 	public static fitnessType FINTESS_TYPE = fitnessType.GRAND_TOUR;
 	//mut-chance: always there?
 	public static final boolean PENALIZE_DEMAND_OUT_OF_ORDER = true;

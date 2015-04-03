@@ -41,7 +41,7 @@ public class Genotype implements Comparable<Genotype>{
 		if(EvolutionaryAlgorithmParams.FINTESS_TYPE == EvolutionaryAlgorithmParams.fitnessType.GRAND_TOUR){
 			this.fitness = FitnessModule.tripCost(genome);
 		}else if(EvolutionaryAlgorithmParams.FINTESS_TYPE == EvolutionaryAlgorithmParams.fitnessType.SPLITTED){
-			FitnessModule.split(this);
+			FitnessModule.split(this, false);
 		}
 	}
 	
