@@ -2,6 +2,8 @@ package graph;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+
+import parameterFiles.GraphParams;
 //import java.util.Arrays;
 
 public class Graph {
@@ -125,7 +127,7 @@ public class Graph {
 		sumOfDemand = 0;
 		sumOfServicingCostsOfRequiredElements = 0;
 		try {
-			BufferedReader bufferedReader = new BufferedReader(new FileReader(parameterFiles.GraphParams.GRAPH_FILE_PATH));
+			BufferedReader bufferedReader = new BufferedReader(new FileReader(GraphParams.GRAPH_FILE_PATH));
 			//Read parameters of graph:
 			String line = bufferedReader.readLine();
 			problemName = line.replaceAll("Name:\t\t", "");

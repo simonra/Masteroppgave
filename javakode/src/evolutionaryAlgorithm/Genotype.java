@@ -63,12 +63,11 @@ public class Genotype implements Comparable<Genotype>{
 	
 	public void mutate(){
 		if(!EvolutionaryAlgorithmParams.RANDOM_MUTATION){
-			//else swap two and two and evaluate each switch until better
 			for (int i = 0; i < genome.length; i++) {
 				/*j = i because no need to check swaps already checked*/
 				for (int j = i; j < genome.length - i; j++) {
 					Utilities.swap(genome, i, j);
-					if(FitnessModule.tripCost(genome) > this.fitness){
+					if(FitnessModule.tripCost(genome) < this.fitness){	//Less fitness is better
 						calculateFitness();
 						return;
 					}
@@ -92,12 +91,16 @@ public class Genotype implements Comparable<Genotype>{
 		Utilities.shuffle(genome);
 	}
 
+
 	@Override
 	public int compareTo(Genotype otherGenotype) {
+		/*Pushes lower fitnesses further to the right,
+		 * because in some other places (selection) we
+		 * rely on that the best values are found at the far right.*/
 		if(this.fitness < otherGenotype.fitness){
-			return -1;
-		}else if(this.fitness > otherGenotype.fitness){
 			return 1;
+		}else if(this.fitness > otherGenotype.fitness){
+			return -1;
 		}else{
 			return 0;			
 		}
