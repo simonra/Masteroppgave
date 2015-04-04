@@ -102,7 +102,7 @@ public class EvolutionaryAlgorithm {
 				FileSaving.writeEntireRun(makeOutputString(adults, bestIndividual, timeTaken, generationNumber), bestIndividual.getFitness(), startTime);
 				System.out.println("Run saved");
 			}
-			if( (generationNumber - lastGenerationFitnessWasUpdated > 50000) || generationNumber > EvolutionaryAlgorithmParams.MAX_GENERATIONS){
+			if( (generationNumber - lastGenerationFitnessWasUpdated > EvolutionaryAlgorithmParams.MAX_GENERATIONS_WITHOUT_CHANGE) || generationNumber > EvolutionaryAlgorithmParams.MAX_GENERATIONS){
 				break;
 			}
 		}
