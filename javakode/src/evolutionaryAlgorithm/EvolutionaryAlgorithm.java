@@ -94,10 +94,10 @@ public class EvolutionaryAlgorithm {
 			/*Give regular output so human can track interestingness of progress*/
 			if(generationNumber % 16 == 0){
 				System.out.println("Generation:\t" + generationNumber + "\t" + "best fitness:\t" + bestIndividual.getFitness() + "\t" + "Population size:\t" + adults.size());
-				FileSaving.appendRunStats(generationalStats(adults, bestIndividual, generationNumber), startTime);
+				FileSaving.appendGenerationStats(generationalStats(adults, bestIndividual, generationNumber), startTime); //Not really needed outside of testing either?
 			}
 			/*Save regularly so that crashes are less catastrophic*/
-			if(generationNumber % 100 == 0){
+			if(generationNumber % EvolutionaryAlgorithmParams.GENERATION_LOGGING_FREQUENCY == 0){
 				timeTaken = System.currentTimeMillis() - startTime;
 				FileSaving.writeEntireRun(makeOutputString(adults, bestIndividual, timeTaken, generationNumber), bestIndividual.getFitness(), startTime);
 				System.out.println("Run saved");
@@ -137,23 +137,23 @@ public class EvolutionaryAlgorithm {
 	
 	String makeOutputString(ArrayList<Genotype> population, Genotype bestIndividual, double timeTaken, long numberOfGenerations){
 		String output = "";
-		output += "Instance name:\t" + Graph.problemName + "\n";
+		output += "Instance name:\t" 			+ Graph.problemName + "\n";
 		output += "EA number of generations:\t" + numberOfGenerations + "\n";
-		output += "EA time used:\t" + (timeTaken + 0.0)/1000.0 + "s" + "\n";
-		output += "EA best genome:\t" + Arrays.toString(bestIndividual.getGenome()) + "\n";
-		output += "EA best genome fitness:\t" + bestIndividual.getFitness() + "\n";
+		output += "EA time used:\t" 			+ (timeTaken + 0.0)/1000.0 + "s" + "\n";
+		output += "EA best genome:\t" 			+ Arrays.toString(bestIndividual.getGenome()) + "\n";
+		output += "EA best genome fitness:\t" 	+ bestIndividual.getFitness() + "\n";
 		output += "\n";
-		output += "EA param:\t" + "MAX_GENERATIONS\t=" + EvolutionaryAlgorithmParams.MAX_GENERATIONS + "\n";
-		output += "EA param:\t" + "MAX_GENERATIONS_WITHOUT_CHANGE\t=" + EvolutionaryAlgorithmParams.MAX_GENERATIONS_WITHOUT_CHANGE + "\n";
-		output += "EA param:\t" + "POPULATION_SIZE\t=" + EvolutionaryAlgorithmParams.POPULATION_SIZE + "\n";
-		output += "EA param:\t" + "NUMBER_OF_CROSSOVER_PAIRS\t=" + EvolutionaryAlgorithmParams.NUMBER_OF_CROSSOVER_PAIRS + "\n";
-		output += "EA param:\t" + "FINTESS_TYPE\t=" + EvolutionaryAlgorithmParams.FINTESS_TYPE + "\n";
-		output += "EA param:\t" + "PENALIZE_DEMAND_OUT_OF_ORDER\t=" + EvolutionaryAlgorithmParams.PENALIZE_DEMAND_OUT_OF_ORDER + "\n";
-		output += "EA param:\t" + "RANDOM_MUTATION\t=" + EvolutionaryAlgorithmParams.RANDOM_MUTATION + "\n";
-		output += "EA param:\t" + "PARENT_SELECTION\t=" + EvolutionaryAlgorithmParams.PARENT_SELECTION + "\n";
-		output += "EA param:\t" + "ADULT_SELECTION\t=" + EvolutionaryAlgorithmParams.ADULT_SELECTION + "\n";
-		output += "EA param:\t" + "TOURNAMENT_SIZE\t=" + EvolutionaryAlgorithmParams.TOURNAMENT_SIZE + "\n";
-		output += "EA param:\t" + "TOURNAMEN_SELECTION_PROBABILITY\t=" + EvolutionaryAlgorithmParams.TOURNAMEN_SELECTION_PROBABILITY + "\n";
+		output += "EA param: " + "MAX_GENERATIONS\t= " 					+ EvolutionaryAlgorithmParams.MAX_GENERATIONS + "\n";
+		output += "EA param: " + "MAX_GENERATIONS_WITHOUT_CHANGE\t= " 	+ EvolutionaryAlgorithmParams.MAX_GENERATIONS_WITHOUT_CHANGE + "\n";
+		output += "EA param: " + "POPULATION_SIZE\t= " 					+ EvolutionaryAlgorithmParams.POPULATION_SIZE + "\n";
+		output += "EA param: " + "NUMBER_OF_CROSSOVER_PAIRS\t= " 		+ EvolutionaryAlgorithmParams.NUMBER_OF_CROSSOVER_PAIRS + "\n";
+		output += "EA param: " + "FINTESS_TYPE\t= " 					+ EvolutionaryAlgorithmParams.FINTESS_TYPE + "\n";
+		output += "EA param: " + "PENALIZE_DEMAND_OUT_OF_ORDER\t= " 	+ EvolutionaryAlgorithmParams.PENALIZE_DEMAND_OUT_OF_ORDER + "\n";
+		output += "EA param: " + "RANDOM_MUTATION\t= " 					+ EvolutionaryAlgorithmParams.RANDOM_MUTATION + "\n";
+		output += "EA param: " + "PARENT_SELECTION\t= " 				+ EvolutionaryAlgorithmParams.PARENT_SELECTION + "\n";
+		output += "EA param: " + "ADULT_SELECTION\t= " 					+ EvolutionaryAlgorithmParams.ADULT_SELECTION + "\n";
+		output += "EA param: " + "TOURNAMENT_SIZE\t= " 					+ EvolutionaryAlgorithmParams.TOURNAMENT_SIZE + "\n";
+		output += "EA param: " + "TOURNAMEN_SELECTION_PROBABILITY\t= " 	+ EvolutionaryAlgorithmParams.TOURNAMEN_SELECTION_PROBABILITY + "\n";
 		output += "\n";
 		output += "\n";
 		ArrayList<int[]> trips = FitnessModule.split(bestIndividual,true);

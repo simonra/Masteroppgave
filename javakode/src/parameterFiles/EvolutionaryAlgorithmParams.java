@@ -31,4 +31,7 @@ public class EvolutionaryAlgorithmParams {
 	public static final int TOURNAMENT_SIZE = 5;
 	/**Likelyhood of best best individual being chosen in a tournament selection*/
 	public static final double TOURNAMEN_SELECTION_PROBABILITY = 0.8;
+	
+	/**Given in number of generations between each time to log*/
+	public static final int GENERATION_LOGGING_FREQUENCY = 100;
 }

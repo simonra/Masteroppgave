@@ -44,7 +44,7 @@ public class FileSaving {
 		}
 	}
 	
-	public static void appendRunStats(String generationStats, long startTime){
+	public static void appendGenerationStats(String generationStats, long startTime){
 		dateFormat.setTimeZone(timeZone);
 		String path = "./results/runs/"
 				+ Graph.problemName + "/"
