@@ -1,0 +1,19 @@
+\chapter{Mathodology and Implementation}
+
+\subsection{Architectural Overview}
+Main components. NVDB and EA, written in python/java, overall workflow.
+
+\subsection{NVDB}
+
+\subsection{Internal Data Model}
+Reads graph of standard format -> Finds all pairs shortest paths using floyd warshall (mention the neat trick of including destination cost)
+
+\subsection{Evolutionary Algorithm}
+input: tweakable param files -> pseudocode presented as text -> mention about the memetic part
+
+\subsection{Heurisitc}
+What we implemented 
+-> arguing for why these are good and importat things 
+-> mentioning that this doesn't solve the multi vehicle split that is oh so standard in the literature (because not relevant for our 1 car use case) 
+	-> It could possibly be used to solve some other of trondheims probles though 
+-> mentioning what we don't take into consideration, and why one might want to look into that (ex impact of weather, slope of roads, curvature, etc)
