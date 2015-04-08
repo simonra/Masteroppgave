@@ -142,6 +142,7 @@ public class EvolutionaryAlgorithm {
 		output += "EA time used:\t" 			+ (timeTaken + 0.0)/1000.0 + "s" + "\n";
 		output += "EA best genome:\t" 			+ Arrays.toString(bestIndividual.getGenome()) + "\n";
 		output += "EA best genome fitness:\t" 	+ bestIndividual.getFitness() + "\n";
+		output += "EA trip genome encodes:\t"	+ bestIndividual.getEntireTripGenomeEncodes().toString() + "\n";
 		output += "\n";
 		output += "EA param: " + "MAX_GENERATIONS\t= " 					+ EvolutionaryAlgorithmParams.MAX_GENERATIONS + "\n";
 		output += "EA param: " + "MAX_GENERATIONS_WITHOUT_CHANGE\t= " 	+ EvolutionaryAlgorithmParams.MAX_GENERATIONS_WITHOUT_CHANGE + "\n";

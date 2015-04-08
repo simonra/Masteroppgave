@@ -1,0 +1,27 @@
+Instance name:	mggdb_0.25_1
+EA number of generations:	61972
+EA time used:	59.703s
+EA best genome:	[21, 5, 6, 17, 23, 2, 22, 11, 12, 19, 27, 14, 26, 25, 28, 20, 13, 4, 18, 24, 8]
+EA best genome fitness:	133.0
+
+EA param: MAX_GENERATIONS	= 9223372036854775807
+EA param: MAX_GENERATIONS_WITHOUT_CHANGE	= 50000
+EA param: POPULATION_SIZE	= 200
+EA param: NUMBER_OF_CROSSOVER_PAIRS	= 100
+EA param: FINTESS_TYPE	= SPLITTED
+EA param: PENALIZE_DEMAND_OUT_OF_ORDER	= true
+EA param: RANDOM_MUTATION	= false
+EA param: PARENT_SELECTION	= UNIFORM_SELECTION
+EA param: ADULT_SELECTION	= FULL_REPLACEMENT
+EA param: TOURNAMENT_SIZE	= 5
+EA param: TOURNAMEN_SELECTION_PROBABILITY	= 0.8
+
+
+EA best genome fitness when using split:	133.0
+EA trips from best tour splitted:
+	Trip 0:	[5, 6, 17, 23]
+	Trip 1:	[22, 11, 12, 19]
+	Trip 2:	[14, 26, 25, 28]
+	Trip 3:	[13, 4, 18]
+	Trip 4:	[8]
+

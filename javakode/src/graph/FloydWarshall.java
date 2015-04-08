@@ -1,5 +1,7 @@
 package graph;
 
+import java.util.ArrayList;
+
 public class FloydWarshall {
 
 	static double[][] allPairShortestDistances;
@@ -10,6 +12,21 @@ public class FloydWarshall {
 	 * Is used to make accessing the all pairs shortest path matrix more neat.*/
 	public static double distance(int originElementID, int destinationElementID){
 		return allPairShortestDistances[originElementID][destinationElementID];
+	}
+	
+	/**Returns an array with the elements on the shortest path from the 
+	 * first given element to the second given element (excluding both a and b).*/
+	public static ArrayList<Integer> shortestPathFromAtoB(int a, int b){
+		ArrayList<Integer> path = new ArrayList<>();
+		int successor = successors[a][b];
+		if(successor == b){
+			return path;
+		}
+		do {
+			path.add(successor);
+			successor = successors[successor][b];
+		} while(successor != b );
+		return path;
 	}
 
 	public static double[][] doFloydWarshall() {

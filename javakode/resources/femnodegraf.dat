@@ -1,4 +1,4 @@
-Name:		mggdb_0.25_1
+Name:		femnodegraf
 Optimal value:	280
 #Vehicles:	5
 Capacity:	5
@@ -7,19 +7,19 @@ Depot Node:	1
 #Edges:		5
 #Arcs:		2
 #Required N:	0
-#Required E:	0
+#Required E:	5
 #Required A:	0
 
 ReN.	DEMAND	S. COST
 
 ReE.	FROM N.	TO N.	T. COST	DEMAND	S. COST
+E1	1	5	1	1	1
+E2	1	4	2	1	1
+E3	2	5	3	1	1
+E4	2	3	4	1	1
+E5	3	4	5	1	1
 
 EDGE	FROM N.	TO N.	T. COST
-NrE1	1	5	1
-NrE2	1	4	2
-NrE3	2	5	3
-NrE4	2	3	4
-NrE5	3	4	5
 
 ReA.	FROM N.	TO N.	T. COST	DEMAND	S. COST
 

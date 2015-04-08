@@ -1,6 +1,9 @@
 package evolutionaryAlgorithm;
 
+import java.util.ArrayList;
+
 import parameterFiles.EvolutionaryAlgorithmParams;
+import graph.FloydWarshall;
 import graph.Graph;
 
 public class Genotype implements Comparable<Genotype>{
@@ -70,6 +73,20 @@ public class Genotype implements Comparable<Genotype>{
 	
 	public int[] getGenome(){
 		return this.genome.clone();
+	}
+	
+	public ArrayList<Integer> getEntireTripGenomeEncodes(){
+		ArrayList<Integer> trip = new ArrayList<>();
+		trip.add(Graph.getDeoptNodeIndex());
+		trip.addAll(FloydWarshall.shortestPathFromAtoB(Graph.getDeoptNodeIndex(), genome[0]));
+		for (int i = 0; i < genome.length - 1; i++) {
+			trip.add(genome[i]);
+			trip.addAll(FloydWarshall.shortestPathFromAtoB(genome[i], genome[i + 1]));
+		}
+		trip.add(genome[genome.length - 1]);
+		trip.addAll(FloydWarshall.shortestPathFromAtoB(genome[genome.length - 1], Graph.getDeoptNodeIndex()));
+		trip.add(Graph.getDeoptNodeIndex());
+		return trip;
 	}
 	
 

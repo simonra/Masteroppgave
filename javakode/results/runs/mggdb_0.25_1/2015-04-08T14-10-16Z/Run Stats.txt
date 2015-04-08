@@ -1,0 +1,29 @@
+Instance name:	mggdb_0.25_1
+EA number of generations:	86196
+EA time used:	18.197s
+EA best genome:	[24, 8, 20, 2, 13, 4, 18, 25, 6, 21, 12, 5, 22, 11, 19, 27, 14, 26, 28, 17, 23]
+EA best genome fitness:	96.32789115646258
+EA trip genome encodes:	[24, 8, 8, 46, 1, 20, 2, 2, 13, 13, 4, 4, 18, 18, 10, 45, 7, 25, 9, 47, 7, 39, 6, 21, 21, 11, 12, 5, 5, 34, 4, 22, 11, 11, 37, 0, 19, 1, 27, 3, 14, 0, 26, 9, 28, 10, 45, 7, 39, 6, 17, 7, 23]
+
+EA param: MAX_GENERATIONS	= 9223372036854775807
+EA param: MAX_GENERATIONS_WITHOUT_CHANGE	= 50000
+EA param: POPULATION_SIZE	= 200
+EA param: NUMBER_OF_CROSSOVER_PAIRS	= 100
+EA param: FINTESS_TYPE	= GRAND_TOUR
+EA param: PENALIZE_DEMAND_OUT_OF_ORDER	= true
+EA param: RANDOM_MUTATION	= false
+EA param: PARENT_SELECTION	= UNIFORM_SELECTION
+EA param: ADULT_SELECTION	= FULL_REPLACEMENT
+EA param: TOURNAMENT_SIZE	= 5
+EA param: TOURNAMEN_SELECTION_PROBABILITY	= 0.8
+
+
+EA best genome fitness when using split:	169.0
+EA trips from best tour splitted:
+	Trip 0:	[8]
+	Trip 1:	[2, 13, 4, 18]
+	Trip 2:	[6, 21]
+	Trip 3:	[5, 22, 11, 19]
+	Trip 4:	[]
+	Trip 5:	[26, 28, 17, 23]
+

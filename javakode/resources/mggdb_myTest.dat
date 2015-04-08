@@ -7,21 +7,21 @@ Depot Node:	1
 #Edges:		2
 #Arcs:		3
 #Required N:	0
-#Required E:	0
-#Required A:	0
+#Required E:	1
+#Required A:	1
 
 ReN.	DEMAND	S. COST
 
 ReE.	FROM N.	TO N.	T. COST	DEMAND	S. COST
+E1	1	2	6	1	1
 
 EDGE	FROM N.	TO N.	T. COST
-NrE1	1	2	6
 NrE2	1	3	40
 
 ReA.	FROM N.	TO N.	T. COST	DEMAND	S. COST
+A1	1	2	1	1	1
 
 ARC	FROM N.	TO N.	T. COST
-NrA1	1	2	1
 NrA2	2	3	4
 NrA3	3	2	8
 
