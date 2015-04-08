@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8 />
+    <title>Leaflet testing</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.6/mapbox.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.6/mapbox.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
+<body>
+<div id='map'></div>
+    <script>
+        L.mapbox.accessToken = 'pk.eyJ1IjoidGhyYXAiLCJhIjoidElmM085MCJ9.9DDe_Z6n7Qu8aok6oleAKA';
+        // Replace 'examples.map-i87786ca' with your map id.
+        var mapboxTiles = L.tileLayer('https://{s}.tiles.mapbox.com/v4/thrap.lm65o0j7/{z}/{x}/{y}.png?access_token=' + L.mapbox.accessToken, {
+            attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">Terms &amp; Feedback</a>'
+        });
+
+        var map = L.map('map')
+                .addLayer(mapboxTiles)
+                .setView([42.3610, -71.0587], 15);
+
+        var parse = function(str) {
+            return str.replace("LINESTRING (","").replace(")","").split(", ").map(function(str) {
+                console.log(str.split(" "));
+                return {lon: str.split(" ")[0], lat: str.split(" ")[1]}
+            })
+        }
+        parse("LINESTRING (10.431657362666602 63.42540222646185, 10.431715702133568 63.42546433983775)")
+
+        var lineString = "LINESTRING (10.430722799730832 63.42471769473732, 10.430770011365333 63.42474888146889, 10.43085445088586 63.42481092821977, 10.43093618230112 63.424877388552694, 10.431040022432713 63.4249562444108, 10.43116654166171 63.4250439225027, 10.431253689942276 63.42510156413199, 10.431332424402179 63.42516163215306, 10.43143198776446 63.42524215089372, 10.431522279471634 63.42530528459697, 10.431657362666602 63.42540222646185)"
+
+        var polyline = L.polyline(parse(lineString), {color: 'red'}).addTo(map);
+
+        // zoom the map to the polyline
+        map.fitBounds(polyline.getBounds());
+    </script>
+</body>
+</html>
