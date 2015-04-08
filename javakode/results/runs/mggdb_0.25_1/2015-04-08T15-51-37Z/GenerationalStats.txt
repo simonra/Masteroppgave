@@ -1,0 +1,6 @@
+Generation:	16	Best fitness:	210.29931972789115	Average fitness:	343.27474829931975	Fitness standard deviation:	36.05811126614416
+Generation:	32	Best fitness:	210.29931972789115	Average fitness:	341.6247482993198	Fitness standard deviation:	36.021266710494395
+Generation:	48	Best fitness:	207.29931972789115	Average fitness:	346.49060544217724	Fitness standard deviation:	33.32387489994131
+Generation:	64	Best fitness:	207.29931972789115	Average fitness:	339.52003401360554	Fitness standard deviation:	34.87574327347808
+Generation:	80	Best fitness:	194.69931972789115	Average fitness:	344.24660544217693	Fitness standard deviation:	35.78816690739884
+Generation:	96	Best fitness:	194.69931972789115	Average fitness:	339.5407482993199	Fitness standard deviation:	34.86756703029687
