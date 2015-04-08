@@ -1,5 +1,6 @@
 #General ignores:
 *.swp
+.idea/
 
 #Java ignores:
 javakode/bin/*
