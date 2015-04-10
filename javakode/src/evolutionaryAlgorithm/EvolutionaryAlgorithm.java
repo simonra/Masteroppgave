@@ -140,9 +140,9 @@ public class EvolutionaryAlgorithm {
 		output += "Instance name:\t" 			+ Graph.problemName + "\n";
 		output += "EA number of generations:\t" + numberOfGenerations + "\n";
 		output += "EA time used:\t" 			+ (timeTaken + 0.0)/1000.0 + "s" + "\n";
-		output += "EA best genome:\t" 			+ Arrays.toString(bestIndividual.getGenome()) + "\n";
+		output += "EA best genome:\t" 			+ bestIndividual.getFormatedGenotypeCommaSeparated() + "\n";
 		output += "EA best genome fitness:\t" 	+ bestIndividual.getFitness() + "\n";
-		output += "EA trip genome encodes:\t"	+ bestIndividual.getEntireTripGenomeEncodes().toString() + "\n";
+		output += "EA trip genome encodes:\t"	+ bestIndividual.getEntireTripGenomeEncodes() + "\n";
 		output += "\n";
 		output += "EA param: " + "MAX_GENERATIONS\t= " 					+ EvolutionaryAlgorithmParams.MAX_GENERATIONS + "\n";
 		output += "EA param: " + "MAX_GENERATIONS_WITHOUT_CHANGE\t= " 	+ EvolutionaryAlgorithmParams.MAX_GENERATIONS_WITHOUT_CHANGE + "\n";
@@ -161,7 +161,12 @@ public class EvolutionaryAlgorithm {
 		output += "EA best genome fitness when using split:\t" + bestIndividual.getFitness() + "\n";
 		output += "EA trips from best tour splitted:\n";
 		for (int i = 0; i < trips.size(); i++) {
-			output += "\tTrip " + i + ":\t" + Arrays.toString(trips.get(i)) + "\n";
+			output += "\tTrip " + i + ":\t";
+			for (int elementID : trips.get(i)) {
+				output += Graph.getElementByID(elementID).getName();
+				output += ",";
+			}
+			output += "\n";
 		}
 		return output;
 	}

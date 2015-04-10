@@ -75,7 +75,7 @@ public class Genotype implements Comparable<Genotype>{
 		return this.genome.clone();
 	}
 	
-	public ArrayList<Integer> getEntireTripGenomeEncodes(){
+	public String getEntireTripGenomeEncodes(){
 		ArrayList<Integer> trip = new ArrayList<>();
 		trip.add(Graph.getDeoptNodeIndex());
 		trip.addAll(FloydWarshall.shortestPathFromAtoB(Graph.getDeoptNodeIndex(), genome[0]));
@@ -86,13 +86,37 @@ public class Genotype implements Comparable<Genotype>{
 		trip.add(genome[genome.length - 1]);
 		trip.addAll(FloydWarshall.shortestPathFromAtoB(genome[genome.length - 1], Graph.getDeoptNodeIndex()));
 		trip.add(Graph.getDeoptNodeIndex());
-		return trip;
+		
+		String output = "";
+		for (Integer elementID : trip) {
+			output += Graph.getElementByID(elementID).getName();
+			output += ",";
+		}
+		return output;
 	}
 	
 
 	void initializeRandomly(){
 		genome = Graph.getRequiredElementsIDs().clone();
 		Utilities.shuffle(genome);
+	}
+	
+	public String getFormatedGenotypeTabSeparated(){
+		String output = "";
+		for (int elementID : genome) {
+			output += Graph.getElementByID(elementID).getName();
+			output += "\t";
+		}
+		return output;
+	}
+	
+	public String getFormatedGenotypeCommaSeparated(){
+		String output = "";
+		for (int elementID : genome) {
+			output += Graph.getElementByID(elementID).getName();
+			output += ",";
+		}
+		return output;
 	}
 
 
