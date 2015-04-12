@@ -2,4 +2,13 @@
 \addcontentsline{toc}{chapter}{Appendix}
 $\\[0.5cm]$
 
-\noindent Write your appendix here...
+\section{Implementation Details}
+
+\subsection{All Pairs Shortest Path} % (fold)
+\label{sub:all_pairs_shortest_path}
+When we a route parts of our fitness evaluation rely on the distance between elements in the graph. To make the process of aquiring the distances fast and legible in the code we chose to use an all pairs shortes path matrix (SOURCE), and to construct it we relied on the Floyd-Warshall algorithm (SOURCE). In a lot of the literature Dijkstras algorithm (SOURCE) is used iteratively for this purpose (SOURCES). However, because it has the same asympthotical running time (SOURCE) and it has a much more compact syntax, we chose to work with the Floyd-Warshall algorithm.
+\\\\
+Due to that our graph represents a NEARP, and we therefore wanted the all pairs shortest path matrix to hold the shortest path betwee all the elements in the graph (not just nodes, but nodes, arcs, and edges), we ran into some challenges. Usually one would look at the distance between nodes, and the way Floyd-Warshall constructs the matrix, nodes with no distance are effectively treated as the same node. When we interpret going onto an arc as having no cost, and going of an arc to the node it is connected to as not having any cost, the algorithm interprets going from the first to the second node as having no cost, and them effectively being the same node for calculating further costs/distances.
+\\\\
+Essentially we ended up in a situation where there would be no cost going to a neighbor, but passing through it to the next neighbor would have a cost.
+% subsection all_pairs_shortest_path (end)
