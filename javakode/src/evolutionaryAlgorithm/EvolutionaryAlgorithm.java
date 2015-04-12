@@ -130,7 +130,8 @@ public class EvolutionaryAlgorithm {
 		output += "Generation:\t" + generationNumber + "\t" + 
 				"Best fitness:\t" + bestIndividual.fitness  + "\t" +
 				"Average fitness:\t" + averageFitness + "\t" +
-				"Fitness standard deviation:\t" + fitnessStandardDev;
+				"Fitness standard deviation:\t" + fitnessStandardDev + "\t" +
+				"Best genome:\t" + bestIndividual.getFormatedGenotypeTabSeparated();
 		
 		return output;
 	}
