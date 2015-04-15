@@ -78,6 +78,14 @@ At this point test random mutation?
 \label{sec:experimental_setup}
 % This section should be about how we did the experiments, ie. what parameters we used and so forth
 The areas we chose for collecting the data was **TODO**. For verification we used the area **TODO**.
+
+For the tuning, we chose to use the mggdb_0.25_1 data set. The main reason for this is that its size is rather small, so it was feasible to many iterations on it. Furthermore, since we assume the parameters to have a similar comparative performance relative to eachother, there is no reason to run it on one of our final data sets other than to get an indication of the performance versus time. Because this experiment is about finding what parameters work best, and we can test how fast the EA performs separately, this seems like a fair approach.
+
+To make the results easier to compare, we ran the system for X generations each time, but without stopping when the algorithm seemed stuck in a local optimum. This has the advantage of giving us the same scale on all the resulting graphs.
+
+All the genotypes get initialized randomly.
+
+Will be plotting number of generations vs fitness. Averages of the best of the runs, and averages of averages. 
 % section experimental_setup (end)
 
 \section{Results} % (fold)

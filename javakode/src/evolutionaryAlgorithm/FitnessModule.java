@@ -48,9 +48,9 @@ public class FitnessModule {
 		int i;
 		do {
 			i = predecessors[j];
-			int[] currentTrip = new int[j - (i + 1)];	//Trip T in the papers
-			for (int k = i + 1; k < j; k++) {
-				currentTrip[k-(i + 1)] = genotype.genome[k];
+			int[] currentTrip = new int[j - i];	//Trip T in the papers
+			for (int k = i + 1; k <=  j; k++) {
+				currentTrip[k-(i + 1)] = genotype.genome[k - 1];
 			}
 			ListOfTrips.add(0, currentTrip);
 			j = i;
