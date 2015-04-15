@@ -145,6 +145,8 @@ public class EvolutionaryAlgorithm {
 		output += "EA best genome fitness:\t" 	+ bestIndividual.getFitness() + "\n";
 		output += "EA trip genome encodes:\t"	+ bestIndividual.getEntireTripGenomeEncodes() + "\n";
 		output += "\n";
+		output += "Random seed used:\t" 		+ Utilities.getSeed() + "\n";
+		output += "\n";
 		output += "EA param: " + "MAX_GENERATIONS\t= " 					+ EvolutionaryAlgorithmParams.MAX_GENERATIONS + "\n";
 		output += "EA param: " + "MAX_GENERATIONS_WITHOUT_CHANGE\t= " 	+ EvolutionaryAlgorithmParams.MAX_GENERATIONS_WITHOUT_CHANGE + "\n";
 		output += "EA param: " + "POPULATION_SIZE\t= " 					+ EvolutionaryAlgorithmParams.POPULATION_SIZE + "\n";

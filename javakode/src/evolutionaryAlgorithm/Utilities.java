@@ -7,13 +7,21 @@ import java.util.Random;
 public class Utilities {
 	
 	public static void init(){
-		random = new Random();
+		seed = System.currentTimeMillis();
+		random = new Random(seed);
 	}
 	
+	static long seed;
 	static Random random;
+	
 	public static Random getRandom(){
 		return random;
 	}
+	
+	public static long getSeed(){
+		return seed;
+	}
+	
 	/** Code from method java.util.Collections.shuffle();
 	 * as reproduced on http://stackoverflow.com/a/19333201*/
 	public static void shuffle(int[] array){
