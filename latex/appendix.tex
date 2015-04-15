@@ -56,12 +56,27 @@ Initially these were the parameters for EA that the user could set.
 
 \section{Experimental Plan} % (fold)
 \label{sec:experimental_plan}
-To keep the results as relevant as possible for the final use case we found that running the tests on actual data from NVDB would be prudent.
+% This should be the section about what we want to do, and why we want to do it
+To keep the results as relevant as possible for the final use case we found that running the tests on actual data from NVDB would be prudent. Vill en sone være represenattiv for alle soner? Bruke det til å agumentere for at vi like gjerne kan bruke et annet datasett så lenge inputformatet er ish det samme.
 
+Experiments:
+For each parameter, we wanted to do 10 runs to determine average values for each configuration with several random seeds. 
+
+vary number of individuals: start with a low, medium, and high number of individuals in terms of the genome size (eg. populations the size of 5\%, 25\%, and 50\% of the genome length). Binary search from there to find something good.
+
+Max generations: so long that you get stuck before you reach it, but don't have to wait forever for it to terminate. For testing purposes: run it for indefinitely a couple of times, and see how long it takes before it has been stuck for a booringly long time. Take a number of generations that is higher than the time it spends stuck in local optima up to that point, and use that.
+Keep in mind that this will vary with input size, so it really has to be manually tuned for each input. Is more for the sake of the developer/tweaker.
+
+Generational replacement: After having found a population size, run each way of doing it for the same number of times as when finding number of individuals. Treat combinations of overproduction and number of children as separate configurations in these tests.
+
+Parent selection: Same as generational replacement. Treat combinations of tutnament selection, size, and probability as separate entries here.
+
+At this point test random mutation?
 % section experimental_plan (end)
 
 \section{Experimental Setup} % (fold)
 \label{sec:experimental_setup}
+% This section should be about how we did the experiments, ie. what parameters we used and so forth
 The areas we chose for collecting the data was **TODO**. For verification we used the area **TODO**.
 % section experimental_setup (end)
 
