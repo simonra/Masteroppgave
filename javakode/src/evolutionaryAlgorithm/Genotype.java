@@ -76,17 +76,8 @@ public class Genotype implements Comparable<Genotype>{
 	}
 	
 	public String getEntireTripGenomeEncodes(){
-		ArrayList<Integer> trip = new ArrayList<>();
-		trip.add(Graph.getDeoptNodeIndex());
-		trip.addAll(FloydWarshall.shortestPathFromAtoB(Graph.getDeoptNodeIndex(), genome[0]));
-		for (int i = 0; i < genome.length - 1; i++) {
-			trip.add(genome[i]);
-			trip.addAll(FloydWarshall.shortestPathFromAtoB(genome[i], genome[i + 1]));
-		}
-		trip.add(genome[genome.length - 1]);
-		trip.addAll(FloydWarshall.shortestPathFromAtoB(genome[genome.length - 1], Graph.getDeoptNodeIndex()));
-		trip.add(Graph.getDeoptNodeIndex());
-		
+		ArrayList<Integer> trip = FloydWarshall.completePathThroughElementsUsingDepotNode(genome);
+
 		String output = "";
 		for (Integer elementID : trip) {
 			output += Graph.getElementByID(elementID).getName();

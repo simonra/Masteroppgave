@@ -56,6 +56,16 @@ public class FitnessModule {
 			j = i;
 		} while (i != 0);
 		
+		//The following part fills in the complete trip based on the flw
+		for (int trip = 0; trip < ListOfTrips.size(); trip++) {
+			ArrayList<Integer> completeTrip = FloydWarshall.completePathThroughElementsUsingDepotNode(ListOfTrips.get(trip));
+			int[] completeTripArray = new int[completeTrip.size()];
+			for (int element = 0; element < completeTrip.size(); element++) {
+				completeTripArray[element] = completeTrip.get(element);
+			}
+			ListOfTrips.set(trip, completeTripArray);
+		}
+		
 		return ListOfTrips;
 	}
 	

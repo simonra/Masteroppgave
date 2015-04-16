@@ -28,6 +28,25 @@ public class FloydWarshall {
 		} while(successor != b );
 		return path;
 	}
+	
+	/**The path going through all the supplied elements, and with the depot node and
+	 * the path to the first element in the beginning of the returned list, and the
+	 * path from the last element back to the depot node (and the depot node) at the
+	 * end.*/
+	public static ArrayList<Integer> completePathThroughElementsUsingDepotNode(int[] requiredElements){
+		ArrayList<Integer> path = new ArrayList<>();
+		path.add(Graph.getDeoptNodeIndex());
+		path.addAll(shortestPathFromAtoB(Graph.getDeoptNodeIndex(), requiredElements[0]));
+		for (int i = 0; i < requiredElements.length - 1; i++) {
+			path.add(requiredElements[i]);
+			path.addAll(shortestPathFromAtoB(requiredElements[i], requiredElements[i + 1]));
+		}
+		path.add(requiredElements[requiredElements.length - 1]);
+		path.addAll(shortestPathFromAtoB(requiredElements[requiredElements.length - 1], Graph.getDeoptNodeIndex()));
+		path.add(Graph.getDeoptNodeIndex());
+		
+		return path;
+	}
 
 	public static double[][] doFloydWarshall() {
 		double startTime = System.currentTimeMillis();
