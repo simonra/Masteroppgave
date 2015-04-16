@@ -64,15 +64,15 @@ public class Selection {
 				for (int i = 0; i < EvolutionaryAlgorithmParams.TOURNAMENT_SIZE - 1; i++) {
 					if(Utilities.getRandom().nextDouble() < EvolutionaryAlgorithmParams.TOURNAMEN_SELECTION_PROBABILITY){
 						selectedParents.add(tournamentGroup.remove(tournamentGroup.size() - 1));
-						tournamentGroupCopy.remove(tournamentGroup.size());	//is the same as the index of the element just removed
+//						tournamentGroupCopy.remove(tournamentGroup.size());	//is the same as the index of the element just removed
 						break;
 					}
 					tournamentGroup.remove(tournamentGroup.size() - 1);
-				}
-				/*If everybody else failed the tournament, the worst participant is selected with a probability of 1:*/
-				if(tournamentGroup.size() == 1){
-					selectedParents.add(tournamentGroup.remove(0));
-					tournamentGroupCopy.remove(0);
+					/*If everybody else failed the tournament, the worst participant is selected with a probability of 1:*/
+					if(tournamentGroup.size() == 1){
+						selectedParents.add(tournamentGroup.remove(0));
+//					tournamentGroupCopy.remove(0);
+					}
 				}
 				/*Reset the population before the next tournament so that the losers might get another chance*/
 				population.addAll(tournamentGroupCopy);
