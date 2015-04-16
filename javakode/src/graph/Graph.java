@@ -142,7 +142,7 @@ public class Graph {
 			vehicleCapacity = Double.parseDouble(line.replaceAll("Capacity:\t", ""));
 			
 			line = bufferedReader.readLine();
-			depotNodeIndex = Integer.parseInt(line.replaceAll("Depot Node:\t", ""));
+			depotNodeIndex = Integer.parseInt(line.replaceAll("Depot Node:\t", "")) - 1;	//Subtract 1 because we 0-index
 			
 			line = bufferedReader.readLine();
 			numberOfNodes = Integer.parseInt(line.replaceAll("#Nodes:\t\t", ""));
