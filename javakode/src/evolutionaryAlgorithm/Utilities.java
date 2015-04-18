@@ -40,6 +40,10 @@ public class Utilities {
 	public static int[] getRandomCrossoverPoints(){
 		int point1 = getRandom().nextInt(Graph.numberOfRequiredElements);
 		int point2 = getRandom().nextInt(Graph.numberOfRequiredElements);
+		//Prevent cloning
+		while(point2 == point1){
+			point2 = getRandom().nextInt(Graph.numberOfRequiredElements);
+		}
 		return new int[] {point1, point2};
 	}
 	
