@@ -66,6 +66,7 @@ public class EvolutionaryAlgorithm {
 			}
 			
 			for (Genotype child : children) {
+				child.mutate();
 				child.calculateFitness();
 			}
 			/*Resets the fitness of the parents before adult selection
