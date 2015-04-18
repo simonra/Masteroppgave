@@ -61,7 +61,7 @@ public class GraphTests {
 		FloydWarshall.doFloydWarshall();
 		
 		
-//		testingModule.printAllGraphElementsOneByOne();
+		testingModule.printAllGraphElementsOneByOne();
 		
 		testingModule.printProblemSize();
 		

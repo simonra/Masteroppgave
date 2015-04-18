@@ -2,6 +2,7 @@ package tests;
 
 import java.util.Arrays;
 
+import evolutionaryAlgorithm.FitnessModule;
 import evolutionaryAlgorithm.Genotype;
 import evolutionaryAlgorithm.Utilities;
 import generalUtilities.FileSaving;
@@ -105,13 +106,19 @@ public class EATests {
 //		genotype.setFitness();
 //		System.out.println("Genotype fitness: " + genotype.getFitness());
 		
-		Genotype[] labrats = test.createTwoParentsAndChildren();
-		for (Genotype rat : labrats) {
-			System.out.println(FileSaving.getGson().toJson(rat));
-			test.validateGenome(rat);
+//		Genotype[] labrats = test.createTwoParentsAndChildren();
+//		for (Genotype rat : labrats) {
+//			System.out.println(FileSaving.getGson().toJson(rat));
+//			test.validateGenome(rat);
+//		}
+		
+		System.out.println();
+		int[] testGenome = new int[60];
+		for (int i = 0; i < testGenome.length; i++) {
+			testGenome[i] = 60 + i;
 		}
-		
-		
+//		Genotype testGenotype = new Genotype(testGenome);
+		System.out.println("The test genome has a fitness of: " + FitnessModule.tripCost(testGenome));
 		
 	}
 }
