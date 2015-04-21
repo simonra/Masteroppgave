@@ -8,13 +8,28 @@ Our initial research showed that routing is a hard problem and that even with he
 
 An ideal solution would be one that looked at the entrie municipality, divided it into routes for each available vehicle (taking into account both the municipalitys vehicles and those of contractors), while making sure that each route is optimal for the chosen vehicle and that all the required area gets covered. At the same time it should take into consideration the features of each individual piece of road, such as slope, width, number of pedestriant crossings, and what parameters the user wants to optimize for. The durability loss of the vehicles, total distance moved for each vehicles, total time the drivers spend, the environmental impact of the operation, how trafic flow is affected, are all important factors one might want to optimize, and how one weights them may greatly affect the outcome.
 
-The outcome on the other hand, is specified by the NPRA. In their manuals they have detailed what conditions should be like, how much time can pass before roads of certains types have to be restored to normal operational standards, and who are responsible for what kinds of roads. Totally they specify X kinds of roads. In decreasing order of importance they are:
+The outcome on the other hand, is specified by the NPRA
+% http://www.vegvesen.no/_attachment/61430/binary/964067?fast_title=H%C3%A5ndbok+R610+Standard+for+drift+og+vedlikehold+av+riksveger.pdf
+. In their manuals they have detailed what conditions should be like, how much time can pass before roads of certains types have to be restored to normal operational standards. In the National Road DataBase (NRDB) 
+%http://www.vegvesen.no/en/Professional/Roads+and+transport/National+Road+Data+Bank+NRDB
+the NPRA specify 10 different classes of roads (Funksjonell vegklasse sorted by Vegklasse). These span all roads from large highways to the smallest bicycle paths and dirt roads the NPRA has records of.
 
-	Hver vegtype med korte beskrivelser
+However, because the responsibility of maintaining roads is split between the NPRA and the counties and municipalities (and for various other reasons), the county has their own maps. In their legends, they keep track of the 5 kinds of roads that they are responsible of maintaining. For the rest of this text we will use the countys naming scheme because they have an explicit one, and unlike the NRDB they do not use numbers but actual names to denote the different kinds of roads.
 
-The NPRA is responsible for maintaining the TODO. The responsibility for X, Y, and Z types of roads befall the individual municipalities. Lastly the responsibility for private roads befall the (private) owners. This means that our routing should not take into account servicing T types of roads, but that the municipality is interested in working on pavements and bicycle-paths as well as the road network.
+The different types of roads (with our translations) are:
+\begin{itemize}
+	\item Fylkesveg (County road)
+	\item Kommunalveg (Municipal road)
+	\item Boliggate (Street)
+	\item GS-veg (abbreviation for Gang- og Sykkelvei, translates to Footpaths and Cycle Paths) %https://www.regjeringen.no/en/topics/municipalities-and-regions/by--og-stedsutvikling/framtidensbyer/area-and-transport/footpaths-and-cycle-paths/id547994/
+	\item Sykkelfelt (Bicycle lane/path)
+\end{itemize}
 
-SVV har data (NVDB)
+The most notable items this list doesn't contain are what is generally labeled as Riksveger, and private roads, because the municipality is not responsible for either. Riksveger entails highways and usually larger roads connecting and passing through counties.
+
+Dette avsnittet om hvor viktig gang- og sykkelveier er, men at vi ikke spesialiserer veldig for det. This means that our routing should not take into account servicing T types of roads, but that the municipality is interested in working on pavements and bicycle-paths as well as the road network.
+
+Nevn at NVDB er en bra datakilde i dette avsnittet.
 
 Innen AI er det CPP, (NE)ARP (Ref forprosjekt)
 
