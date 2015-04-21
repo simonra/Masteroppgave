@@ -62,7 +62,7 @@ To keep the results as relevant as possible for the final use case we found that
 Experiments:
 For each parameter, we wanted to do 10 runs to determine average values for each configuration with several random seeds. 
 
-vary number of individuals: start with a low, medium, and high number of individuals in terms of the genome size (eg. populations the size of 5\%, 25\%, and 50\% of the genome length). Binary search from there to find something good.
+Vary number of individuals: start with a low, medium, and high number of individuals in terms of the genome size (eg. populations the size of 50\%, 100\%, and 200\% of the genome length). Based on the initial observations try inter- or extrapolating untill results of a good enough fitness are reached fast enough.
 
 Max generations: so long that you get stuck before you reach it, but don't have to wait forever for it to terminate. For testing purposes: run it for indefinitely a couple of times, and see how long it takes before it has been stuck for a booringly long time. Take a number of generations that is higher than the time it spends stuck in local optima up to that point, and use that.
 Keep in mind that this will vary with input size, so it really has to be manually tuned for each input. Is more for the sake of the developer/tweaker.
@@ -71,7 +71,7 @@ Generational replacement: After having found a population size, run each way of 
 
 Parent selection: Same as generational replacement. Treat combinations of tutnament selection, size, and probability as separate entries here.
 
-At this point test random mutation?
+At this point test random mutation vs memetic improvement?
 % section experimental_plan (end)
 
 \section{Experimental Setup} % (fold)
@@ -79,7 +79,7 @@ At this point test random mutation?
 % This section should be about how we did the experiments, ie. what parameters we used and so forth
 The areas we chose for collecting the data was **TODO**. For verification we used the area **TODO**.
 
-For the tuning, we chose to use the mggdb\_0.25\_1 data set. The main reason for this is that its size is rather small, so it was feasible to many iterations on it. Furthermore, since we assume the parameters to have a similar comparative performance relative to eachother, there is no reason to run it on one of our final data sets other than to get an indication of the performance versus time. Because this experiment is about finding what parameters work best, and we can test how fast the EA performs separately, this seems like a fair approach.
+For the tuning, we chose to use the BHW1 data set. The main reason for this is that its size is rather small, so it was feasible to many iterations on it. Furthermore, since we assume the parameters to have a similar comparative performance relative to eachother, there is no reason to run it on one of our final data sets other than to get an indication of the performance versus time. Because this experiment is about finding what parameters work best, and we can test how fast the EA performs separately, this seems like a fair approach.
 
 To make the results easier to compare, we ran the system for X generations each time, but without stopping when the algorithm seemed stuck in a local optimum. This has the advantage of giving us the same scale on all the resulting graphs.
 
