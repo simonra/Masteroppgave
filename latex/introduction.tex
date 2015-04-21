@@ -27,13 +27,23 @@ The different types of roads (with our translations) are:
 
 The most notable items this list doesn't contain are what is generally labeled as Riksveger, and private roads, because the municipality is not responsible for either. Riksveger entails highways and usually larger roads connecting and passing through counties.
 
-Dette avsnittet om hvor viktig gang- og sykkelveier er, men at vi ikke spesialiserer veldig for det. This means that our routing should not take into account servicing T types of roads, but that the municipality is interested in working on pavements and bicycle-paths as well as the road network.
+An important part of the municipalitys work is as can be seen maintaining the roads used exclusively by pedestrians and bicycles. This is interesting from a routing perspective, because the network of these roads is highly complex (have lots of intersections/a high degree of connectivity if tought of as a graph), and maintaining them is influenced by and ifluences how the rest of the road network is maintained. For an instance, when clearing snow from the pavement the snow might end up in the road along, and later when clearing the snow from the road the snow might end up back on the pavement.
 
-Nevn at NVDB er en bra datakilde i dette avsnittet.
+Unfortunately when processing smaller roads and paths ment for pedestrians and bicycles the NRDB frequently lacks the neccessary data. Fortunately the municipalitys maps have a good overview of these roads and paths, and the NRDB has most metadata that could be considered relevant about the rest of the roads.
 
-Innen AI er det CPP, (NE)ARP (Ref forprosjekt)
+Innen AI er det CPP, (NE)ARP (Ref forprosjekt). Basically si at i forprosjektet fant vi at state of the art er x, og her er det.
 
 \section{Goals and Research Questions}
+
+Fordi skala se på optimalisering innenfor eksisterende soner.
+
+Lage grunnleggende form på heuristikk, lett å endre den til å bli bedre etterhvert som man har mer research-ressurster, men er veldig tydelig på at vi ikke optimaliserer det.
+
+Jobbe med eksisterende data så det er lett å holde output oppdatert med det nyeste som finnes av data.
+
+Se om vi i Trondheim kan finne bedre ruter enn de som benyttes fra før av (håntegnede/sjoføren lager selv).
+
+Se om vi i Trondheim kan finne bedre ruter enn de som benyttes fra før hvis vi tar utgangspunkt i eksisterende ruter (strech goal å gjøre dette på en pen måte (ikke hardkodet)).
 
 \section{Reseach Method}
 
