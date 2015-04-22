@@ -19,7 +19,7 @@ Essentially we ended up in a situation where there would be no cost going to a n
 
 
 \begin{algorithm}
-\caption{Floyd-Warshall}\label{floyd-warshall}
+\caption{Floyd-Warshall}\label{floyd-warshall-pseudocode}
 \begin{algorithmic}[1]
 
 \Procedure{Floyd-Warshall}{Graph}
@@ -40,9 +40,9 @@ Essentially we ended up in a situation where there would be no cost going to a n
 			\State $successors[e_a][e] \leftarrow e$
 		\EndFor
 	\EndFor
-	\For{$k \leftarrow 0, numberOfElements$}
-		\For{$i \leftarrow 0, numberOfElements$}
-			\For{$j \leftarrow 0, numberOfElements$}
+	\For{$k \leftarrow 0$ \textbf{to} $numberOfElements$}
+		\For{$i \leftarrow 0$ \textbf{to} $numberOfElements$}
+			\For{$j \leftarrow 0$ \textbf{to} $numberOfElements$}
 				\If{$distances[i][j] > distances[i][k] + distances[k][j]$}
 					\State $distances[i][j] = distances[i][k] + distances[k][j]$
 					\State $successors[i][j] = successors[i][k]$
@@ -61,6 +61,34 @@ Essentially we ended up in a situation where there would be no cost going to a n
 \end{algorithm}
 
 % section all_pairs_shortest_path (end)
+
+\section{Split Heuristic} % (fold)
+\label{sec:split_heuristic}
+
+The psudocod for the split algorithm:
+
+\begin{algorithm}
+\caption{Split}\label{split-pseudocode}
+\begin{algorithmic}[1]
+
+\Procedure{Split}{Graph,Distances}
+	\State \textbf{let} $numberOfElements \leftarrow \sum (|N|+|E|+|A|) \in Graph$
+	\State \textbf{let} $costs$ be an array of length $numberOfElements + 1$
+	\State \textbf{let} $predecessors$ be an array of length $numberOfElements + 1$
+	\State \textbf{set} all entries in $predecessors$ to $\infty$
+	\State $costs[0] \leftarrow 0$
+	\State $predecessors[0] \leftarrow 0$
+	\For{$i \leftarrow 1$ \textbf{to} $numberOfElements + 1$}
+		\State $j \leftarrow i$
+		\State $load \leftarrow 0$
+		\State $cost \leftarrow 0$
+	\EndFor
+\EndProcedure
+
+\end{algorithmic}
+\end{algorithm}
+
+% section split_heuristic (end)
 
 \section{Evolutionary Algorithm} % (fold)
 \label{sec:evolutionary_algorithm}
