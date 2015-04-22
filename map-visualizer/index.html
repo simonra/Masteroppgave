@@ -35,18 +35,20 @@
 
             var polyline = L.polyline(parse(lineString), {color: 'red'}).addTo(map);
 
-            map.fitBounds(polyline.getBounds());
+//            map.fitBounds(polyline.getBounds());
         }
 
         // Read contents of file 'veglenker.json' and add polylines to map
         $.ajax({
             type: 'GET',
-            url: 'veglenker.json',
+            url: 'all_veglenker.json',
             dataType: 'json',
-            success: function(veglenker) {
-                veglenker.forEach(function(lenke){
-                    addPolyLine(lenke.geometriWgs84)
-                })
+            success: function(objects) {
+                var count = 0
+                for (id in objects) {
+                    console.log(id);
+                    addPolyLine(objects[id].lokasjon.geometriWgs84)
+                }
             },
             async: false
         });
