@@ -61,27 +61,27 @@ with open('nvdb_node_id_to_node_id.json', 'w') as outfile:
 
 def node_to_sintef_format(node):
     # NODE INDEX, DEMAND, SERVICE COST
-    print nvdb_node_id_to_node_id[node], 1, 0
+    print str(nvdb_node_id_to_node_id[node])+"\t1\t0"
 
 def edge_to_sintef_format(edge):
     # EDGE INDEX, FROM NODE, TO NODE, TRAVERSAL COST, DEMAND, SERVICE COST
     if 'distance_in_meters' in edge and 'speed_limit' in edge:
-        print veglenke_id_to_edge_id[edge['veglenke_id']], nvdb_node_id_to_node_id[edge['from_node']], nvdb_node_id_to_node_id[edge['to_node']], (edge['distance_in_meters']*1000.0) / float(edge['speed_limit']), 1, edge['distance_in_meters']*1000
+        print str(veglenke_id_to_edge_id[edge['veglenke_id']])+"\t"+str(nvdb_node_id_to_node_id[edge['from_node']])+"\t"+str(nvdb_node_id_to_node_id[edge['to_node']])+"\t"+str(edge['distance_in_meters']*1000.0 / float(edge['speed_limit']))+"\t1\t"+str(edge['distance_in_meters']*1000)
     else:
         # TODO: what do
-        pass
+        print str(veglenke_id_to_edge_id[edge['veglenke_id']])+"\t"+str(nvdb_node_id_to_node_id[edge['from_node']])+"\t"+ str(nvdb_node_id_to_node_id[edge['to_node']])+"\t0\t0\t0"
 
-print "Name:            nvdb-data"
-print "Optimal value:   -1"
-print "#Vehicles:       -1"
-print "Capacity:        1234" # TODO
-print "Depot:           1" #TODO
-print "#Nodes:          "+str(len(nodes))
-print "#Edges:          "+str(len(edges))
-print "#Arcs:           0" # TODO
-print "#Required N:     "+str(len(nodes))
-print "#Required E:     "+str(len(edges))
-print "#Required A:     0"
+print "Name:\tnvdb-data"
+print "Optimal value:\t-1"
+print "#Vehicles:\t-1"
+print "Capacity:\t1234" # TODO
+print "Depot Node:\t1" #TODO
+print "#Nodes:\t\t"+str(len(nodes))
+print "#Edges:\t\t"+str(len(edges))
+print "#Arcs:\t\t0" # TODO
+print "#Required N:\t"+str(len(nodes))
+print "#Required E:\t"+str(len(edges))
+print "#Required A:\t0"
 print
 print "% Required nodes:  Ni q_i s_ij"
 for node in nodes:
