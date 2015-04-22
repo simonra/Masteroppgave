@@ -16,6 +16,73 @@ Due to that our graph represents a NEARP, and we therefore wanted the all pairs 
 \\\\
 Essentially we ended up in a situation where there would be no cost going to a neighbor, but passing through it to the next neighbor would have a cost.
 
+
+
+\begin{algorithm}
+\caption{Floyd-Warshall}\label{floyd-warshall}
+\begin{algorithmic}[1]
+
+\Procedure{Floyd-Warshall}{Graph}
+	\State \textbf{let} $numberOfElements \leftarrow \sum (|N|+|E|+|A|) \in Graph$
+	\State \textbf{let} $distances$ be a $numberOfElements \times numberOfElements$ array
+	\State \textbf{let} $successors$ be a $numberOfElements \times numberOfElements$ array
+	\State \textbf{set} all entries in $distances$ to $\infty$
+	\State \textbf{set} all entries in $successors$ to $-1$
+	\For{\textbf{each} element $e \in N \cup E \cup A \in Graph$}
+		\State $distances[e][e] \leftarrow 0$
+		\State $successors[e][e] \leftarrow e$
+	\EndFor
+	\For{\textbf{each} element $e \in N \cup E \cup A \in Graph$}
+		\State \textbf{let} $adjacent \leftarrow $ elements adjacent to $e$ in $Graph$
+		\For{\textbf{each} element $e_a \in adjacent$}
+			\State $distances[e][e_a] \leftarrow e_a.passThroughCost$
+			\State $successors[e][e_a] \leftarrow e_a$
+			\State $successors[e_a][e] \leftarrow e$
+		\EndFor
+	\EndFor
+	\For{$k \leftarrow 0, numberOfElements$}
+		\For{$i \leftarrow 0, numberOfElements$}
+			\For{$j \leftarrow 0, numberOfElements$}
+				\If{$distances[i][j] > distances[i][k] + distances[k][j]$}
+					\State $distances[i][j] = distances[i][k] + distances[k][j]$
+					\State $successors[i][j] = successors[i][k]$
+				\EndIf
+			\EndFor
+		\EndFor
+	\EndFor
+	\For{\textbf{each} element $(e_i,e_j) \in N \cup E \cup A \in Graph$}
+		\If{$e_i \neq e_j$}
+			\State $distances[e_j][e_i] \leftarrow distances[e_j][e_i] - e_i.passThroughCost$
+		\EndIf
+	\EndFor
+\EndProcedure
+
+\end{algorithmic}
+\end{algorithm}
+
+% \begin{algorithm}
+% \caption{My algorithm}\label{euclid}
+% \begin{algorithmic}[1]
+% \Procedure{MyProcedure}{}
+% \State $\textit{stringlen} \gets \text{length of }\textit{string}$
+% \State $i \gets \textit{patlen}$
+% \BState \emph{top}:
+% \If {$i > \textit{stringlen}$} \Return false
+% \EndIf
+% \State $j \gets \textit{patlen}$
+% \BState \emph{loop}:
+% \If {$\textit{string}(i) = \textit{path}(j)$}
+% \State $j \gets j-1$.
+% \State $i \gets i-1$.
+% \State \textbf{goto} \emph{loop}.
+% \State \textbf{close};
+% \EndIf
+% \State $i \gets i+\max(\textit{delta}_1(\textit{string}(i)),\textit{delta}_2(j))$.
+% \State \textbf{goto} \emph{top}.
+% \EndProcedure
+% \end{algorithmic}
+% \end{algorithm}
+
 % section all_pairs_shortest_path (end)
 
 \section{Evolutionary Algorithm} % (fold)
