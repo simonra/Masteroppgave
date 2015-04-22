@@ -70,9 +70,11 @@ The psudocod for the split algorithm:
 \begin{algorithm}
 \caption{Split}\label{split-pseudocode}
 \begin{algorithmic}[1]
+\algdef{SE}[DOWHILE]{Do}{DoWhile}{\algorithmicdo}[1]{\algorithmicwhile\ #1}%http://tex.stackexchange.com/questions/115709/do-while-loop-in-pseudo-code
 
-\Procedure{Split}{Graph,Distances}
+\Procedure{Split}{Genotype,Graph,Distances}
 	\State \textbf{let} $numberOfElements \leftarrow \sum (|N|+|E|+|A|) \in Graph$
+	\State \textbf{let} $e_k$ be the k'th element from the Genotypes ordering of the set $(N \cup E \cup A) \in Graph$ in its genome
 	\State \textbf{let} $costs$ be an array of length $numberOfElements + 1$
 	\State \textbf{let} $predecessors$ be an array of length $numberOfElements + 1$
 	\State \textbf{set} all entries in $predecessors$ to $\infty$
@@ -82,7 +84,21 @@ The psudocod for the split algorithm:
 		\State $j \leftarrow i$
 		\State $load \leftarrow 0$
 		\State $cost \leftarrow 0$
+		\Do
+			\State $load \leftarrow load + e_j.demand$
+			\If{$i = j$}
+				\State $cost \leftarrow($ distance from depot to $e_{i-1}) + e_{i-1}.servicing\_cost +($ distance from $e_{i-1}$ to the depot $)$
+			\Else
+				\State $cost \leftarrow($ distance from depot to $e_{j-2}) + ($distance from $e_{j-2}$ to $e_{j-1}) + e_{j-1}.servicing\_cost +($ distance from $e_{j-1}$ to the depot $)$
+			\EndIf
+			\If{$(load < vehicle\_capacity)\wedge(costs[i - 1] + cost < costs[j])$}
+				\State $costs[j] \leftarrow costs[i - 1] + cost$
+				\State $predecessors[j] \leftarrow i - 1$
+			\EndIf
+			\State $j \leftarrow j + 1$
+		\DoWhile{$(j < numberOfElements + 1)\wedge(load < vehicle\_capacity)$}
 	\EndFor
+	\State \textbf{let} $Genotype.fitness \leftarrow costs[last\_index]$
 \EndProcedure
 
 \end{algorithmic}
