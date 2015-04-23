@@ -14,6 +14,7 @@ public class FitnessModule {
 	 * using one uncapacitated vehicle. Useful for evaluating costs of each vehicle in
 	 * a multi-vehicle tour, and for evaluating a grand tour if there is only one single
 	 * vehicle.*/
+	@SuppressWarnings("unused")
 	public static double tripCost(int[] trip){
 		double cost = 0;
 		double sumOfDemandTimesTripNumber = 0;

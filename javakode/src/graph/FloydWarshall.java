@@ -1,5 +1,6 @@
 package graph;
 
+//import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class FloydWarshall {
@@ -53,6 +54,23 @@ public class FloydWarshall {
 		int numberOfElementsInGraph = Graph.nodes.length + Graph.edges.length
 				+ Graph.arcs.length;
 		allPairShortestDistances = new double[numberOfElementsInGraph][numberOfElementsInGraph];
+		
+//		Runtime runtime = Runtime.getRuntime();
+//
+//	    NumberFormat format = NumberFormat.getInstance();
+//
+//	    StringBuilder sb = new StringBuilder();
+//	    long maxMemory = runtime.maxMemory();
+//	    long allocatedMemory = runtime.totalMemory();
+//	    long freeMemory = runtime.freeMemory();
+//
+//	    sb.append("free memory: " + format.format(freeMemory / 1024) + "<br/>");
+//	    sb.append("allocated memory: " + format.format(allocatedMemory / 1024) + "<br/>");
+//	    sb.append("max memory: " + format.format(maxMemory / 1024) + "<br/>");
+//	    sb.append("total free memory: " + format.format((freeMemory + (maxMemory - allocatedMemory)) / 1024) + "<br/>");
+//		
+//		System.out.println(sb.toString());
+	    
 		successors = new int[numberOfElementsInGraph][numberOfElementsInGraph];
 
 		// Initialize all distances as infinite
@@ -117,6 +135,7 @@ public class FloydWarshall {
 
 				}
 			}
+//			System.out.println("Row " + k + " of flw complete");
 
 		}
 		
