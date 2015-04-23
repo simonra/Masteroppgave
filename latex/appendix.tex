@@ -120,11 +120,11 @@ The pseudocode for retrieving trips for individual vehicles from the output of t
 
 \Procedure{Retrieve Trips From Split}{costs, predecessors, genotype}
 	\State \textbf{let} $list\_of\_trips$ be an empty list
-	\State $j \leftarrow number of tasks$
+	\State $j \leftarrow$ number of tasks
 	\DoWhile
 		\State $i \leftarrow predecessors[j]$
 		\State \textbf{let} $current\_trip$ be a new array of size $j - i$
-		\For{$k \leftarrow i + 1$ \textbf{to} $k \leq j$, $j \leftarrow j - 1$}
+		\For{$k \leftarrow i + 1$ \textbf{to} $k \leq j$, $k \leftarrow k + 1$}
 			\State $current\_trip[k-(i+1)] \leftarrow genotype.genome[k-1]$
 		\EndFor
 		\State \textbf{add} $current\_trip$ \textbf{to} the beginning of $list\_of\_trips$
@@ -135,6 +135,33 @@ The pseudocode for retrieving trips for individual vehicles from the output of t
 \end{algorithm}
 
 % section split_heuristic (end)
+
+\section{Calcualtion of the cost of a single vehicle trip} % (fold)
+\label{sec:calcualtion_of_the_cost_of_a_single_vehicle_trip}
+
+\begin{algorithm}
+\caption{Trip Cost}\label{trip-cost-pseudocode}
+\begin{algorithmic}[1]
+
+\Procedure{Trip Cost}{trip}
+	\State $cost \leftarrow$ distance from depot to $trip[0] + trip[0].servicing\_cost$
+	\State $sum \leftarrow trip[0].demand$
+	\For{$i \leftarrow 1$ to number of elements in $trip$}
+		\State $cost$
+		\State $sum$
+	\EndFor
+	\State $cost \leftarrow$ distance from last task in $trip$ to depot
+	\State $demand\_slope \leftarrow \frac{sum - average\_number\_of\_tasks \times average\_demand}{variance\_of\_tasks}$
+	\If{$deamnd\_slope > 0$}
+		\State Increase cost to penalize trend of doing higher priority tasks later
+	\EndIf
+\EndProcedure
+
+\end{algorithmic}
+\end{algorithm}
+
+
+% section calcualtion_of_the_cost_of_a_single_vehicle_trip (end)
 
 \section{Evolutionary Algorithm} % (fold)
 \label{sec:evolutionary_algorithm}
