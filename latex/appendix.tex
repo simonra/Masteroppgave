@@ -26,12 +26,14 @@ Essentially we ended up in a situation where there would be no cost going to a n
 	\State \textbf{let} $numberOfElements \leftarrow \sum (|N|+|E|+|A|) \in Graph$
 	\State \textbf{let} $distances$ be a $numberOfElements \times numberOfElements$ array
 	\State \textbf{let} $successors$ be a $numberOfElements \times numberOfElements$ array
-	\State \textbf{set} all entries in $distances$ to $\infty$
-	\State \textbf{set} all entries in $successors$ to $-1$
+	\State \textbf{set} all entries in $distances$ \textbf{to} $\infty$
+	\State \textbf{set} all entries in $successors$ \textbf{to} $-1$
+	\Statex
 	\For{\textbf{each} element $e \in N \cup E \cup A \in Graph$}
 		\State $distances[e][e] \leftarrow 0$
 		\State $successors[e][e] \leftarrow e$
 	\EndFor
+	\Statex
 	\For{\textbf{each} element $e \in N \cup E \cup A \in Graph$}
 		\State \textbf{let} $adjacent \leftarrow $ elements adjacent to $e$ in $Graph$
 		\For{\textbf{each} element $e_a \in adjacent$}
@@ -40,6 +42,7 @@ Essentially we ended up in a situation where there would be no cost going to a n
 			\State $successors[e_a][e] \leftarrow e$
 		\EndFor
 	\EndFor
+	\Statex
 	\For{$k \leftarrow 0$ \textbf{to} $numberOfElements$}
 		\For{$i \leftarrow 0$ \textbf{to} $numberOfElements$}
 			\For{$j \leftarrow 0$ \textbf{to} $numberOfElements$}
@@ -50,6 +53,7 @@ Essentially we ended up in a situation where there would be no cost going to a n
 			\EndFor
 		\EndFor
 	\EndFor
+	\Statex
 	\For{\textbf{each} element $(e_i,e_j) \in N \cup E \cup A \in Graph$}
 		\If{$e_i \neq e_j$}
 			\State $distances[e_j][e_i] \leftarrow distances[e_j][e_i] - e_i.passThroughCost$
@@ -65,12 +69,11 @@ Essentially we ended up in a situation where there would be no cost going to a n
 \section{Split Heuristic} % (fold)
 \label{sec:split_heuristic}
 
-The psudocod for the split algorithm:
+The pseudocode for the split algorithm:
 
 \begin{algorithm}
 \caption{Split}\label{split-pseudocode}
 \begin{algorithmic}[1]
-\algdef{SE}[DOWHILE]{Do}{DoWhile}{\algorithmicdo}[1]{\algorithmicwhile\ #1}%http://tex.stackexchange.com/questions/115709/do-while-loop-in-pseudo-code
 
 \Procedure{Split}{Genotype,Graph,Distances}
 	\State \textbf{let} $numberOfElements \leftarrow \sum (|N|+|E|+|A|) \in Graph$
@@ -80,25 +83,52 @@ The psudocod for the split algorithm:
 	\State \textbf{set} all entries in $predecessors$ to $\infty$
 	\State $costs[0] \leftarrow 0$
 	\State $predecessors[0] \leftarrow 0$
+	\Statex
 	\For{$i \leftarrow 1$ \textbf{to} $numberOfElements + 1$}
 		\State $j \leftarrow i$
 		\State $load \leftarrow 0$
 		\State $cost \leftarrow 0$
-		\Do
+		\DoWhile
 			\State $load \leftarrow load + e_j.demand$
+			\Statex
 			\If{$i = j$}
 				\State $cost \leftarrow($ distance from depot to $e_{i-1}) + e_{i-1}.servicing\_cost +($ distance from $e_{i-1}$ to the depot $)$
 			\Else
 				\State $cost \leftarrow($ distance from depot to $e_{j-2}) + ($distance from $e_{j-2}$ to $e_{j-1}) + e_{j-1}.servicing\_cost +($ distance from $e_{j-1}$ to the depot $)$
 			\EndIf
+			\Statex
 			\If{$(load < vehicle\_capacity)\wedge(costs[i - 1] + cost < costs[j])$}
 				\State $costs[j] \leftarrow costs[i - 1] + cost$
 				\State $predecessors[j] \leftarrow i - 1$
 			\EndIf
+			\Statex
 			\State $j \leftarrow j + 1$
-		\DoWhile{$(j < numberOfElements + 1)\wedge(load < vehicle\_capacity)$}
+		\EndDoWhile{$(j < numberOfElements + 1)\wedge(load < vehicle\_capacity)$}
 	\EndFor
+	\Statex
 	\State \textbf{let} $Genotype.fitness \leftarrow costs[last\_index]$
+\EndProcedure
+
+\end{algorithmic}
+\end{algorithm}
+
+The pseudocode for retrieving trips for individual vehicles from the output of the split algorithm:
+
+\begin{algorithm}
+\caption{Retrieve Trips from Split}\label{split-retrieve-pseudocode}
+\begin{algorithmic}[1]
+
+\Procedure{Retrieve Trips From Split}{costs, predecessors, genotype}
+	\State \textbf{let} $list\_of\_trips$ be an empty list
+	\State $j \leftarrow number of tasks$
+	\DoWhile
+		\State $i \leftarrow predecessors[j]$
+		\State \textbf{let} $current\_trip$ be a new array of size $j - i$
+		\For{$k \leftarrow i + 1$ \textbf{to} $k \leq j$, $j \leftarrow j - 1$}
+			\State $current\_trip[k-(i+1)] \leftarrow genotype.genome[k-1]$
+		\EndFor
+		\State \textbf{add} $current\_trip$ \textbf{to} the beginning of $list\_of\_trips$
+	\EndDoWhile{$i \neq 0$}
 \EndProcedure
 
 \end{algorithmic}
