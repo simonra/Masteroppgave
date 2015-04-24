@@ -1,0 +1,6 @@
+networkx python
+innkjøring forbudt
+    objekt-id:606
+svingerestriksjon
+    objekt-id:573
+
