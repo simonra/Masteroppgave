@@ -59,8 +59,10 @@ When trying to find the best way to do the adult selection we used a population 
 \section{Results} % (fold)
 \label{sec:results}
 
-\subsection{Population Size}
-\label{sub:population_size)}
+\subsection{Population Size} % (fold)
+\label{sub:population_size}
+
+When we observed the results from the population size test runs, we notice that that a lower population size yields better results. The larger populations perform noticeably worse, with the largest population (120 individuals) giving the worst results. This seemed very counterintuitive, especially that a miniscule population of 6 individuals manages to get results that are somewhat good. Therefore we decided to run a control experiment where we used other parent selection and adult selection methods to check if it was the combination of uniform selection and full generational mixing that gave the veird results.
 
 \begin{figure}[thbp]
 	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/CircleTestsPopulationAverageBest.pdf}}
@@ -82,6 +84,9 @@ When trying to find the best way to do the adult selection we used a population 
 
 \subsection{Parent Selection} % (fold)
 \label{sub:parent_selection}
+
+Here we can see that fitness proportionate selection is clearly better than the tournament selection, which in turn finds better results on average than uniform selection. The averages fitness of each populations average seem to quickly decrease before beginning to decrease slowly for tournament and fitness proportionate selection, while the uniform selection shows only a very slow improvement over time.
+
 \begin{figure}[thbp]
 	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/CircleTestParentSelectionAverageBest.pdf}}
 	\caption{Parent Selection - Average Best}
@@ -102,6 +107,11 @@ When trying to find the best way to do the adult selection we used a population 
 
 \subsection{Adult Selection} % (fold)
 \label{sub:adult_selection}
+
+When looking at the results for the adult selection, the most striking thing is that completely flat curve for the elitist mixing average best, indicating that there on average is no improvement at all in the best solutions found when using it as adult selection. This can be explained by observing that the average standard deviation in each population is 0 (figure \ref{fig:ctasasd}), indicating that the individuals in the population have the same fitness. What has likely happened is that the population has become stuck in a local optimum, and all the individuals it produces are exact copies of the currently best found solution.
+
+When looking for what parent selection gives the best output according to these results both overproduction and random mixing give better results than elitist mixing, and overproduction yields slightly better results than random mixing.
+
 \begin{figure}[thbp]
 	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/CircleTestAdultSelectionAverageBest.pdf}}
 	\caption{Adult Selection - Average Best}
@@ -115,22 +125,23 @@ When trying to find the best way to do the adult selection we used a population 
 \begin{figure}[thbp]
 	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/CircleTestAdultSelectionAverageStandardDeviation.pdf}}
 	\caption{Adult Selection - Average Standard Deviation}
+	\label{fig:ctasasd}
 \end{figure}
 % subsection adult_selection (end)
 
 \clearpage
 
-% section results (end)
-
-\section{Evaluation and Conclusion} % (fold)
-\label{sec:evaluation_and_conclusion}
-
-
 \subsection{Population Size Control} % (fold)
 \label{sub:population_size_control}
+
+Due to the veird in the population size tests (section \ref{sub:population_size}), we decided to look into whether the effect of the population size could be impacted by the choice of uniform parent selection and full generational replacement. We designed a control test where we again ran each population size 30 times, but this time we ran useing fintess scaling selection and overproduction with twice as many children as the population size.
+
+The results we got now were much more in tune with what we had anticipated in the first place. A larger population gives better results, but as the populations grow very large there are diminishing returns on expanding it furgher. As can be seen in figure \ref{fig:cpscab} the largest population gives only marginally better results than the second largest population, which gives somewhat better results than the third largest population, which in turn gives a lot better results than the smallest population.
+
 \begin{figure}[thbp]
 	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/CirclePopulationSizeControllAverageBest.pdf}}
 	\caption{Population Size Control - Average Best}
+	\label{fig:cpscab}
 \end{figure}
 
 \begin{figure}[thbp]
@@ -144,7 +155,16 @@ When trying to find the best way to do the adult selection we used a population 
 \end{figure}
 % subsection population_size_control (end)
 
+\clearpage
 
+% section results (end)
+
+\section{Evaluation and Conclusion} % (fold)
+\label{sec:evaluation_and_conclusion}
+
+The above experiments lead us to the following conclusions about the parameters for the EA. Section \ref{sub:parent_selection} indicated that the best parent selection method for our algorithm is fitness proportionate selection. As for the adult selection section \ref{sub:adult_selection} shows that overproduction is the adult selection type that gives the best fitnesses in our implementation. In section \ref{sub:population_size_control} we find that a larger population is better, but it has diminishing returns and a population size of 200\% the length of the genome is not much better than a population size equivalent to 100\% the length of the genome. It contradicts our findings from section \ref{sub:population_size}, but because almost all other configurations yield better results than uniform parent selection combined with full generational replacement as adult selection on its best we choose to regard that as a quirk of the combination.
+
+What could be improved: A test that also tests splitting would be better. Using real world test data would give inidcations as to running time, which would make it better in itself. Furthermore it could give more parameters. Another signifficant limitation is that we did not get time to look into other configurations of the torunament selection. It would be interesting to look into how memetic vs random mutation works on this kind of graph. Also it would be interesting to know why uniform selection coupeled with full generational replacement worked at all given that it essentialy is search by random sort.
 
 % section evaluation_and_conclusion (end)
 
