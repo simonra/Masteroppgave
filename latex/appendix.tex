@@ -153,8 +153,8 @@ The pseudocode for retrieving trips for individual vehicles from the output of t
 	\State $cost \leftarrow$ distance from last task in $trip$ to depot
 	\State $demand\_slope \leftarrow \frac{sum - average\_number\_of\_tasks \times average\_demand}{variance\_of\_tasks}$
 	\If{$deamnd\_slope > 0$}
-		\State Increase cost to penalize trend of doing higher priority tasks later
-	\EndIf
+		\State Increase cost to penalize trend of doing higher priority tasks late
+r	\EndIf
 \EndProcedure
 
 \end{algorithmic}
@@ -174,73 +174,4 @@ The pseudocode for retrieving trips for individual vehicles from the output of t
 
 % chapter implementation_details (end)
 
-\chapter{Evolutionary Algorithm Configuration} % (fold)
-\label{cha:evolutionary_algorithm_configuration}
 
-\section{Background and Motivation} % (fold)
-\label{sec:background_and_motivation}
-Here we outline how we determined what parameters to use when running the EA. There were several features that could be tweaked or enabled and disabeled when we made the EA. For an instance the population size and number of parents that get get to reproduce each generation are values that can be adjusted, while wheter to use random mutation or memetic optimization is a choice of whether to use one of two implementation.
-\\\\
-Some combinations of the parametes yield higher quality results faster (both in terms of actual time spent and number of generations passed before the output stabilizes, ie. the program reaches a local optimumum). Therefore we were interested in determining the best combination of parameters.
-\\\\
-Initially these were the parameters for EA that the user could set.
-\begin{itemize}
-	\item How the genomes that would get to produce children were selected.
-	\item How the nex generation would be produced from the current set of adults and children.
-	\item Whether the fitness should evaluate one grand tour for one wehcile or consider a case where the given area should be divided among a set of vehicles.
-	\item The maximal number of generations the algorithm should run for before terminating.
-	\item If the algorithm gets stuck in a local optimum, for how many generations should it continue trying to get out of there before acknowledging that it is stuck and just returning the best answer it has.
-	\item The number of individuals to have in the population at the beginning of a generation.
-	\item How many individuals to select from the population that gets to mate each generation.
-	\item How many pairs to make from the selected parents.
-	\item If parents are selected tournament-style, what size (in terms of number of individuals) should each tournament group be.
-	\item If parents are selected tournament-style, what should be the probability of selecting the best individual from each tournament group each iteration of the tournament.
-
-\end{itemize}
-% section background_and_motivation (end)
-
-\section{Experimental Plan} % (fold)
-\label{sec:experimental_plan}
-% This should be the section about what we want to do, and why we want to do it
-To keep the results as relevant as possible for the final use case we found that running the tests on actual data from NVDB would be prudent. Vill en sone være represenattiv for alle soner? Bruke det til å agumentere for at vi like gjerne kan bruke et annet datasett så lenge inputformatet er ish det samme.
-
-Experiments:
-For each parameter, we wanted to do 10 runs to determine average values for each configuration with several random seeds. 
-
-Vary number of individuals: start with a low, medium, and high number of individuals in terms of the genome size (eg. populations the size of 50\%, 100\%, and 200\% of the genome length). Based on the initial observations try inter- or extrapolating untill results of a good enough fitness are reached fast enough.
-
-Max generations: so long that you get stuck before you reach it, but don't have to wait forever for it to terminate. For testing purposes: run it for indefinitely a couple of times, and see how long it takes before it has been stuck for a booringly long time. Take a number of generations that is higher than the time it spends stuck in local optima up to that point, and use that.
-Keep in mind that this will vary with input size, so it really has to be manually tuned for each input. Is more for the sake of the developer/tweaker.
-
-Generational replacement: After having found a population size, run each way of doing it for the same number of times as when finding number of individuals. Treat combinations of overproduction and number of children as separate configurations in these tests.
-
-Parent selection: Same as generational replacement. Treat combinations of tutnament selection, size, and probability as separate entries here.
-
-At this point test random mutation vs memetic improvement?
-% section experimental_plan (end)
-
-\section{Experimental Setup} % (fold)
-\label{sec:experimental_setup}
-% This section should be about how we did the experiments, ie. what parameters we used and so forth
-The areas we chose for collecting the data was **TODO**. For verification we used the area **TODO**.
-
-For the tuning, we chose to use the BHW1 data set. The main reason for this is that its size is rather small, so it was feasible to many iterations on it. Furthermore, since we assume the parameters to have a similar comparative performance relative to eachother, there is no reason to run it on one of our final data sets other than to get an indication of the performance versus time. Because this experiment is about finding what parameters work best, and we can test how fast the EA performs separately, this seems like a fair approach.
-
-To make the results easier to compare, we ran the system for X generations each time, but without stopping when the algorithm seemed stuck in a local optimum. This has the advantage of giving us the same scale on all the resulting graphs.
-
-All the genotypes get initialized randomly.
-
-Will be plotting number of generations vs fitness. Averages of the best of the runs, and averages of averages. 
-% section experimental_setup (end)
-
-\section{Results} % (fold)
-\label{sec:results}
-
-% section results (end)
-
-\section{Evaluation and Conclusion} % (fold)
-\label{sec:evaluation_and_conclusion}
-
-% section evaluation_and_conclusion (end)
-
-% chapter evolutionary_algorithm_configuration (end)
