@@ -32,32 +32,29 @@ In the light of our research questions (TODO: sitere det om Trondheim spesifikt)
 
 To tackle these challenges, we produced our own data set for the tuning (TODO: referer circle\_test.dat her). The structure of the graph we made is that of a directed cycle, with each of the arcs being required elements, which had several good qualities given the criteria above. First of all it would be easy for a human to verify the output. There is only one global optimum, which is easily identifiable, visiting each node and arc in order exacly once. Furthermore its fitness is trivial to calculate, as it is the sum of the traversal and servicing costs of all the elements exactly once. Any other ordering of the elements would lead to the circle being traversed more than once. And all the possible orderings of the required elements the EA could make would have a ditstinct fitness.
 
-While using the (TODO: referer circle\_test.dat her) might not give an exact answer to what configuration of the parameters is optimal, it still gives a usable prediction of what configurations work in a general case with our implementation.
-% Experiments:
-% For each parameter, we wanted to do 10 runs to determine average values for each configuration with several random seeds. 
+% Image of circle-test graph here?
 
-% Vary number of individuals: start with a low, medium, and high number of individuals in terms of the genome size (eg. populations the size of 10\%, 50\%, 100\%, and 200\% of the genome length). Based on the initial observations try inter- or extrapolating untill results of a good enough fitness are reached fast enough.
+While using the (TODO: referer circle\_test.dat her) might not give an exact answer to what configuration of the parameters is optimal, it still gives a usable prediction of what configurations work in a general case with our implementation. Another limitation that is not adressed at this point is that it only makes sense to evaluate it as giant round trip completed by one vehicle. It could be adopted to facilitate testing splitting the graph between several vehicles by adding a depot node in the center and making edges that are not required to service from it to all the nodes. However that would add a lot of complexity, and we did not have time to investigate it further.
 
-% Max generations: so long that you get stuck before you reach it, but don't have to wait forever for it to terminate. For testing purposes: run it for indefinitely a couple of times, and see how long it takes before it has been stuck for a booringly long time. Take a number of generations that is higher than the time it spends stuck in local optima up to that point, and use that.
-% Keep in mind that this will vary with input size, so it really has to be manually tuned for each input. Is more for the sake of the developer/tweaker.
+%Image of alternative circle-test that accomodates splitting here?
 
-% Generational replacement: After having found a population size, run each way of doing it for the same number of times as when finding number of individuals. Treat combinations of overproduction and number of children as separate configurations in these tests.
+%Comment on memeticism here?
 
-% Parent selection: Same as generational replacement. Treat combinations of tutnament selection, size, and probability as separate entries here.
-
-% At this point test random mutation vs memetic improvement?
 % section experimental_plan (end)
 
 \section{Experimental Setup} % (fold)
 \label{sec:experimental_setup}
 % This section should be about how we did the experiments, ie. what parameters we used and so forth
+We decided to split the tuning of the EA into three parts. Determining the population size, parent selection, and adult selection. For each part, we would select what parameters we wanted to try. Then we would run each configuration 30 times to gather data about the best results found under the configuration, and the population averages. To make the results as comparable as possible, we chose to let each configuration run for exactly 100000 generations. For each run all the genotypes were initialized randomly, and each 16th generation the best fitness of the population, the average fitness of the population, and the standard deviation of the fitness of the population at that point was recorded.
 
-To make the results easier to compare, we ran the system for X generations each time, but without stopping when the algorithm seemed stuck in a local optimum. This has the advantage of giving us the same scale on all the resulting graphs.
+For determining the population size, we decided that we wanted to try population sizes corresponding to 10\%, 50\%, 100\%, and 200\% of the genome length. When testing it we used uniform selection for parent selection, and full generational replacement for the adult selection.
 
-All the genotypes get initialized randomly.
+When testing the parent selection we set the size of the population at 200\% of the genome length, and used full generational replacement for the adult selection, as that allowed us to reuse the results from the population size run for uniform selection.
 
-Will be plotting number of generations vs fitness. Averages of the best of the runs, and averages of averages. 
+When trying to find the best way to do the adult selection we used a population size of 200\% of the genome length, and fitness proportionate selection as the parent selection. When testing overproduction we decided to make as many pairs as there are individuals in the population, ie. producing twice as many children as there can be survivors to next generation.
 % section experimental_setup (end)
+
+\clearpage
 
 \section{Results} % (fold)
 \label{sec:results}
@@ -65,81 +62,89 @@ Will be plotting number of generations vs fitness. Averages of the best of the r
 \subsection{Population Size}
 \label{sub:population_size)}
 
-\begin{figure}
+\begin{figure}[thbp]
 	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/CircleTestsPopulationAverageBest.pdf}}
-	\caption{//TODO - Average Best}
+	\caption{Population Size - Average Best}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[thbp]
 	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/CircleTestsPopulationAverageAverage.pdf}}
-	\caption{//TODO - Average Average}
+	\caption{Population Size - Average Average}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[thbp]
 	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/CircleTestsPopulationAverageStandardDeviation.pdf}}
-	\caption{//TODO - Average Standard Deviation}
+	\caption{Population Size - Average Standard Deviation}
 \end{figure}
 % subsection Population Size (end)
 
+\clearpage
+
 \subsection{Parent Selection} % (fold)
 \label{sub:parent_selection}
-\begin{figure}
+\begin{figure}[thbp]
 	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/CircleTestParentSelectionAverageBest.pdf}}
-	\caption{//TODO - Average Best}
+	\caption{Parent Selection - Average Best}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[thbp]
 	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/CircleTestParentSelectionAverageAverage.pdf}}
-	\caption{//TODO - Average Average}
+	\caption{Parent Selection - Average Average}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[thbp]
 	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/CircleTestParentSelectionAverageStandardDeviation.pdf}}
-	\caption{//TODO - Average Standard Deviation}
+	\caption{Parent Selection - Average Standard Deviation}
 \end{figure}
 % subsection parent_selection (end)
 
+\clearpage
+
 \subsection{Adult Selection} % (fold)
 \label{sub:adult_selection}
-\begin{figure}
+\begin{figure}[thbp]
 	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/CircleTestAdultSelectionAverageBest.pdf}}
-	\caption{//TODO - Average Best}
+	\caption{Adult Selection - Average Best}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[thbp]
 	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/CircleTestAdultSelectionAverageAverage.pdf}}
-	\caption{//TODO - Average Average}
+	\caption{Adult Selection - Average Average}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[thbp]
 	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/CircleTestAdultSelectionAverageStandardDeviation.pdf}}
-	\caption{//TODO - Average Standard Deviation}
+	\caption{Adult Selection - Average Standard Deviation}
 \end{figure}
 % subsection adult_selection (end)
 
+\clearpage
+
+% section results (end)
+
+\section{Evaluation and Conclusion} % (fold)
+\label{sec:evaluation_and_conclusion}
+
+
 \subsection{Population Size Control} % (fold)
 \label{sub:population_size_control}
-\begin{figure}
+\begin{figure}[thbp]
 	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/CirclePopulationSizeControllAverageBest.pdf}}
-	\caption{//TODO - Average Best}
+	\caption{Population Size Control - Average Best}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[thbp]
 	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/CirclePopulationSizeControllAverageAverage.pdf}}
-	\caption{//TODO - Average Average}
+	\caption{Population Size Control - Average Average}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[thbp]
 	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/CirclePopulationSizeControllAverageStandardDeviation.pdf}}
-	\caption{//TODO - Average Standard Deviation}
+	\caption{Population Size Control - Average Standard Deviation}
 \end{figure}
 % subsection population_size_control (end)
 
 
-% section results (end)
-\clearpage
-\section{Evaluation and Conclusion} % (fold)
-\label{sec:evaluation_and_conclusion}
 
 % section evaluation_and_conclusion (end)
 
