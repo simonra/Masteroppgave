@@ -69,6 +69,18 @@ public class EvolutionaryAlgorithm {
 				child.mutate();
 				child.calculateFitness();
 			}
+			
+			/*Make sure a mutated version of last best joins this
+			 * generations children so that we can see what happens
+			 * when the last best is not only a parent, but also
+			 * directly mutated*/
+			if(EvolutionaryAlgorithmParams.ADD_MUTATED_BEST_TO_CHILDREN){
+				children.remove(Collections.min(children));
+				copyOfBestIndividual = new Genotype(bestIndividual);
+				copyOfBestIndividual.mutate();
+				children.add(copyOfBestIndividual);				
+			}
+			
 			/*Resets the fitness of the parents before adult selection
 			 * in case we did fitness proportionate scaling or something like that.*/
 			for (Genotype adult : adults) {
