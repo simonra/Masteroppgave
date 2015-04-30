@@ -53,11 +53,12 @@ public class Genotype implements Comparable<Genotype>{
 	
 	public void mutate(){
 		if(!EvolutionaryAlgorithmParams.RANDOM_MUTATION){
+			double genomeProperFitness = FitnessModule.tripCost(genome);	//In case fitness has been changed by fitness scaling selection
 			for (int i = 0; i < genome.length; i++) {
 				/*j = i because no need to check swaps already checked*/
 				for (int j = i; j < genome.length - i; j++) {
 					Utilities.swap(genome, i, j);
-					if(FitnessModule.tripCost(genome) < this.fitness){	//Less fitness is better
+					if(FitnessModule.tripCost(genome) < genomeProperFitness){	//Less fitness is better
 						calculateFitness();
 						return;
 					}
