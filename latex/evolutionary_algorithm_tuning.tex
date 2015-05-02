@@ -44,7 +44,7 @@ An example of an ideal solution to the circle test shown in figure \ref{fig:ctgn
 	\noindent
 	\fbox{
 		\parbox{\textwidth}{
-			{A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21, A22, A23, A24, A25, A26, A27, A28, A29, A30, A31, A32, A33, A34, A35, A36, A37, A38, A39, A40, A41, A42, A43, A44, A45, A46, A47, A48, A49, A50, A51, A52, A53, A54, A55, A56, A57, A58, A59, A60}
+			A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21, A22, A23, A24, A25, A26, A27, A28, A29, A30, A31, A32, A33, A34, A35, A36, A37, A38, A39, A40, A41, A42, A43, A44, A45, A46, A47, A48, A49, A50, A51, A52, A53, A54, A55, A56, A57, A58, A59, A60
 		}
 	}
 	\caption{Best possible genome for the supplied Circle Test example}
@@ -73,6 +73,9 @@ For determining the population size, we decided that we wanted to try population
 When testing the parent selection we set the size of the population at 200\% of the genome length, and used full generational replacement for the adult selection, as that allowed us to reuse the results from the population size run for uniform selection.
 
 When trying to find the best way to do the adult selection we used a population size of 200\% of the genome length, and fitness proportionate selection as the parent selection. When testing overproduction we decided to make as many pairs as there are individuals in the population, ie. producing twice as many children as there can be survivors to next generation.
+
+During the determination of whether random mutation or using hillclimbing for mutation we used a population size of 200\% of the genome length, fitness proportionate adult selection, and overproduction as the adult selection.
+
 % section experimental_setup (end)
 
 \clearpage
@@ -152,6 +155,15 @@ When looking for what parent selection gives the best output according to these 
 
 \clearpage
 
+\subsection{Mutation Types} % (fold)
+\label{sub:mutation_types}
+
+As can be seen from figure (TODO ref average best) and (TODO ref average average), the memetic improvement yields better results than when doing random mutation, and adding a memetically improved child to the children before the adult selection gives even better results. The fitness value tends to go as low as X as can be seen in figure (TODO ref average best).
+
+% subsection mutation_types (end)
+
+\clearpage
+
 \subsection{Population Size Control} % (fold)
 \label{sub:population_size_control}
 
@@ -183,7 +195,11 @@ The results we got now were much more in tune with what we had anticipated in th
 \section{Evaluation and Conclusion} % (fold)
 \label{sec:evaluation_and_conclusion}
 
-The above experiments lead us to the following conclusions about the parameters for the EA. Section \ref{sub:parent_selection} indicated that the best parent selection method for our algorithm is fitness proportionate selection. As for the adult selection section \ref{sub:adult_selection} shows that overproduction is the adult selection type that gives the best fitnesses in our implementation. In section \ref{sub:population_size_control} we find that a larger population is better, but it has diminishing returns and a population size of 200\% the length of the genome is not much better than a population size equivalent to 100\% the length of the genome. It contradicts our findings from section \ref{sub:population_size}, but because almost all other configurations yield better results than uniform parent selection combined with full generational replacement as adult selection on its best we choose to regard that as a quirk of the combination.
+The above experiments lead us to the following conclusions about the parameters for the EA. Section \ref{sub:parent_selection} indicated that the best parent selection method for our algorithm is fitness proportionate selection. As for the adult selection section \ref{sub:adult_selection} shows that overproduction is the adult selection type that gives the best fitnesses in our implementation.
+
+When it comes to the mutation tests in section \ref{sub:mutation_types}, it can be seen that memetic improvement gives much better results than random mutation, and adding an improved copy of the last generations best individual to the children before doing the adult selection yields the best results.
+
+ In section \ref{sub:population_size_control} we find that a larger population is better, but it has diminishing returns and a population size of 200\% the length of the genome is not much better than a population size equivalent to 100\% the length of the genome. It contradicts our findings from section \ref{sub:population_size}, but because almost all other configurations yield better results than uniform parent selection combined with full generational replacement as adult selection on its best we choose to regard that as a quirk of the combination.
 
 What could be improved: A test that also tests splitting would be better. Using real world test data would give inidcations as to running time, which would make it better in itself. Furthermore it could give more parameters. Another signifficant limitation is that we did not get time to look into other configurations of the torunament selection. It would be interesting to look into how memetic vs random mutation works on this kind of graph. Also it would be interesting to know why uniform selection coupeled with full generational replacement worked at all given that it essentialy is search by random sort.
 
