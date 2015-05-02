@@ -86,20 +86,23 @@ During the determination of whether random mutation or using hillclimbing for mu
 \subsection{Population Size} % (fold)
 \label{sub:population_size}
 
-When we observed the results from the population size test runs, we notice that that a lower population size yields better results. The larger populations perform noticeably worse, with the largest population (120 individuals) giving the worst results. This seemed very counterintuitive, especially that a miniscule population of 6 individuals manages to get results that are somewhat good. Therefore we decided to run a control experiment where we used other parent selection and adult selection methods to check if it was the combination of uniform selection and full generational mixing that gave the veird results.
+When we observed the results from the population size test runs, we notice that that a lower population size yields better results. In figure \ref{fig:ctpab} it can be seen that the larger populations perform noticeably worse, with the largest population (120 individuals) getting a fitness value of around 700 by the end of the runs, while the smallest population size (6 individuals) end up with a fitness of about 600.
+
+This seemed very counterintuitive, especially that a miniscule population of 6 individuals manages to get results that are somewhat good. Therefore we decided to run a control experiment where we used other parent selection and adult selection methods to check if it was the combination of uniform selection and full generational mixing that gave the veird results.
 
 \begin{figure}[thbp]
-	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/CircleTestsPopulationAverageBest.pdf}}
+	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/PopulationSize/CircleTestsPopulationAverageBest.pdf}}
 	\caption{Population Size - Average Best}
+	\label{fig:ctpab}
 \end{figure}
 
 \begin{figure}[thbp]
-	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/CircleTestsPopulationAverageAverage.pdf}}
+	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/PopulationSize/CircleTestsPopulationAverageAverage.pdf}}
 	\caption{Population Size - Average Average}
 \end{figure}
 
 \begin{figure}[thbp]
-	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/CircleTestsPopulationAverageStandardDeviation.pdf}}
+	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/PopulationSize/CircleTestsPopulationAverageStandardDeviation.pdf}}
 	\caption{Population Size - Average Standard Deviation}
 \end{figure}
 % subsection Population Size (end)
@@ -109,20 +112,21 @@ When we observed the results from the population size test runs, we notice that 
 \subsection{Parent Selection} % (fold)
 \label{sub:parent_selection}
 
-Here we can see that fitness proportionate selection is clearly better than the tournament selection, which in turn finds better results on average than uniform selection. The averages fitness of each populations average seem to quickly decrease before beginning to decrease slowly for tournament and fitness proportionate selection, while the uniform selection shows only a very slow improvement over time.
+In figure \ref{fig:ctpsab} we can see that fitness proportionate selection with a final fitness of just below 500 is clearly better than the tournament selection that reaches a fitness a bit above 500, which in turn finds better results on average than uniform selection with a fintess of about 700. The averages fitness of each populations average seem to quickly decrease before beginning to decrease slowly for tournament and fitness proportionate selection, while the uniform selection shows only a very slow improvement over time.
 
 \begin{figure}[thbp]
-	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/CircleTestParentSelectionAverageBest.pdf}}
+	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/ParentSelection/CircleTestParentSelectionAverageBest.pdf}}
 	\caption{Parent Selection - Average Best}
+	\label{fig:ctpsab}
 \end{figure}
 
 \begin{figure}[thbp]
-	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/CircleTestParentSelectionAverageAverage.pdf}}
+	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/ParentSelection/CircleTestParentSelectionAverageAverage.pdf}}
 	\caption{Parent Selection - Average Average}
 \end{figure}
 
 \begin{figure}[thbp]
-	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/CircleTestParentSelectionAverageStandardDeviation.pdf}}
+	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/ParentSelection/CircleTestParentSelectionAverageStandardDeviation.pdf}}
 	\caption{Parent Selection - Average Standard Deviation}
 \end{figure}
 % subsection parent_selection (end)
@@ -132,22 +136,24 @@ Here we can see that fitness proportionate selection is clearly better than the 
 \subsection{Adult Selection} % (fold)
 \label{sub:adult_selection}
 
-When looking at the results for the adult selection, the most striking thing is that completely flat curve for the elitist mixing average best, indicating that there on average is no improvement at all in the best solutions found when using it as adult selection. This can be explained by observing that the average standard deviation in each population is 0 (figure \ref{fig:ctasasd}), indicating that the individuals in the population have the same fitness. What has likely happened is that the population has become stuck in a local optimum, and all the individuals it produces are exact copies of the currently best found solution.
+When looking at the results for the adult selection in figure \ref{fig:ctasab}, the most striking thing is that completely flat curve for the elitist mixing average best, indicating that there on average is no improvement at all in the best solutions found when using it as adult selection. This can be explained by observing that the average standard deviation in each population is 0 (figure \ref{fig:ctasasd}), coupled with that the average of fintess of the population being stuck on a single value in figure \ref{fig:ctasaa} indicating that all the individuals in the population have the same fitness. What has likely happened is that the population has become stuck in a local optimum, and all the individuals it produces are exact copies of the currently best found solution.
 
-When looking for what parent selection gives the best output according to these results both overproduction and random mixing give better results than elitist mixing, and overproduction yields slightly better results than random mixing.
+When looking for what adult selection gives the best output according to these results both overproduction and random mixing give better results than elitist mixing, and overproduction yields slightly better results than random mixing.
 
 \begin{figure}[thbp]
-	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/CircleTestAdultSelectionAverageBest.pdf}}
+	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/AdultSelection/CircleTestAdultSelectionAverageBest.pdf}}
 	\caption{Adult Selection - Average Best}
+	\label{fig:ctasab}
 \end{figure}
 
 \begin{figure}[thbp]
-	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/CircleTestAdultSelectionAverageAverage.pdf}}
+	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/AdultSelection/CircleTestAdultSelectionAverageAverage.pdf}}
 	\caption{Adult Selection - Average Average}
+	\label{fig:ctasaa}
 \end{figure}
 
 \begin{figure}[thbp]
-	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/CircleTestAdultSelectionAverageStandardDeviation.pdf}}
+	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/AdultSelection/CircleTestAdultSelectionAverageStandardDeviation.pdf}}
 	\caption{Adult Selection - Average Standard Deviation}
 	\label{fig:ctasasd}
 \end{figure}
@@ -158,7 +164,27 @@ When looking for what parent selection gives the best output according to these 
 \subsection{Mutation Types} % (fold)
 \label{sub:mutation_types}
 
-As can be seen from figure (TODO ref average best) and (TODO ref average average), the memetic improvement yields better results than when doing random mutation, and adding a memetically improved child to the children before the adult selection gives even better results. The fitness value tends to go as low as X as can be seen in figure (TODO ref average best).
+As can be seen from figure \ref{fig:ctmab} and \ref{fig:ctmaa} the memetic improvement yields better results than when doing random mutation. Adding a memetically improved child to the children before the adult selection seems to make little difference, though it reaches a tad better solutions a little bit earlyer than when not adding it. For both memetic approaches the fitness value tends to get as good as just below 400 in the long run, as can be seen in figure \ref{fig:ctmab}.
+
+Figure \ref{fig:ctmasd} shows that the diversity of the population is somewaht lower when doing memetic improvement instead of random mutation.
+
+\begin{figure}[thbp]
+	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/Mutation/CircleTestMutationAverageBest.pdf}}
+	\caption{Population Size Control - Average Best}
+	\label{fig:ctmab}
+\end{figure}
+
+\begin{figure}[thbp]
+	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/Mutation/CircleTestMutationAverageAverage.pdf}}
+	\caption{Population Size Control - Average Average}
+	\label{fig:ctmaa}
+\end{figure}
+
+\begin{figure}[thbp]
+	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/Mutation/CircleTestMutationAverageStandardDeviation.pdf}}
+	\caption{Population Size Control - Average Standard Deviation}
+	\label{fig:ctmasd}
+\end{figure}
 
 % subsection mutation_types (end)
 
@@ -172,18 +198,18 @@ Due to the veird in the population size tests (section \ref{sub:population_size}
 The results we got now were much more in tune with what we had anticipated in the first place. A larger population gives better results, but as the populations grow very large there are diminishing returns on expanding it furgher. As can be seen in figure \ref{fig:cpscab} the largest population gives only marginally better results than the second largest population, which gives somewhat better results than the third largest population, which in turn gives a lot better results than the smallest population.
 
 \begin{figure}[thbp]
-	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/CirclePopulationSizeControllAverageBest.pdf}}
+	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/PopulationSizeControl/CirclePopulationSizeControllAverageBest.pdf}}
 	\caption{Population Size Control - Average Best}
 	\label{fig:cpscab}
 \end{figure}
 
 \begin{figure}[thbp]
-	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/CirclePopulationSizeControllAverageAverage.pdf}}
+	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/PopulationSizeControl/CirclePopulationSizeControllAverageAverage.pdf}}
 	\caption{Population Size Control - Average Average}
 \end{figure}
 
 \begin{figure}[thbp]
-	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/CirclePopulationSizeControllAverageStandardDeviation.pdf}}
+	\centerline{\includegraphics[width=\paperwidth]{figures/CircleTests/PopulationSizeControl/CirclePopulationSizeControllAverageStandardDeviation.pdf}}
 	\caption{Population Size Control - Average Standard Deviation}
 \end{figure}
 % subsection population_size_control (end)
@@ -195,11 +221,11 @@ The results we got now were much more in tune with what we had anticipated in th
 \section{Evaluation and Conclusion} % (fold)
 \label{sec:evaluation_and_conclusion}
 
-The above experiments lead us to the following conclusions about the parameters for the EA. Section \ref{sub:parent_selection} indicated that the best parent selection method for our algorithm is fitness proportionate selection. As for the adult selection section \ref{sub:adult_selection} shows that overproduction is the adult selection type that gives the best fitnesses in our implementation.
-
-When it comes to the mutation tests in section \ref{sub:mutation_types}, it can be seen that memetic improvement gives much better results than random mutation, and adding an improved copy of the last generations best individual to the children before doing the adult selection yields the best results.
+The above experiments lead us to the following conclusions about the parameters for the EA. Section \ref{sub:parent_selection} indicated that the best parent selection method for our algorithm is fitness proportionate selection. As for the adult selection section \ref{sub:adult_selection} shows that overproduction is the adult selection type that gives the best fitnesses in our implementation. When it comes to the mutation tests in section \ref{sub:mutation_types}, it can be seen that memetic improvement gives much better results than random mutation.
 
  In section \ref{sub:population_size_control} we find that a larger population is better, but it has diminishing returns and a population size of 200\% the length of the genome is not much better than a population size equivalent to 100\% the length of the genome. It contradicts our findings from section \ref{sub:population_size}, but because almost all other configurations yield better results than uniform parent selection combined with full generational replacement as adult selection on its best we choose to regard that as a quirk of the combination.
+
+Noen of the configurations found an ideal solution with a fintess value of 60. The best fitness values the EA got were about 400 (found when doing the mutation configurations in section \ref{sub:mutation_types}) which is not too bad. The found fintess value indicates that the EA gives a solution that goes $\frac{400}{60} = 6.\overline{66} \approx 7$ times more than it needs around the circle. Considering that this can be achieved by switching the order of 7 pairs in the circle the quality of the solutions while not optimal are still acceptable.
 
 What could be improved: A test that also tests splitting would be better. Using real world test data would give inidcations as to running time, which would make it better in itself. Furthermore it could give more parameters. Another signifficant limitation is that we did not get time to look into other configurations of the torunament selection. It would be interesting to look into how memetic vs random mutation works on this kind of graph. Also it would be interesting to know why uniform selection coupeled with full generational replacement worked at all given that it essentialy is search by random sort.
 
