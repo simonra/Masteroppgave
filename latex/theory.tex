@@ -12,17 +12,19 @@ The CPP, if it contains only undirected edges or directed edges (arcs) (G=\{N,E\
 
 Over the following decades several variations to the probem were made to handle speciffic challenges. We will now briefly define the most known formulations and how they are tied to snow plowing.
 
-The Rural Postman Problem (RPP) arose when one wanted to optimize solutions for when the postman does not have to visit all the edges, but only a subset of them. Which is a situation that is likely to arise in snow plowing, where one for an instance has to service all the roads in a city with a certian amount of trafic, but can pass through the less used roads to move between the ones that have to be plowed.
+The Rural Postman Problem (RPP) arose when one wanted to optimize solutions for when the postman does not have to visit all the edges, but only a subset of them. Which is a situation that is likely to arise in snow plowing, where one for an instance has to service all the roads in a city with a certain amount of trafic, but can pass through the less used roads to move between the ones that have to be plowed.
 
 The Mixed Chinese Postman Problem (MCPP) is the apporach to the CPP where one looks at the problem in a mixed graph (with both arcs and edges). It introduces a relevant constraint when considering practical applications, such as snow plowing, where the underlying graph represents a road network. Not only is it a very natural representation of a road network containing both bi-directional and one way roads, it can also be used to handle cases such as intersections with forbidden turns. 
 
-The Hierarchical Chinese Postman Problem (HCPP) came about when one wanted to investigate how solutions would change if one required some edges to be serviced before others. 
+The Hierarchical Chinese Postman Problem (HCPP) came about when one wanted to investigate how solutions would change if one required some edges to be serviced before others. It is a situation that often arises in practice. For an instance in snow plowing one might want to service a more used road before a less used road.
 
-The Windy Postman Problem (WPP)
+The Windy Postman Problem (WPP) is the attempt at accounting for that an edge can have a different cost each time you pass through it. This is a relevant consideration when snow plowing, because simply passing through a road and plowing it takes a different amount of resources and time, and even passing through a road that has already been plowed and one that has not can have separate costs.
+
+The k-postman Chinese Postman Problem (k-CPP) is the attempt at modeling a scenario where there is a depot node, and k postmen, or one postman that can do k trips of a certain cost. Taking it a step further, the Min-Max k-CPP (MM k-CPP) looks at minimizing the the trip with the maximal cost of the k trips. This is relevant for the snow plowing case where there is a large road network and there is no single vehicle that is capable of service all of it in one go. If implemented correctly it can even be argued that the splitted trips from the k-CPP can be used for sectoring the road network between different contractors.
 
 
 % History:
-% Euler -> Mei ko kwan -> CPP -> RPP -> MCPP -> HCPP -> WPP -> ARP -> CARP -> NEARP(/ECARP and variations)
+% Euler -> Mei ko kwan -> CPP -> RPP -> MCPP -> HCPP -> WPP -> (mm)k-CPP-> ARP -> CARP -> NEARP(/ECARP and variations)
 
 \subsection{Evolutionary Algorithms}
 Why we chose this approach
