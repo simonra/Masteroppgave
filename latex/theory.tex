@@ -22,9 +22,22 @@ The Windy Postman Problem (WPP) is the attempt at accounting for that an edge ca
 
 The k-postman Chinese Postman Problem (k-CPP) is the attempt at modeling a scenario where there is a depot node, and k postmen, or one postman that can do k trips of a certain cost. Taking it a step further, the Min-Max k-CPP (MM k-CPP) looks at minimizing the the trip with the maximal cost of the k trips. This is relevant for the snow plowing case where there is a large road network and there is no single vehicle that is capable of service all of it in one go. If implemented correctly it can even be argued that the splitted trips from the k-CPP can be used for sectoring the road network between different contractors.
 
+Now where all these variations on the CPP focus on general graphs, although they arguably can be applied to a broad spectrum of tasks in real world road networks, the Arc Routing Problem (ARP) has also been defined. It is used to describe problems centered around servicing arcs in transport networks. The main difference from the various CPPs tends to be the more vehicle oriented terminology that is used, which makes it somewhat difficult to describe how they relate to one another. It can both be argued that the ARP is a more general version of the CPP with a somewhat different terminology, and that it is a special applied case of the CPP.
 
-% History:
-% Euler -> Mei ko kwan -> CPP -> RPP -> MCPP -> HCPP -> WPP -> (mm)k-CPP-> ARP -> CARP -> NEARP(/ECARP and variations)
+What makes it interesting for snow plowing is that in later years the literature dealing with applied routing with the goal of visiting/servicing the arcs and/or edges in a graph has been favoring the ARPs terminology over that of the CPP.
+
+Specially the variation known as the Capacitated Arc Routing Problem (CARP) has been widely studied. It has much in common with the k-CPP, because it deals with the case of having a set of identical vehicles with a limited capacity located at a depot. The task of which is to service the roads in a network in such a way that each road gets serviced by one vehicle once. However, like the k-CPP it suffers from that it is to general to give a good description of complex problems like snow plowing.
+
+This has in turn given rise to definitions that try to include more constraints so that the problems one wants to solve are moer accurately described. Within the ARP paradigm the Extended Capacitated Arc Routing Problem (ECARP) has been defined to handle this. It tries to take into account things such as that there the problem might be in a mixed graph, the edges/arcs can have a varying cost, special constraints such as u-turns being forbidden in ordinary intersections, a maximum limit on trip lengts, and so on.
+
+The problem definition we found that fits our case best however is the Node Edge and Arc Routing Problem (NEARP). Because it combines the CARP, VRP, and the General Routing Problem, it takes into account all the features of the underlying network we want to use when structuring our graph, such as the assumption of a mixed graph. Another feature that makes it a better model is that it considers both nodes, arcs, and edges as elements of the graph that can need servicing. This makes very much sense in a snow plowing setting where not only roads and one way driven roads, but also intersections need to be plowed.
+
+Detaljert beskrivelse av alle egenskapene som et problem (og dermed test-casene til sintef) maa oppflyye her?
+
+Overgang til hvilke algoritmer man trenger for aa loese det her?
+	Definitivt overgang til hvordan disse problemene historisk har blitt loest her.
+
+% Historical approaches and solutions -> What we gonna use ((M)EA) -> EA -> Fitness -> FLW (basiskomponent) -> Grand tour vs Split som fitness -> Split forklart.
 
 \subsection{Evolutionary Algorithms}
 Why we chose this approach
