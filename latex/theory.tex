@@ -1,16 +1,16 @@
 \chapter{Theory}
 
-\section{Background Theory}
 In the pre-project leading up to this work we performed a structured literature review (TODO: SOURCE). Our focus was finding whether snow plowing was a known and solved problem, and in case it was, how should one go about trying to solve it. In the following sections we will outline what we found about the classification of the problem, and known approaches.
 
-\subsection{The Node, Edge, and Arc Rouring Problem(s)}
+\section{The Node, Edge, and Arc Rouring Problem(s)}
+\label{the_nearp}
 In our structured literature review we found that the current take on problems like snow plowing has long roots. The simplest possible interpretation is that it is about traversing a graph G=\{N,E\} in a certain way. Which would make it similar to the “Seven bridges of Königsberg Problem”, that is about finding a cycle that traverses the graph and visits all the edges exactly once, and was solved by the Swiss mathematician Leonhard Euler in 1735.
 
 But it was not untill more than 200 years later (in 1962) that a graph traversal problem that is more relevant to snow plowing was proposed. The chinese mathematician, and former postman, Mei-Ko Kwan described the problem of finding the shortest trip that visits all the edges in a graph at least once. It is the converse of the Vehicle Routing Problem (VRP), which is about visiting all the nodes of the graph at the lowest possible cost. The problem became known as the Chinese Postman Problem.
 
 The CPP, if it contains only undirected edges or directed edges (arcs) (G=\{N,E\} or G=\{N,A\}), can be solved in polynomial time. But if it is a mixed graph containing both (G=\{N,E,A\}) it is NP-hard.
 
-Over the following decades several variations to the probem were made to handle speciffic challenges. We will now briefly define the most known formulations and how they are tied to snow plowing.
+Over the following decades several variations on the probem were made to handle speciffic challenges. We will now briefly define the most known formulations and how they are tied to snow plowing.
 
 The Rural Postman Problem (RPP) arose when one wanted to optimize solutions for when the postman does not have to visit all the edges, but only a subset of them. Which is a situation that is likely to arise in snow plowing, where one for an instance has to service all the roads in a city with a certain amount of trafic, but can pass through the less used roads to move between the ones that have to be plowed.
 
@@ -30,14 +30,23 @@ Specially the variation known as the Capacitated Arc Routing Problem (CARP) has 
 
 This has in turn given rise to definitions that try to include more constraints so that the problems one wants to solve are moer accurately described. Within the ARP paradigm the Extended Capacitated Arc Routing Problem (ECARP) has been defined to handle this. It tries to take into account things such as that there the problem might be in a mixed graph, the edges/arcs can have a varying cost, special constraints such as u-turns being forbidden in ordinary intersections, a maximum limit on trip lengts, and so on.
 
-The problem definition we found that fits our case best however is the Node Edge and Arc Routing Problem (NEARP). Because it combines the CARP, VRP, and the General Routing Problem, it takes into account all the features of the underlying network we want to use when structuring our graph, such as the assumption of a mixed graph. Another feature that makes it a better model is that it considers both nodes, arcs, and edges as elements of the graph that can need servicing. This makes very much sense in a snow plowing setting where not only roads and one way driven roads, but also intersections need to be plowed.
+The problem definition we found that fits our case best however is the Node Edge and Arc Routing Problem (NEARP). It describes the problem of servicing a subset of the nodes, edges, and arcs in a mixed graph, with a homogeneous set of vehicles. Like in the k-CPP and CARP each vehicle is capacitated in terms of demand it can service (cost it can handle). The elements of the graph that require servicing have a fixed demand, and the all the arcs and edges have a traversal cost while nodes have no traversal cost. 
 
-Detaljert beskrivelse av alle egenskapene som et problem (og dermed test-casene til sintef) maa oppflyye her?
+Because it combines the CARP, VRP, and the General Routing Problem, it takes into account all the features of the underlying network we want to use when structuring our graph, such as the assumption of a mixed graph. Another feature that makes it a better model is that it considers both nodes, arcs, and edges as elements of the graph that can need servicing. This makes very much sense in a snow plowing setting where not only roads and one way driven roads, but also intersections need to be plowed.
 
-Overgang til hvilke algoritmer man trenger for aa loese det her?
-	Definitivt overgang til hvordan disse problemene historisk har blitt loest her.
+Now that we have defined what kind of problem we want to solve, we need to look into how it can be solved.
+
+
+% section the_nearp (end)
 
 % Historical approaches and solutions -> What we gonna use ((M)EA) -> EA -> Fitness -> FLW (basiskomponent) -> Grand tour vs Split som fitness -> Split forklart.
+
+\section{Routing Algorithms} % (fold)
+\label{sec:routing_algorithms}
+
+In our structured literature review we came across several methods of solving routing problems, which we will present here.
+
+% section routing_algorithms (end)
 
 \subsection{Evolutionary Algorithms}
 Why we chose this approach
