@@ -4,10 +4,10 @@
 \section{Background and Motivation} % (fold)
 \label{sec:background_and_motivation}
 Here we outline how we determined what parameters to use when running the EA. There were several features that could be tweaked or enabled and disabeled when we made the EA. For an instance the population size and number of parents that get get to reproduce each generation are values that can be adjusted, while wheter to use random mutation or memetic optimization is a choice of whether to use one of two implementation.
-\\\\
-Some combinations of the parametes yield higher quality results faster (both in terms of actual time spent and number of generations passed before the output stabilizes, ie. the program settles at a local optimumum). Therefore we were interested in determining the best combination of parameters.
-\\\\
-Initially these were the parameters for EA that the user could set.
+
+Some combinations of the parametes yield higher quality results faster (both in terms of actual time spent and number of generations passed before the output stabilizes, ie. the program settles at a local optimum). Therefore we were interested in determining the best combination of parameters.
+
+Initially these were the parameters for EA that the user could set:
 \begin{itemize}
 	\item How the genomes that would get to produce children were selected.
 	\item How the nex generation would be produced from the current set of adults and children.

@@ -48,20 +48,30 @@ In our structured literature review we came across several methods of solving ro
 
 This has lead to efforts in persuing other ways of finding solutions. Some have tried probablistic approaches, but the majority of work has been done on heurisitc methods. Simulated Annealing and Tabu search have been used successfully to give good results. It has been shown that A* can give approximate solutions, but this approach suffers from that there is a signifficant tradeoff between the quality of the solutions it finds, and its capability of processing larger problems withing reasonable time.
 
-Lately the most promising results have been given by Evolutionary Algorithms (EAs). 
+Other methods that have shown to be robust both in terms of quality of solutions are Ant Colony Optimization (ACO) and Greedy Radnomized Adaptive Search Procedure (GRASP). Both yield solutions of a similar quality as those found by Tabu Search, but ACO outpreforms GRASP on running time.
 
-%Replace E->M->S med matte?
-% Euler -> Mei-Ko Kwan -> Spider. (Nevne at matten i spider er grusom?)
-% Tabu -> SA -> Tabu + SA
-% EA -> GA -> MA 
+Lately the most promising results have been given by Evolutionary Algorithms (EA). Genetic Algorithms (GA) have been shown to give high quality solutions for large instances of the CARP/NEARP, and and generally outpreform other non-evolutionary methods. A further improvement on GAs has been made by Memetic Algorithms (MA). They have a reasonable running time, and they are capable of finding the highest quality solutions for the larger problem instances.
+
+As such MAs can be considered as the current state of the art apporach to solving the NEARP, which is the reason we chose to base our work with snow plowing in Trondheim on them.
 
 % section routing_algorithms (end)
 
 
-
 \section{Evolutionary Algorithms} % (fold)
 \label{sec:evolutionary_algorithms}
+Now that the reasons for using an EA has been laid out, one should consider what EAs are, and how they can be implemented. EAs were one of the earliest bio-inspired algorithms, introduced by Alan Turing. The idea is that EAs should mimic the biological processes in evolution, abstracting potential solutions to a population of individuals that have traits which are combined and altered through generations.
 
+A common way to make an EA is to implement a GA. In the paradigm of the GA, at the core of each individual there is a genome. This genome is an alternative representation of a solution to the probem one is trying to solve with the GA that satisfies certain properties.
+
+When there is a new generation, new individuals are made by combining existing memebers of the population. This is done by taking two or more individuals, and combining their genomes into a new genome, that becomes the foundation for a new individual. A genome must thus be constructed in such a way that it can be merged with another genome in such a way that the output is a valid genome that represents a solution.
+
+Each new genome when created has a cance of undergoing mutation. In practice this often means that one of its components gets an altered value, or two components swap places in the genome, yielding a new altered genome. This ensures that there is always some random variation in the population, making it less prone to becoming stuck in a local optimum.
+
+It must also be possible to convert a genome to a solution of the problem the GA is trying to solve. The solution obtained from a genome is called an inidviduals phenotype. These phenotypes should take a reasonable time to generate, specially because they are often the foundation for calculating an individuals fitness.
+
+The fitness can then be used to determine whether an optimal solution to the problem has been found. If not, for an instance because it is unknown what a problems global optimal value is, the fitness is often used in determining what individuals are coupled when the nex generation is created, and what combination of pre-existing individuals and new inidviduals should make up the population at the end of the generation/beginning of the next generation.
+
+To improve on GAs the concept of memeticism can be introduced, turning them into MAs. Memeticism is the term used for describing that individuals can be improved after being generated, mimicing the ability of real life organism in evolutionary systems to learn. In practice this is often done by replacing the mutation step with doing a simple local search to improve the genome.
 
 \subsection{Fitness for Snow Plowing} % (fold)
 \label{sub:fitness_for_snow_plowing}
