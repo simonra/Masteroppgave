@@ -44,21 +44,52 @@ Now that we have defined what kind of problem we want to solve, we need to look 
 \section{Routing Algorithms} % (fold)
 \label{sec:routing_algorithms}
 
-In our structured literature review we came across several methods of solving routing problems. Clearly, the most desirable outcome would be a solution that can be known to be optimal.
+In our structured literature review we came across several methods of solving routing problems. Clearly, the most desirable outcome would be a solution that can be known to be optimal. And for the polynomial time cases such as the plain CPP where all the edges have to be serviced by one postman exact solutions methods have been made. But for the NP-hard cases like the CARP exact solutions quickly become infeasible as problem sizes grow. Some of the best apporaches perform well for problems with up to 7 vehicles, 50 nodes, and 97 edges.
 
+This has lead to efforts in persuing other ways of finding solutions. Some have tried probablistic approaches, but the majority of work has been done on heurisitc methods. Simulated Annealing and Tabu search have been used successfully to give good results. It has been shown that A* can give approximate solutions, but this approach suffers from that there is a signifficant tradeoff between the quality of the solutions it finds, and its capability of processing larger problems withing reasonable time.
+
+Lately the most promising results have been given by Evolutionary Algorithms (EAs). 
+
+%Replace E->M->S med matte?
 % Euler -> Mei-Ko Kwan -> Spider. (Nevne at matten i spider er grusom?)
 % Tabu -> SA -> Tabu + SA
 % EA -> GA -> MA 
 
 % section routing_algorithms (end)
 
-\subsection{Evolutionary Algorithms}
-Why we chose this approach
-	(Many approaches to the problem have been tried, examples, however in our previous work we found that MA's were good)
-\\\\
-Description of:
-Turing -> modern interpretations
-\\\\
-Memeticism
+
+
+\section{Evolutionary Algorithms} % (fold)
+\label{sec:evolutionary_algorithms}
+
+
+\subsection{Fitness for Snow Plowing} % (fold)
+\label{sub:fitness_for_snow_plowing}
+
+% subsection fitness_for_snow_plowing (end)
+
+\subsection{The Split Algorithm} % (fold)
+\label{sub:the_split_algorithm}
+
+% subsection the_split_algorithm (end)
+
+\subsection{All Pairs Shortest Path} % (fold)
+\label{sub:all_pairs_shortest_path}
+
+% subsection all_pairs_shortest_path (end)
+
+
+% section evolutionary_algorithms (end)
+
+
+
+% \subsection{Evolutionary Algorithms}
+% Why we chose this approach
+% 	(Many approaches to the problem have been tried, examples, however in our previous work we found that MA's were good)
+% \\\\
+% Description of:
+% Turing -> modern interpretations
+% \\\\
+% Memeticism
 
 \cleardoublepage
