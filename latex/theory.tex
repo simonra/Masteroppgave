@@ -1,4 +1,5 @@
 \chapter{Theory}
+\label{theory}
 
 In the pre-project leading up to this work we performed a structured literature review (TODO: SOURCE). Our focus was finding whether snow plowing was a known and solved problem, and in case it was, how should one go about trying to solve it. In the following sections we will outline what we found about the classification of the problem, and known approaches.
 
@@ -86,14 +87,6 @@ The solution we found in the literature was to let the genome represent a single
 \subsection{Fitness for Snow Plowing} % (fold)
 \label{sub:fitness_for_snow_plowing}
 
-% When calculating the fitness for snow plowing, there are two important aspects. Firstly what factors should be taken into consideration, and how should they be weighted against each other. Secondly, how should the calculations be done in the EAs representation of the problem once the parameters are known.
-
-% a natural palce to start would be finding what needs to be represented before looking at how to do math with it
-
-% For the calculations using the representation of the problem to make sense, we should first define what the problem is
-
-% Becase snow plowing is a complex operation, there are many things to keep track of/that should be taken into account. A natural way to divide them would be the constraints that the infrastructure and environment impose on how the work can be done, and what are the requirements set for how the work should be done.
-
 There are many things to keep in mind when trying to determine the fitness of a route in a complex operation like snow plowing. In interviews with the municipality and the NPRA, we found some of the most important factors that impact the execution of the plowing, and most likely should affect the goodness of a solution. They are shown in figures \ref{fig:environmental_factors} and \ref{fig:imposed_constraints}.
 
 
@@ -129,41 +122,46 @@ There are many things to keep in mind when trying to determine the fitness of a 
 \end{description}
 \end{figure}
 
+When what is needed to calculate the fitness has been obtained, the next step becomes setting up the calculation process.
 
-When the components neccessary to compute the fitness have been obtained, there is one more thing that needs to be in place before the process of calculation is determined. How the connection between the road network, the fitness components, and the genome should work. 
+% The genome gives the ordering of the elements, the benchmark format gives what values are available. Abstractly, the fitness should be the sum of servicing each element as one reaches it in the order the genome dictates, plus the distance/cost of moving between each of them. This can be expressed as the sum of 
+% Finding the cost of going between elements that do not require servicing 
 
+
+
+% Fintss Components -> calculations -> (FLW) assumptions about G -> FLW assumptions about passthrough - FLW pseudocode.
+
+
+
+% When the components neccessary to compute the fitness have been obtained, there is one more thing that needs to be in place before the process of calculation is determined. How the connection between the road network, the fitness components, and the genome should work. The format used by the NEARP benchmarks provides a nice way to tie the road network and fitness components together into a graph with nodes, edges, and arcs that can be used as the EAs internal representation.
+
+% The cost component 
+
+% Due to the problem being approached as a NEARP, the natural way to do this is to use a graph with nodes, edges, and arcs as the EAs internal representation.
+
+% The existing NEARP benchmarks provide 
+% The format used by the NEARP benchmarks provides a good way of combining the constraints and the road network into such a graph.
+% facilitates, provides, supplies, 
 
 
 
 % Underlying graph -> graph as set -> required elements.
-% the properties each element can/should have
-% /each element should have properties. Now to list them ...
+% How parameters should be converted to pass-through/dead-heading cost, servicing cost, and demand
+% A short bit about the penalize demand out of order through lin-reg idea
 
 
 % subsection fitness_for_snow_plowing (end)
-
-\subsection{The Split Algorithm} % (fold)
-\label{sub:the_split_algorithm}
-
-% subsection the_split_algorithm (end)
 
 \subsection{All Pairs Shortest Path} % (fold)
 \label{sub:all_pairs_shortest_path}
 
 % subsection all_pairs_shortest_path (end)
 
+\subsection{The Split Algorithm} % (fold)
+\label{sub:the_split_algorithm}
 
+% subsection the_split_algorithm (end)
 % section evolutionary_algorithms (end)
-
-
-
-% \subsection{Evolutionary Algorithms}
-% Why we chose this approach
-% 	(Many approaches to the problem have been tried, examples, however in our previous work we found that MA's were good)
-% \\\\
-% Description of:
-% Turing -> modern interpretations
-% \\\\
-% Memeticism
+% chapter theory (end)
 
 \cleardoublepage
