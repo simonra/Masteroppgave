@@ -18,51 +18,51 @@ Essentially we ended up in a situation where there would be no cost going to a n
 
 
 
-\begin{algorithm}[thbp]
-\caption{Floyd-Warshall}\label{floyd-warshall-pseudocode}
-\begin{algorithmic}[1]
+% \begin{algorithm}[thbp]
+% \caption{Floyd-Warshall}%\label{floyd-warshall-pseudocode}
+% \begin{algorithmic}[1]
 
-\Procedure{Floyd-Warshall}{Graph}
-	\State \textbf{let} $numberOfElements \leftarrow \sum (|N|+|E|+|A|) \in Graph$
-	\State \textbf{let} $distances$ be a $numberOfElements \times numberOfElements$ array
-	\State \textbf{let} $successors$ be a $numberOfElements \times numberOfElements$ array
-	\State \textbf{set} all entries in $distances$ \textbf{to} $\infty$
-	\State \textbf{set} all entries in $successors$ \textbf{to} $-1$
-	\Statex
-	\For{\textbf{each} element $e \in N \cup E \cup A \in Graph$}
-		\State $distances[e][e] \leftarrow 0$
-		\State $successors[e][e] \leftarrow e$
-	\EndFor
-	\Statex
-	\For{\textbf{each} element $e \in N \cup E \cup A \in Graph$}
-		\State \textbf{let} $adjacent \leftarrow $ elements adjacent to $e$ in $Graph$
-		\For{\textbf{each} element $e_a \in adjacent$}
-			\State $distances[e][e_a] \leftarrow e_a.passThroughCost$
-			\State $successors[e][e_a] \leftarrow e_a$
-			\State $successors[e_a][e] \leftarrow e$
-		\EndFor
-	\EndFor
-	\Statex
-	\For{$k \leftarrow 0$ \textbf{to} $numberOfElements$}
-		\For{$i \leftarrow 0$ \textbf{to} $numberOfElements$}
-			\For{$j \leftarrow 0$ \textbf{to} $numberOfElements$}
-				\If{$distances[i][j] > distances[i][k] + distances[k][j]$}
-					\State $distances[i][j] = distances[i][k] + distances[k][j]$
-					\State $successors[i][j] = successors[i][k]$
-				\EndIf
-			\EndFor
-		\EndFor
-	\EndFor
-	\Statex
-	\For{\textbf{each} element $(e_i,e_j) \in N \cup E \cup A \in Graph$}
-		\If{$e_i \neq e_j$}
-			\State $distances[e_j][e_i] \leftarrow distances[e_j][e_i] - e_i.passThroughCost$
-		\EndIf
-	\EndFor
-\EndProcedure
+% \Procedure{Floyd-Warshall}{Graph}
+% 	\State \textbf{let} $numberOfElements \leftarrow \sum (|N|+|E|+|A|) \in Graph$
+% 	\State \textbf{let} $distances$ be a $numberOfElements \times numberOfElements$ array
+% 	\State \textbf{let} $successors$ be a $numberOfElements \times numberOfElements$ array
+% 	\State \textbf{set} all entries in $distances$ \textbf{to} $\infty$
+% 	\State \textbf{set} all entries in $successors$ \textbf{to} $-1$
+% 	\Statex
+% 	\For{\textbf{each} element $e \in N \cup E \cup A \in Graph$}
+% 		\State $distances[e][e] \leftarrow 0$
+% 		\State $successors[e][e] \leftarrow e$
+% 	\EndFor
+% 	\Statex
+% 	\For{\textbf{each} element $e \in N \cup E \cup A \in Graph$}
+% 		\State \textbf{let} $adjacent \leftarrow $ elements adjacent to $e$ in $Graph$
+% 		\For{\textbf{each} element $e_a \in adjacent$}
+% 			\State $distances[e][e_a] \leftarrow e_a.passThroughCost$
+% 			\State $successors[e][e_a] \leftarrow e_a$
+% 			\State $successors[e_a][e] \leftarrow e$
+% 		\EndFor
+% 	\EndFor
+% 	\Statex
+% 	\For{$k \leftarrow 0$ \textbf{to} $numberOfElements$}
+% 		\For{$i \leftarrow 0$ \textbf{to} $numberOfElements$}
+% 			\For{$j \leftarrow 0$ \textbf{to} $numberOfElements$}
+% 				\If{$distances[i][j] > distances[i][k] + distances[k][j]$}
+% 					\State $distances[i][j] = distances[i][k] + distances[k][j]$
+% 					\State $successors[i][j] = successors[i][k]$
+% 				\EndIf
+% 			\EndFor
+% 		\EndFor
+% 	\EndFor
+% 	\Statex
+% 	\For{\textbf{each} element $(e_i,e_j) \in N \cup E \cup A \in Graph$}
+% 		\If{$e_i \neq e_j$}
+% 			\State $distances[e_j][e_i] \leftarrow distances[e_j][e_i] - e_i.passThroughCost$
+% 		\EndIf
+% 	\EndFor
+% \EndProcedure
 
-\end{algorithmic}
-\end{algorithm}
+% \end{algorithmic}
+% \end{algorithm}
 
 % section all_pairs_shortest_path (end)
 
