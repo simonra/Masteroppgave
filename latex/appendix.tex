@@ -80,7 +80,7 @@ The pseudocode for the split algorithm:
 	\State \textbf{let} $e_k$ be the k'th element from the Genotypes ordering of the set $(N \cup E \cup A) \in Graph$ in its genome
 	\State \textbf{let} $costs$ be an array of length $numberOfElements + 1$
 	\State \textbf{let} $predecessors$ be an array of length $numberOfElements + 1$
-	\State \textbf{set} all entries in $predecessors$ to $\infty$
+	\State \textbf{set} all entries in $costs$ to $\infty$
 	\State $costs[0] \leftarrow 0$
 	\State $predecessors[0] \leftarrow 0$
 	\Statex
@@ -94,7 +94,7 @@ The pseudocode for the split algorithm:
 			\If{$i = j$}
 				\State $cost \leftarrow($ distance from depot to $e_{i-1}) + e_{i-1}.servicing\_cost +($ distance from $e_{i-1}$ to the depot $)$
 			\Else
-				\State $cost \leftarrow($ distance from depot to $e_{j-2}) + ($distance from $e_{j-2}$ to $e_{j-1}) + e_{j-1}.servicing\_cost +($ distance from $e_{j-1}$ to the depot $)$
+				\State $cost \leftarrow  cost - ($ distance from $e_{j-2}$ to depot $) + ($distance from $e_{j-2}$ to $e_{j-1}) + e_{j-1}.servicing\_cost +($ distance from $e_{j-1}$ to the depot $)$
 			\EndIf
 			\Statex
 			\If{$(load < vehicle\_capacity)\wedge(costs[i - 1] + cost < costs[j])$}
