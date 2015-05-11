@@ -191,15 +191,16 @@ This can be rectified when initializng the distance matrix with the distances be
 \end{algorithmic}
 \end{algorithm}
 
+With the all pairs shortest path matrix calculating the fintess of a trip given as a set of required elements from the graph (such as a genome) becomes a matter of traversing the required elements, adding their servicing costs, and looking up and adding the distance between them from the distnace matrix.
 
-
-
+This works fine for obtaining the fitness of a genome as long as the genome is to be interpreted as a single giant trip of the entire graph. But when there are several vehicles the work should be divided between, one first has to determine how the graph should be split between them in order to calculate the cost of each vehicles trip.
 
 % subsection all_pairs_shortest_path (end)
 
 \subsection{The Split Algorithm} % (fold)
 \label{sub:the_split_algorithm}
 
+The split algorithm is used to take a trip in a graph and split it into smaller sub-trips which originate and end in a depot node. 
 
 % subsection the_split_algorithm (end)
 % section evolutionary_algorithms (end)
