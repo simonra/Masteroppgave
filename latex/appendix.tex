@@ -118,7 +118,7 @@ The pseudocode for retrieving trips for individual vehicles from the output of t
 \caption{Retrieve Trips from Split}\label{split-retrieve-pseudocode}
 \begin{algorithmic}[1]
 
-\Procedure{Retrieve Trips From Split}{costs, predecessors, genotype}
+\Procedure{Retrieve Trips From Split}{predecessors, genotype}
 	\State \textbf{let} $list\_of\_trips$ be an empty list
 	\State $j \leftarrow$ number of tasks
 	\DoWhile
@@ -128,6 +128,7 @@ The pseudocode for retrieving trips for individual vehicles from the output of t
 			\State $current\_trip[k-(i+1)] \leftarrow genotype.genome[k-1]$
 		\EndFor
 		\State \textbf{add} $current\_trip$ \textbf{to} the beginning of $list\_of\_trips$
+		\State $j \leftarrow i$
 	\EndDoWhile{$i \neq 0$}
 \EndProcedure
 

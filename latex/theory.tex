@@ -200,7 +200,15 @@ This works fine for obtaining the fitness of a genome as long as the genome is t
 \subsection{The Split Algorithm} % (fold)
 \label{sub:the_split_algorithm}
 
-The split algorithm is used to take a trip in a graph and split it into smaller sub-trips which originate and end in a depot node. 
+The Split algorithm is used to take a trip in a graph and split it into smaller sub-trips which originate and end in a depot node. It generates the sub-trips such that none of them exceed the vehicles demand capacity, they service the required elements in the same order as in the supplied trip, and the resulting sub-trips are the shortest possible combination given these constraints. The pseudocode for the Split algorithm is shown in Algorithm \ref{split-pseudocode}.
+
+The way it works is that it for each required element in the supplied trip checks whether going from the depot, servicing it, and going back, is the sub-trip of least cost that services the current element. If so, it updates the list of predecessors indicating that going straight to it from the depot is the best sub-trip for it. At the same time, it updates its value in the array of least costs of going to each element in the sub-trips. The new value for the element becomes the sum of the shortest paths of the previous splitted sub-trips, pluss the new found cost of visiting this element in its own sub-trip.
+
+After this, the algorithm tries to add one and one more required element to the current splitted sub-trip, untill the next added edge would exceede the limit of demand load the vehicles can handle. This process is done by looking at the cost of removing the cost of going from the previous checked element in this trip back to the depot, and instead adding the cost of going directly to the next element and from it to the depot. If this cost is lower than the currently lowest known cost for reaching the next element, and the demand load is manageable, its cost in the costs array is updated to the current cost, and its entry in the predecessors array is set to the index of the node at the beginning of the sub-trip currently being considered.
+
+For the purposes of finding the fitness value the algorithm allows us to simply look at the last entry in the costs array. Because it is the sum of the costs of the shortest possible sub trips leading up to the sub-trip containing the last element, and the cost of the sub-trip containing the last element, it is the cost of traversing all the sub trips.
+
+The retrieval of the resulting trips is shown in algorithm \ref{split-retrieve-pseudocode}. This algorithm works by starting with the last node of the last splitted sub-trip, and iterating over the predecessor array gotten from the Split algorithm.
 
 % subsection the_split_algorithm (end)
 % section evolutionary_algorithms (end)
