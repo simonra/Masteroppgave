@@ -137,14 +137,6 @@ The next step then becomes finding the cots of going between the required elemen
 \subsection{All Pairs Shortest Path} % (fold)
 \label{sub:all_pairs_shortest_path}
 
-For verification purposes and being able to show the output on a map should we manage to create a solution that could work with the NPRAs and municipalities data we also wanted to create a predecessor or successor matrix that would allow us to recreate a trip in its entirety. The two obvious candidates we had for algorithms that would accomodate our needs, be efficient, and not use to much resources to implement, were Dijkstras algorithm iterated once for each element, or the Floyd Warshall algorithm. We decided to use the Floyd Warshall algorithm because because the code would end up being simpler and therefore more maintainable and easier to modify at a later time than an iterated Dijkstras algorithm.
-
-But before the Floyd Warshall algorithm can be used to find the shortest distance between all the elements from the graph in the genome, it must be decided how the distance between nodes and edges or arcs should be handeled. Usually the resulting shortest path matrix gives the shortest path between nodes. But with how the genome is constructed one will have to know the distance between not only nodes, but also between otehr elements, such as the distance from a required edge to a required arc. A solution to this is to let the algorithm treat every element as it would usually treat nodes, while at the same time treating every element as an arc.
-
-If this is to make sense for using the distance matrix in the fitness calculations, some assumptions have to be made when the matrix is initially set up. Nodes have to give zero cost when moving between elements that are inbound to it or outbound from it. Furthermore, going from a node onto and arc or edge, and conversely going of an arc or edge to a node, should cost zero. However, with these assumptions the Floyd Warshall algorithm should break down giving all paths a cost of zero, because the shortest distance between all neighbors initially is zero.
-
-This can be rectified when initializng the distance matrix with the distances between each pair of connected elements, by adding the cost of the destination element. The paths are then correctly found by the algorithm, but they end up being longer than they should be by the cost of the last destination element in the path. That is easy to fix once the algorithm is done finding the paths, by traversing the distance matrix and for each entry subtracting the cost of the destination element. Because this operation has a complexity of $O(|G|)$ it does not affect the overall complexity of preforming the algorithm, which is still $O(|G|^3)$. The pseudocode for the resulting modified Floyd Warshall algorithm is shown in algorithm \ref{floyd-warshall-pseudocode}.
-
 \begin{algorithm}[thbp]
 \caption{Floyd-Warshall}\label{floyd-warshall-pseudocode}
 \begin{algorithmic}[1]
@@ -191,6 +183,16 @@ This can be rectified when initializng the distance matrix with the distances be
 \end{algorithmic}
 \end{algorithm}
 
+For verification purposes and being able to show the output on a map should we manage to create a solution that could work with the NPRAs and municipalities data we also wanted to create a predecessor or successor matrix that would allow us to recreate a trip in its entirety. The two obvious candidates we had for algorithms that would accomodate our needs, be efficient, and not use to much resources to implement, were Dijkstras algorithm iterated once for each element, or the Floyd Warshall algorithm. We decided to use the Floyd Warshall algorithm because because the code would end up being simpler and therefore more maintainable and easier to modify at a later time than an iterated Dijkstras algorithm.
+
+But before the Floyd Warshall algorithm can be used to find the shortest distance between all the elements from the graph in the genome, it must be decided how the distance between nodes and edges or arcs should be handeled. Usually the resulting shortest path matrix gives the shortest path between nodes. But with how the genome is constructed one will have to know the distance between not only nodes, but also between otehr elements, such as the distance from a required edge to a required arc. A solution to this is to let the algorithm treat every element as it would usually treat nodes, while at the same time treating every element as an arc.
+
+If this is to make sense for using the distance matrix in the fitness calculations, some assumptions have to be made when the matrix is initially set up. Nodes have to give zero cost when moving between elements that are inbound to it or outbound from it. Furthermore, going from a node onto and arc or edge, and conversely going of an arc or edge to a node, should cost zero. However, with these assumptions the Floyd Warshall algorithm should break down giving all paths a cost of zero, because the shortest distance between all neighbors initially is zero.
+
+This can be rectified when initializng the distance matrix with the distances between each pair of connected elements, by adding the cost of the destination element. The paths are then correctly found by the algorithm, but they end up being longer than they should be by the cost of the last destination element in the path. That is easy to fix once the algorithm is done finding the paths, by traversing the distance matrix and for each entry subtracting the cost of the destination element. Because this operation has a complexity of $O(|G|)$ it does not affect the overall complexity of preforming the algorithm, which is still $O(|G|^3)$. The pseudocode for the resulting modified Floyd Warshall algorithm is shown in algorithm \ref{floyd-warshall-pseudocode}.
+
+
+
 With the all pairs shortest path matrix calculating the fintess of a trip given as a set of required elements from the graph (such as a genome) becomes a matter of traversing the required elements, adding their servicing costs, and looking up and adding the distance between them from the distnace matrix.
 
 This works fine for obtaining the fitness of a genome as long as the genome is to be interpreted as a single giant trip of the entire graph. But when there are several vehicles the work should be divided between, one first has to determine how the graph should be split between them in order to calculate the cost of each vehicles trip.
@@ -202,13 +204,75 @@ This works fine for obtaining the fitness of a genome as long as the genome is t
 
 The Split algorithm is used to take a trip in a graph and split it into smaller sub-trips which originate and end in a depot node. It generates the sub-trips such that none of them exceed the vehicles demand capacity, they service the required elements in the same order as in the supplied trip, and the resulting sub-trips are the shortest possible combination given these constraints. The pseudocode for the Split algorithm is shown in Algorithm \ref{split-pseudocode}.
 
+\begin{algorithm}[thbp]
+\caption{Split}\label{split-pseudocode}
+\begin{algorithmic}[1]
+
+\Procedure{Split}{Genotype,Graph,Distances}
+	\State \textbf{let} $numberOfElements \leftarrow \sum (|N|+|E|+|A|) \in Graph$
+	\State \textbf{let} $e_k$ be the k'th element from the Genotypes ordering of the set $(N \cup E \cup A) \in Graph$ in its genome
+	\State \textbf{let} $costs$ be an array of length $numberOfElements + 1$
+	\State \textbf{let} $predecessors$ be an array of length $numberOfElements + 1$
+	\State \textbf{set} all entries in $costs$ to $\infty$
+	\State $costs[0] \leftarrow 0$
+	\State $predecessors[0] \leftarrow 0$
+	\Statex
+	\For{$i \leftarrow 1$ \textbf{to} $numberOfElements + 1$}
+		\State $j \leftarrow i$
+		\State $load \leftarrow 0$
+		\State $cost \leftarrow 0$
+		\DoWhile
+			\State $load \leftarrow load + e_j.demand$
+			\Statex
+			\If{$i = j$}
+				\State $cost \leftarrow($ distance from depot to $e_{i-1}) + e_{i-1}.servicing\_cost +($ distance from $e_{i-1}$ to the depot $)$
+			\Else
+				\State $cost \leftarrow  cost - ($ distance from $e_{j-2}$ to depot $) + ($distance from $e_{j-2}$ to $e_{j-1}) + e_{j-1}.servicing\_cost +($ distance from $e_{j-1}$ to the depot $)$
+			\EndIf
+			\Statex
+			\If{$(load < vehicle\_capacity)\wedge(costs[i - 1] + cost < costs[j])$}
+				\State $costs[j] \leftarrow costs[i - 1] + cost$
+				\State $predecessors[j] \leftarrow i - 1$
+			\EndIf
+			\Statex
+			\State $j \leftarrow j + 1$
+		\EndDoWhile{$(j < numberOfElements + 1)\wedge(load < vehicle\_capacity)$}
+	\EndFor
+	\Statex
+	\State \textbf{let} $Genotype.fitness \leftarrow costs[last\_index]$
+\EndProcedure
+
+\end{algorithmic}
+\end{algorithm}
+
 The way it works is that it for each required element in the supplied trip checks whether going from the depot, servicing it, and going back, is the sub-trip of least cost that services the current element. If so, it updates the list of predecessors indicating that going straight to it from the depot is the best sub-trip for it. At the same time, it updates its value in the array of least costs of going to each element in the sub-trips. The new value for the element becomes the sum of the shortest paths of the previous splitted sub-trips, pluss the new found cost of visiting this element in its own sub-trip.
 
-After this, the algorithm tries to add one and one more required element to the current splitted sub-trip, untill the next added edge would exceede the limit of demand load the vehicles can handle. This process is done by looking at the cost of removing the cost of going from the previous checked element in this trip back to the depot, and instead adding the cost of going directly to the next element and from it to the depot. If this cost is lower than the currently lowest known cost for reaching the next element, and the demand load is manageable, its cost in the costs array is updated to the current cost, and its entry in the predecessors array is set to the index of the node at the beginning of the sub-trip currently being considered.
+After this, the algorithm tries to add one and one more required element to the current splitted sub-trip, untill the next added edge would exceede the limit of demand load the vehicles can handle. This process is done by looking at the cost of removing the cost of going from the previous checked element in this trip back to the depot, and instead adding the cost of going directly to the next element and from it to the depot. If this cost is lower than the currently lowest known cost for reaching the next element, and the demand load is manageable, the costs and predecessors arrays are updated. The next elements cost in the costs array is updated to the current cost, and its entry in the predecessors array is set to the index of the node at the beginning of the sub-trip currently being considered.
 
-For the purposes of finding the fitness value the algorithm allows us to simply look at the last entry in the costs array. Because it is the sum of the costs of the shortest possible sub trips leading up to the sub-trip containing the last element, and the cost of the sub-trip containing the last element, it is the cost of traversing all the sub trips.
+For the purposes of finding the fitness value the algorithm allows us to simply look at the last entry in the costs array. Because it is the sum of the costs of the shortest possible sub-trips leading up to the sub-trip containing the last element, and the cost of the sub-trip containing the last element, it is the cost of traversing all the sub-trips.
 
 The retrieval of the resulting trips is shown in algorithm \ref{split-retrieve-pseudocode}. This algorithm works by starting with the last node of the last splitted sub-trip, and iterating over the predecessor array gotten from the Split algorithm.
+
+\begin{algorithm}[thbp]
+\caption{Retrieve Trips from Split}\label{split-retrieve-pseudocode}
+\begin{algorithmic}[1]
+
+\Procedure{Retrieve Trips From Split}{predecessors, genotype}
+	\State \textbf{let} $list\_of\_trips$ be an empty list
+	\State $j \leftarrow$ number of tasks
+	\DoWhile
+		\State $i \leftarrow predecessors[j]$
+		\State \textbf{let} $current\_trip$ be a new array of size $j - i$
+		\For{$k \leftarrow i + 1$ \textbf{to} $k \leq j$, $k \leftarrow k + 1$}
+			\State $current\_trip[k-(i+1)] \leftarrow genotype.genome[k-1]$
+		\EndFor
+		\State \textbf{add} $current\_trip$ \textbf{to} the beginning of $list\_of\_trips$
+		\State $j \leftarrow i$
+	\EndDoWhile{$i \neq 0$}
+\EndProcedure
+
+\end{algorithmic}
+\end{algorithm}
 
 % subsection the_split_algorithm (end)
 % section evolutionary_algorithms (end)

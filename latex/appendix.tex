@@ -71,69 +71,70 @@ Essentially we ended up in a situation where there would be no cost going to a n
 
 The pseudocode for the split algorithm:
 
-\begin{algorithm}[thbp]
-\caption{Split}\label{split-pseudocode}
-\begin{algorithmic}[1]
+% \begin{algorithm}[thbp]
+% \caption{Split}\label{split-pseudocode}
+% \begin{algorithmic}[1]
 
-\Procedure{Split}{Genotype,Graph,Distances}
-	\State \textbf{let} $numberOfElements \leftarrow \sum (|N|+|E|+|A|) \in Graph$
-	\State \textbf{let} $e_k$ be the k'th element from the Genotypes ordering of the set $(N \cup E \cup A) \in Graph$ in its genome
-	\State \textbf{let} $costs$ be an array of length $numberOfElements + 1$
-	\State \textbf{let} $predecessors$ be an array of length $numberOfElements + 1$
-	\State \textbf{set} all entries in $costs$ to $\infty$
-	\State $costs[0] \leftarrow 0$
-	\State $predecessors[0] \leftarrow 0$
-	\Statex
-	\For{$i \leftarrow 1$ \textbf{to} $numberOfElements + 1$}
-		\State $j \leftarrow i$
-		\State $load \leftarrow 0$
-		\State $cost \leftarrow 0$
-		\DoWhile
-			\State $load \leftarrow load + e_j.demand$
-			\Statex
-			\If{$i = j$}
-				\State $cost \leftarrow($ distance from depot to $e_{i-1}) + e_{i-1}.servicing\_cost +($ distance from $e_{i-1}$ to the depot $)$
-			\Else
-				\State $cost \leftarrow  cost - ($ distance from $e_{j-2}$ to depot $) + ($distance from $e_{j-2}$ to $e_{j-1}) + e_{j-1}.servicing\_cost +($ distance from $e_{j-1}$ to the depot $)$
-			\EndIf
-			\Statex
-			\If{$(load < vehicle\_capacity)\wedge(costs[i - 1] + cost < costs[j])$}
-				\State $costs[j] \leftarrow costs[i - 1] + cost$
-				\State $predecessors[j] \leftarrow i - 1$
-			\EndIf
-			\Statex
-			\State $j \leftarrow j + 1$
-		\EndDoWhile{$(j < numberOfElements + 1)\wedge(load < vehicle\_capacity)$}
-	\EndFor
-	\Statex
-	\State \textbf{let} $Genotype.fitness \leftarrow costs[last\_index]$
-\EndProcedure
+% \Procedure{Split}{Genotype,Graph,Distances}
+% 	\State \textbf{let} $numberOfElements \leftarrow \sum (|N|+|E|+|A|) \in Graph$
+% 	\State \textbf{let} $e_k$ be the k'th element from the Genotypes ordering of the set $(N \cup E \cup A) \in Graph$ in its genome
+% 	\State \textbf{let} $costs$ be an array of length $numberOfElements + 1$
+% 	\State \textbf{let} $predecessors$ be an array of length $numberOfElements + 1$
+% 	\State \textbf{set} all entries in $costs$ to $\infty$
+% 	\State $costs[0] \leftarrow 0$
+% 	\State $predecessors[0] \leftarrow 0$
+% 	\Statex
+% 	\For{$i \leftarrow 1$ \textbf{to} $numberOfElements + 1$}
+% 		\State $j \leftarrow i$
+% 		\State $load \leftarrow 0$
+% 		\State $cost \leftarrow 0$
+% 		\DoWhile
+% 			\State $load \leftarrow load + e_j.demand$
+% 			\Statex
+% 			\If{$i = j$}
+% 				\State $cost \leftarrow($ distance from depot to $e_{i-1}) + e_{i-1}.servicing\_cost +($ distance from $e_{i-1}$ to the depot $)$
+% 			\Else
+% 				\State $cost \leftarrow  cost - ($ distance from $e_{j-2}$ to depot $) + ($distance from $e_{j-2}$ to $e_{j-1}) + e_{j-1}.servicing\_cost +($ distance from $e_{j-1}$ to the depot $)$
+% 			\EndIf
+% 			\Statex
+% 			\If{$(load < vehicle\_capacity)\wedge(costs[i - 1] + cost < costs[j])$}
+% 				\State $costs[j] \leftarrow costs[i - 1] + cost$
+% 				\State $predecessors[j] \leftarrow i - 1$
+% 			\EndIf
+% 			\Statex
+% 			\State $j \leftarrow j + 1$
+% 		\EndDoWhile{$(j < numberOfElements + 1)\wedge(load < vehicle\_capacity)$}
+% 	\EndFor
+% 	\Statex
+% 	\State \textbf{let} $Genotype.fitness \leftarrow costs[last\_index]$
+% \EndProcedure
 
-\end{algorithmic}
-\end{algorithm}
+% \end{algorithmic}
+% \end{algorithm}
+
+% \begin{algorithm}[thbp]
+% \caption{Retrieve Trips from Split}\label{split-retrieve-pseudocode}
+% \begin{algorithmic}[1]
+
+% \Procedure{Retrieve Trips From Split}{predecessors, genotype}
+% 	\State \textbf{let} $list\_of\_trips$ be an empty list
+% 	\State $j \leftarrow$ number of tasks
+% 	\DoWhile
+% 		\State $i \leftarrow predecessors[j]$
+% 		\State \textbf{let} $current\_trip$ be a new array of size $j - i$
+% 		\For{$k \leftarrow i + 1$ \textbf{to} $k \leq j$, $k \leftarrow k + 1$}
+% 			\State $current\_trip[k-(i+1)] \leftarrow genotype.genome[k-1]$
+% 		\EndFor
+% 		\State \textbf{add} $current\_trip$ \textbf{to} the beginning of $list\_of\_trips$
+% 		\State $j \leftarrow i$
+% 	\EndDoWhile{$i \neq 0$}
+% \EndProcedure
+
+% \end{algorithmic}
+% \end{algorithm}
 
 The pseudocode for retrieving trips for individual vehicles from the output of the split algorithm:
 
-\begin{algorithm}[thbp]
-\caption{Retrieve Trips from Split}\label{split-retrieve-pseudocode}
-\begin{algorithmic}[1]
-
-\Procedure{Retrieve Trips From Split}{predecessors, genotype}
-	\State \textbf{let} $list\_of\_trips$ be an empty list
-	\State $j \leftarrow$ number of tasks
-	\DoWhile
-		\State $i \leftarrow predecessors[j]$
-		\State \textbf{let} $current\_trip$ be a new array of size $j - i$
-		\For{$k \leftarrow i + 1$ \textbf{to} $k \leq j$, $k \leftarrow k + 1$}
-			\State $current\_trip[k-(i+1)] \leftarrow genotype.genome[k-1]$
-		\EndFor
-		\State \textbf{add} $current\_trip$ \textbf{to} the beginning of $list\_of\_trips$
-		\State $j \leftarrow i$
-	\EndDoWhile{$i \neq 0$}
-\EndProcedure
-
-\end{algorithmic}
-\end{algorithm}
 
 % section split_heuristic (end)
 
