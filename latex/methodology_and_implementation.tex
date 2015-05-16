@@ -2,7 +2,19 @@
 
 In the previous chapter the foundation for implementing a system that does route optimization for snow plowing has been outlined. It has been shown why the NEARP has been chose as the underlying model. Further it was argued why MAs are a good approach to the problem. Then issues relating to the combination of the snow plowing problem and MAs solving the NEARP were discussed.
 
-Now with the background for the implementation sorted out, the architecture should be considered.
+Now with the background for the implementation sorted out, the architecture should be addressed. The main flow of the system is illustrated in figure TODO FLOW OF THE SYTEM DIAGRAM IMPORTANT. Here we can see that the first thing to happen is that input data is converted to the NEARP format\footnote{\url{http://www.sintef.no/projectweb/top/nearp/documentation/}} for use by the MA.
+
+% Detailed data about all the external input here. Do not want to jump back and forth between shallow outlines and in-depth explanations all the time, just do a proper explanation here.
+
+The data comes from two main sources. The first one is the municipalitys map data, supplied in files adhering to the Norwegian SOSI-Standard for map data\footnote{\url{http://kartverket.no/en/SOSI-Standard-in-English/SOSI/SOSI-Standard-in-English/}}. Most importantly, the maps contain information about what set of roads and intersections make up each existing route. These can then be used as the the required elements of a route the MA is supposed to optimize the servicing of. The sets of roads can also be utilized for evaluating how the drivers currently drive their routes with the fitness function used by the MA. This fitness can then be used to evaluate how good the results of the MA are by comparing it to the best fitness the MA finds for the same set of roads.
+
+Another important piece of data that the municipalitys maps contains are modifications to the infrastructure made by and maintained by the municipality. The most important example would be barriers. As shown in figure \ref{fig:environmental_factors} some of the barriers can be passed by snow plowing vehicles, while other barriers can not. The municipalitys maps detail which can and which can not be passed.
+
+
+
+The data used is a combination of the municipalitys data supplied in .sos files\footnote{\url{http://kartverket.no/en/SOSI-Standard-in-English/SOSI/SOSI-Standard-in-English/}}, and the NPRAs data from the NRDB. 
+
+As can be seen, before beginning to find the routes with the MA, map data has to be converted to the chosen input format. This is done by taking the municipalitys map data
 
 
 
@@ -74,7 +86,7 @@ On to how to set up experiments for this.
 
 % \subsection{Heurisitc}
 % What we implemented 
-% -> arguing for why these are good and importat things 
+% -> arguing for why these are good and important things 
 % -> mentioning that this doesn't solve the multi vehicle split that is oh so standard in the literature (because not relevant for our 1 car use case) 
 % 	-> It could possibly be used to solve some other of trondheims probles though 
 % -> mentioning what we don't take into consideration, and why one might want to look into that (ex impact of weather, slope of roads, curvature, etc)
