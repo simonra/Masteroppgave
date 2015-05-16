@@ -10,29 +10,27 @@ The data comes from two main sources. The first one is the municipalitys map dat
 
 Another important piece of data that the municipalitys maps contains are modifications to the infrastructure made by and maintained by the municipality. The most important example would be barriers. As shown in figure \ref{fig:environmental_factors} some of the barriers can be passed by snow plowing vehicles, while other barriers can not. The municipalitys maps detail which can and which can not be passed.
 
-
-
-The data used is a combination of the municipalitys data supplied in .sos files\footnote{\url{http://kartverket.no/en/SOSI-Standard-in-English/SOSI/SOSI-Standard-in-English/}}, and the NPRAs data from the NRDB. 
-
-As can be seen, before beginning to find the routes with the MA, map data has to be converted to the chosen input format. This is done by taking the municipalitys map data
+What other information about the infrastructure that is required but not contained in the municipalitys data set can be found in the NPRAs data. Their database of roads, the NRDB, contains highly detailed information about the road network. It covers physical features such as length, width, and curvature, as well as meta-information such as speed limits, placement of signs, and where pedestrian crossings are located.
 
 
 
 
 
 
-We have what the system should do (snow, NEARP) and how it should be done (MA, special fitness).
-Here is the architecture of the system we based upon this.
-	Overall process
-	External resources and output
-MA details
-	detailed loop
-	what we focues on in the fitness implementation
-Expected asympthotical running time
-	parse graph |g| + flw -> |g|\^3 + MA -> generations * (number of parents * selection overhead + number of children * (generating overhead (|genome|) + fitness evaluation of each (if not split |genome/graph| else if split |genome\^2|) ) + overhead of population transitions (sorting the population (n*log n ?), selecting the next population (O(1) in our implementations), updating best knowns (O(1) also)))
-General maintainability of the implementation
-Expected future reliance of the external resources used (NRDB, sos-files)
-On to how to set up experiments for this.
+
+
+% We have what the system should do (snow, NEARP) and how it should be done (MA, special fitness).
+% Here is the architecture of the system we based upon this.
+% 	Overall process
+% 	External resources and output
+% MA details
+% 	detailed loop
+% 	what we focues on in the fitness implementation
+% Expected asympthotical running time
+% 	parse graph |g| + flw -> |g|\^3 + MA -> generations * (number of parents * selection overhead + number of children * (generating overhead (|genome|) + fitness evaluation of each (if not split |genome/graph| else if split |genome\^2|) ) + overhead of population transitions (sorting the population (n*log n ?), selecting the next population (O(1) in our implementations), updating best knowns (O(1) also)))
+% General maintainability of the implementation
+% Expected future reliance of the external resources used (NRDB, sos-files)
+% On to how to set up experiments for this.
 
 
 
