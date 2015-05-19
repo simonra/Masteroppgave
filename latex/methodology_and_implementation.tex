@@ -2,9 +2,15 @@
 
 In the previous chapter the foundation for implementing a system that does route optimization for snow plowing has been outlined. It has been shown why the NEARP has been chose as the underlying model. Further it was argued why MAs are a good approach to the problem. Then issues relating to the combination of the snow plowing problem and MAs solving the NEARP were discussed.
 
-Now with the background for the implementation sorted out, the architecture should be addressed. The main flow of the system is illustrated in figure TODO FLOW OF THE SYTEM DIAGRAM IMPORTANT. Here we can see that the first thing to happen is that input data is converted to the NEARP format\footnote{\url{http://www.sintef.no/projectweb/top/nearp/documentation/}} for use by the MA.
+Now with the background for the implementation sorted out, the architecture should be addressed. The main flow of the system is illustrated in figure \ref{fig:system_flowchart}. Here we can see that the first thing to happen is that input data is converted to the NEARP format\footnote{\url{http://www.sintef.no/projectweb/top/nearp/documentation/}} for use by the MA.
 
-% Detailed data about all the external input here. Do not want to jump back and forth between shallow outlines and in-depth explanations all the time, just do a proper explanation here.
+\begin{wrapfigure}{o}{0.47\textwidth}
+	\begin{center}
+		\includegraphics[width=0.46\textwidth]{figures/Architecture/Overal_system_workflow.pdf}
+	\end{center}
+	\caption{Overview of the systems Workflow}
+	\label{fig:system_flowchart}
+\end{wrapfigure}
 
 The data comes from two main sources. The first one is the municipalitys map data, supplied in files adhering to the Norwegian SOSI-Standard for map data\footnote{\url{http://kartverket.no/en/SOSI-Standard-in-English/SOSI/SOSI-Standard-in-English/}}. Most importantly, the maps contain information about what set of roads and intersections make up each existing route. These can then be used as the the required elements of a route the MA is supposed to optimize the servicing of. The sets of roads can also be utilized for evaluating how the drivers currently drive their routes with the fitness function used by the MA. This fitness can then be used to evaluate how good the results of the MA are by comparing it to the best fitness the MA finds for the same set of roads.
 
@@ -16,10 +22,29 @@ The process of making an input file based on all this data is done in the follow
 
 When making arcs and edges, the ones that are part of a route are labeled as required, just like the nodes. The arcs and edges are then assigned a traversal cost, that describes how much resources are spent passing through them without performing work on them. For car roads this was set to be the length of the road described by the arc or edge, times the speed limit on the stretch. For other kinds of underlying roads or paths the traversal cost was set to just the length.
 
+\begin{wrapfigure}{o}{0.5\textwidth}
+	\begin{center}
+		\includegraphics[width=0.5\textwidth]{figures/Architecture/MA_flowchart.pdf}
+	\end{center}
+	\caption{Memetic Algorithm Flowchart}
+	\label{fig:ma_flowchart}
+\end{wrapfigure}
+
 After the traversal costs were determined for the arcs and edges, the required elements got their demands and servicing costs set. The demand of each element, in the case of snow plowing representing the amount of snow that each vehicle should handle the removal of, was set to be the area of the element. The servicing cost was chosen to be the speed limit of the underlying road times its area.
 
 This process for converting to and from the NEARP format for the MA was designed in collaboration with Magnus Solheim Thrap and Christoffer Viken. We all took part in deciding how the data should be mapped to the NEARP format. Thrap found how to excract the neccessary data from the NRDB, and made a preliminary implementation relying on only those data. At a later point Viken was able to access the data in the municipalitys files, and combine the two sets. Viken then made the final implementation of the module that converts the data from the two sets to the NEARP format, and the one that takes the resulting output and draws it on a map.
 
+Now when the implementation of how the MA takes input has been outlined, the architecture of the MA itself can be discussed. The workflow in the MA is shown in figure \ref{fig:ma_flowchart}. From the figure it can observed that the first step is generating an initial population. This population is either generated completely at random, or seeded from known routes. The seeding can be done for an instance when working with existing routes, to see whether the MA can improve on them, or if routes with better fitness can be generated faster.
+
+\begin{figure}[thbp]
+	\centerline{\includegraphics[width=\textwidth]{figures/Architecture/Crossover_Illustration.pdf}}
+	\caption{Crossover with two parents and two crossover points}
+	\label{fig:crossover_illustration}
+\end{figure}
+
+Once the initial population has been generated, the MA enters its main loop. Here it will first select which individuals get to breed in the parent selection. Then it will take the selected pairs of parents and generate their children in the crossover step, which is illustrated in figure \ref{fig:crossover_illustration}. The crossover works by selecting two random crossover points. For each parent, every element in the genome that is between these points is then copied to a child genome. The rest of the cild genome that is not between the crossover points, is then filled with the remaining required elements. They are inserted in the order they appear in the other parent after the second crossover point. This process ensures the child genomes maintain their properties as circular representations of all the required elements from the graph, and that they inherit traits from both parents.
+
+After all the children have been generated, the MA mutetes them. In the implementation, this step is done by either swapping two elements in their genomes at random, or perofrming a memetic improvement of each child. The memetic improvement is done by swapping two and two elements in the child genome, and evaluating the fitness of the outcome. This process is repeated untill the swap results in an improved fintess, or all swaps have been tried.
 
 
 
@@ -36,6 +61,10 @@ This process for converting to and from the NEARP format for the MA was designed
 % General maintainability of the implementation
 % Expected future reliance of the external resources used (NRDB, sos-files)
 % On to how to set up experiments for this.
+
+
+
+
 
 
 
