@@ -5,7 +5,7 @@
 \label{sec:background_and_motivation}
 Here we outline how we determined what parameters to use when running the EA. There were several features that could be tweaked or enabled and disabeled when we made the EA. For an instance the population size and number of parents that get get to reproduce each generation are values that can be adjusted, while wheter to use random mutation or memetic optimization is a choice of whether to use one of two implementation.
 
-Some combinations of the parametes yield higher quality results faster (both in terms of actual time spent and number of generations passed before the output stabilizes, ie. the program settles at a local optimum). Therefore we were interested in determining the best combination of parameters.
+Some combinations of the parameters yield higher quality results faster (both in terms of actual time spent and number of generations passed before the output stabilizes, ie. the program settles at a local optimum). Therefore we were interested in determining the best combination of parameters.
 
 Initially these were the parameters for EA that the user could set:
 \begin{itemize}
@@ -26,7 +26,7 @@ Initially these were the parameters for EA that the user could set:
 \section{Experimental Plan} % (fold)
 \label{sec:experimental_plan}
 % This should be the section about what we want to do, and why we want to do it
-For the results to be as describing as possible, these tests should be run with the same input one wants to apply the EA to. That has the advantage of the results giving clear indications as to the computational time required, one could come across a very good solution in the process, and if the structure of the search space (in our case the mapping of fitnesses to different permutations of visiting required elements in the underlying graph) influences the choice of parametes it would become clear at this point.
+For the results to be as describing as possible, these tests should be run with the same input one wants to apply the EA to. That has the advantage of the results giving clear indications as to the computational time required, one could come across a very good solution in the process, and if the structure of the search space (in our case the mapping of fitnesses to different permutations of visiting required elements in the underlying graph) influences the choice of parameters it would become clear at this point.
 
 In the light of our research questions (TODO: sitere det om Trondheim spesifikt) that would mean running the tests on a subsection of Trondheim with data from the NRDB. In practise this posed several challenges. First of all, at the point in time where we could do these tests, the module structuring data from the NRDB was not complete. Second, if our assumption of that the structure of the search space might influence the outcome, it could be argued that different parts of Trondheim can be signifficantly different and that one therefore should optimize the parameters for each section one processes. Which in turn leads to the dilema of selecting the most representative section of the map, if such a thing is even possible. Third, if using real world data, there would be no way of knowing whether an optimal solution has been found, and evaluating the output beyond wheter it is completely outlandish or somewhat reasonable. Fourth, it should be easy for a human to verify the output, both for correctness and whether the calculated fitness values make any sense.
 
@@ -74,7 +74,7 @@ When testing the parent selection we set the size of the population at 200\% of 
 
 When trying to find the best way to do the adult selection we used a population size of 200\% of the genome length, and fitness proportionate selection as the parent selection. When testing overproduction we decided to make as many pairs as there are individuals in the population, ie. producing twice as many children as there can be survivors to next generation.
 
-During the determination of whether random mutation or using hillclimbing for mutation we used a population size of 200\% of the genome length, fitness proportionate adult selection, and overproduction as the adult selection.
+During the determination of whether random mutation or using hill climbing for mutation we used a population size of 200\% of the genome length, fitness proportionate adult selection, and overproduction as the adult selection.
 
 % section experimental_setup (end)
 
@@ -235,6 +235,22 @@ Overall the experiments ran smoothly, we got usable results, and more importantl
 
 What could be improved: A test that also tests splitting would be better. Using real world test data would give inidcations as to running time, which would make it better in itself. Furthermore it could give more parameters. Another signifficant limitation is that we did not get time to look into other configurations of the tournament selection.
 
+{
+\rowcolors{2}{gray!15}{white}
+\begin{table}[tbph]
+\centering
+\caption{The tunable parameters in the MA and what settings were found to give the best results}
+\label{tab:parameter_table}
+\begin{tabular}{rl}
+\hline
+\textbf{MA Parameter} & \textbf{Best found setting}     \\ \hline
+Parent selection      & Fitness proportionate selection \\
+Adult selection       & Overproduction                  \\
+Mutation type         & Memetic improvement             \\
+Population size       & 200\%                           \\ \hline
+\end{tabular}
+\end{table}
+}
 % section evaluation_and_conclusion (end)
 % chapter evolutionary_algorithm_configuration (end)
 
