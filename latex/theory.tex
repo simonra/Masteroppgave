@@ -16,6 +16,10 @@ Summar of what municipality has to handle
 In the porcess they want to reduce man-hours, equipment durability, environmental impact of the operations, temporary storage needs (so that the areas can be used for their original intended purposes), quick cleanup after weather events,
 Some requirements are non-negotiable: the friction values have to be restored to a certain threshold within a timeframe set by the NPRA, and the timeframe is shorter for higher priority road types so a solution should be looking at them first.
 
+
+Snow plowing is a vital part of winter road maintenance in locations that get a lot of snow during the winter.
+
+
 % section snow_plowing (end)
 
 
@@ -34,7 +38,7 @@ Over the following decades several variations on the probem were made to handle 
 
 The Rural Postman Problem (RPP) arose when one wanted to optimize solutions for when the postman does not have to visit all the edges, but only a subset of them. Which is a situation that is likely to arise in snow plowing, where one for an instance has to service all the roads in a city with a certain amount of traffic, but can pass through the less used roads to move between the ones that have to be plowed.
 
-The Mixed Chinese Postman Problem (MCPP) is the apporach to the CPP where one looks at the problem in a mixed graph (with both arcs and edges). It introduces a relevant constraint when considering practical applications, such as snow plowing, where the underlying graph represents a road network. Not only is it a very natural representation of a road network containing both bi-directional and one way roads, it can also be used to handle cases such as intersections with forbidden turns. 
+The Mixed Chinese Postman Problem (MCPP) is the apporach to the CPP where one looks at the problem in a mixed graph (with both arcs and edges). It introduces a relevant constraint when considering practical applications, such as snow plowing, where the underlying graph represents a road network. Not only is it a very natural representation of a road network containing both bi-directional and one way roads, it can also be used to handle cases such as intersections with forbidden turns.
 
 The Hierarchical Chinese Postman Problem (HCPP) came about when one wanted to investigate how solutions would change if one required some edges to be serviced before others. It is a situation that often arises in practice. For an instance in snow plowing one might want to service a more used road before a less used road.
 
@@ -50,7 +54,7 @@ Specially the variation known as the Capacitated Arc Routing Problem (CARP) has 
 
 This has in turn given rise to definitions that try to include more constraints so that the problems one wants to solve are more accurately described. Within the ARP paradigm the Extended Capacitated Arc Routing Problem (ECARP) has been defined to handle this. It tries to take into account things such as that the problem might be in a mixed graph, the edges/arcs can have a varying cost, special constraints such as u-turns being forbidden in ordinary intersections, a maximum limit on trip lengths, and so on.
 
-The problem definition we found that fits our case best however is the Node Edge and Arc Routing Problem (NEARP). It describes the problem of servicing a subset of the nodes, edges, and arcs in a mixed graph, with a homogeneous set of vehicles. Like in the k-CPP and CARP each vehicle is capacitated in terms of demand it can service (cost it can handle). The elements of the graph that require servicing have a fixed demand, and the all the arcs and edges have a traversal cost while nodes have no traversal cost. 
+The problem definition we found that fits our case best however is the Node Edge and Arc Routing Problem (NEARP). It describes the problem of servicing a subset of the nodes, edges, and arcs in a mixed graph, with a homogeneous set of vehicles. Like in the k-CPP and CARP each vehicle is capacitated in terms of demand it can service (cost it can handle). The elements of the graph that require servicing have a fixed demand, and the all the arcs and edges have a traversal cost while nodes have no traversal cost.
 
 Because it combines the CARP, VRP, and the General Routing Problem, it takes into account all the features of the underlying network we want to use when structuring our graph, such as the assumption of a mixed graph. Another feature that makes it a better model is that it considers both nodes, arcs, and edges as elements of the graph that can need servicing. This makes sense in a snow plowing setting where not only roads and one-way roads, but also intersections need to be plowed.
 
