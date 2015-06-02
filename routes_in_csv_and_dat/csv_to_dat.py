@@ -3,7 +3,7 @@
 
 import csv
 
-filename = "2015-05-25_rute_midtbyen_310179"
+filename = "2015-06-01_rute_310174_KV_B_Midtbyen"
 
 output_file = open(filename + '.dat', 'w+')
 
@@ -37,15 +37,15 @@ with open(filename + '.csv', 'rb') as csvfile:
 
 	output_file.write("Name:\t\t"+filename+"\n")
 	output_file.write("Optimal value:\t-1"+"\n")
-	output_file.write("\#Vehicles:\t-1"+"\n")
+	output_file.write("#Vehicles:\t-1"+"\n")
 	output_file.write("Capacity:\t16000"+"\n")
 	output_file.write("Depot Node:\t-1"+"\n")
-	output_file.write("\#Nodes:\t\t"+str(number_of_nodes)+"\n")
-	output_file.write("\#Edges:\t\t"+str(number_of_edges)+"\n")
-	output_file.write("\#Arcs:\t\t"+str(number_of_arcs)+"\n")
-	output_file.write("\#Required N:\t"+str(number_of_required_nodes)+"\n")
-	output_file.write("\#Required E:\t"+str(number_of_required_edges)+"\n")
-	output_file.write("\#Required A:\t"+str(number_of_required_arcs)+"\n")
+	output_file.write("#Nodes:\t\t"+str(number_of_nodes)+"\n")
+	output_file.write("#Edges:\t\t"+str(number_of_edges)+"\n")
+	output_file.write("#Arcs:\t\t"+str(number_of_arcs)+"\n")
+	output_file.write("#Required N:\t"+str(number_of_required_nodes)+"\n")
+	output_file.write("#Required E:\t"+str(number_of_required_edges)+"\n")
+	output_file.write("#Required A:\t"+str(number_of_required_arcs)+"\n")
 	output_file.write("\n")
 	output_file.write("ReN.\tDEMAND\tS. COST"+"\n")
 	output_file.write("\n")
