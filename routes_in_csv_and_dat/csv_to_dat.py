@@ -40,7 +40,7 @@ with open(filename + '.csv', 'rb') as csvfile:
 	output_file.write("Optimal value:\t-1"+"\n")
 	output_file.write("#Vehicles:\t-1"+"\n")
 	output_file.write("Capacity:\t16000"+"\n")
-	output_file.write("Depot Node:\t-1"+"\n")
+	output_file.write("Depot Node:\t"+inputted_csv[1][3]+"\n")
 	output_file.write("#Nodes:\t\t"+str(number_of_nodes)+"\n")
 	output_file.write("#Edges:\t\t"+str(number_of_edges)+"\n")
 	output_file.write("#Arcs:\t\t"+str(number_of_arcs)+"\n")
