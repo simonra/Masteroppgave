@@ -3,7 +3,7 @@
 
 import csv
 
-filename = "2015-06-01_rute_310174_KV_B_Midtbyen"
+filename = "2015-06-03_rute_310174_KV_B_Midtbyen"
 
 output_file = open(filename + '.dat', 'w+')
 
@@ -33,6 +33,7 @@ with open(filename + '.csv', 'rb') as csvfile:
 				number_of_required_arcs += 1
 		node_IDs.add(row[3])
 		node_IDs.add(row[4])
+	number_of_arcs -= 1
 	number_of_nodes = len(node_IDs)
 
 	output_file.write("Name:\t\t"+filename+"\n")
