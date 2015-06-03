@@ -74,6 +74,10 @@ public class Node implements ElementProperties, Cost{
 	public String getName() {
 		return name;
 	}
+	
+	public void setName(String name){
+		this.name = name;
+	}
 
 	@Override
 	public boolean getIsRequired() {

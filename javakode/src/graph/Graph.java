@@ -2,6 +2,9 @@ package graph;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.TreeMap;
 
 import parameterFiles.GraphParams;
 //import java.util.Arrays;
@@ -117,12 +120,15 @@ public class Graph {
 		String elementName;
 		int currentElementID;
 		int globalElementID = 0;
-		int fromNode, toNode;
+		int fromNodeName, toNodeName, fromNodeID, toNodeID;
+		int lastNotMappedNodeGlobalID = 0;
 		double traversalCost, demand, servicingCost;
 		boolean isRequired;
 		Node createdNode;
 		Edge createdEdge;
 		Arc createdArc;
+		
+		Map<Integer, Integer> myMap = new TreeMap<>();
 		
 		sumOfDemand = 0;
 		sumOfServicingCostsOfRequiredElements = 0;
@@ -142,7 +148,8 @@ public class Graph {
 			vehicleCapacity = Double.parseDouble(line.replaceAll("Capacity:\t", ""));
 			
 			line = bufferedReader.readLine();
-			depotNodeIndex = Integer.parseInt(line.replaceAll("Depot Node:\t", "")) - 1;	//Subtract 1 because we 0-index
+			depotNodeIndex = Integer.parseInt(line.replaceAll("Depot Node:\t", ""));	//Subtract 1 because we 0-index
+//			if(depotNodeIndex < -1) depotNodeIndex = -1;
 			
 			line = bufferedReader.readLine();
 			numberOfNodes = Integer.parseInt(line.replaceAll("#Nodes:\t\t", ""));
@@ -177,14 +184,18 @@ public class Graph {
 				lineWithMultipleContent = line.split("\t");
 				elementName = lineWithMultipleContent[0];
 				currentElementID = Integer.parseInt(elementName.replaceAll("N", ""));
-				globalElementID = currentElementID - 1;
+				myMap.put(currentElementID, globalElementID);
+//				myMap.get(currentElementID);
+//				globalElementID = currentElementID - 1;
 				demand = Double.parseDouble(lineWithMultipleContent[1]);
 				sumOfDemand += demand;
 				servicingCost = Double.parseDouble(lineWithMultipleContent[2]);
 				sumOfServicingCostsOfRequiredElements += servicingCost;
 				createdNode = new Node(globalElementID, elementName, demand, servicingCost, isRequired);
-				requiredNodes[i] = createdNode;
+				requiredNodes[globalElementID] = createdNode;
 				nodes[globalElementID] = createdNode;
+				globalElementID++;
+				lastNotMappedNodeGlobalID = globalElementID;
 			}
 			
 			//Fill in the rest of the nodes
@@ -208,18 +219,32 @@ public class Graph {
 				lineWithMultipleContent = line.split("\t");
 				elementName = lineWithMultipleContent[0];
 				currentElementID = Integer.parseInt(elementName.replaceAll("E", ""));
-				fromNode = Integer.parseInt(lineWithMultipleContent[1]) - 1;
-				toNode = Integer.parseInt(lineWithMultipleContent[2]) - 1;
+				fromNodeName = Integer.parseInt(lineWithMultipleContent[1]);
+				toNodeName = Integer.parseInt(lineWithMultipleContent[2]);
+				
+				if(!myMap.containsKey(fromNodeName)){
+					myMap.put(fromNodeName, lastNotMappedNodeGlobalID);
+					nodes[lastNotMappedNodeGlobalID].setName("NrN" + fromNodeName);
+					lastNotMappedNodeGlobalID++;
+				}
+				if(!myMap.containsKey(toNodeName)){
+					myMap.put(toNodeName, lastNotMappedNodeGlobalID);
+					nodes[lastNotMappedNodeGlobalID].setName("NrN" + toNodeName);
+					lastNotMappedNodeGlobalID++;
+				}
+				fromNodeID = myMap.get(fromNodeName);
+				toNodeID = myMap.get(toNodeName);
+				
 				traversalCost = Double.parseDouble(lineWithMultipleContent[3]);
 				demand = Double.parseDouble(lineWithMultipleContent[4]);
 				sumOfDemand += demand;
 				servicingCost = Double.parseDouble(lineWithMultipleContent[5]);
 				sumOfServicingCostsOfRequiredElements += servicingCost;
-				createdEdge = new Edge(globalElementID, elementName, fromNode, toNode, traversalCost, servicingCost, demand, isRequired);
+				createdEdge = new Edge(globalElementID, elementName, fromNodeID, toNodeID, traversalCost, servicingCost, demand, isRequired);
 				requiredEdges[i] = createdEdge;
 				edges[i] = createdEdge;
-				nodes[fromNode].addConnection(true, false, i);
-				nodes[toNode].addConnection(true, true, i);
+				nodes[fromNodeID].addConnection(true, false, i);
+				nodes[toNodeID].addConnection(true, true, i);
 				
 				globalElementID++;
 			}
@@ -234,13 +259,27 @@ public class Graph {
 				lineWithMultipleContent = line.split("\t");
 				elementName = lineWithMultipleContent[0];
 				currentElementID = Integer.parseInt(elementName.replaceAll("NrE", ""));
-				fromNode = Integer.parseInt(lineWithMultipleContent[1]) - 1;
-				toNode = Integer.parseInt(lineWithMultipleContent[2]) - 1;
+				fromNodeName = Integer.parseInt(lineWithMultipleContent[1]);
+				toNodeName = Integer.parseInt(lineWithMultipleContent[2]);
+				
+				if(!myMap.containsKey(fromNodeName)){
+					myMap.put(fromNodeName, lastNotMappedNodeGlobalID);
+					nodes[lastNotMappedNodeGlobalID].setName("NrN" + fromNodeName);
+					lastNotMappedNodeGlobalID++;
+				}
+				if(!myMap.containsKey(toNodeName)){
+					myMap.put(toNodeName, lastNotMappedNodeGlobalID);
+					nodes[lastNotMappedNodeGlobalID].setName("NrN" + toNodeName);
+					lastNotMappedNodeGlobalID++;
+				}
+				fromNodeID = myMap.get(fromNodeName);
+				toNodeID = myMap.get(toNodeName);
+				
 				traversalCost = Double.parseDouble(lineWithMultipleContent[3]);
-				createdEdge = new Edge(globalElementID, elementName, fromNode, toNode, traversalCost, 0, 0, isRequired);
+				createdEdge = new Edge(globalElementID, elementName, fromNodeID, toNodeID, traversalCost, 0, 0, isRequired);
 				edges[numberOfRequiredEdges + i] = createdEdge;
-				nodes[fromNode].addConnection(true, false, numberOfRequiredEdges + i);
-				nodes[toNode].addConnection(true, true, numberOfRequiredEdges + i);
+				nodes[fromNodeID].addConnection(true, false, numberOfRequiredEdges + i);
+				nodes[toNodeID].addConnection(true, true, numberOfRequiredEdges + i);
 				
 				globalElementID++;
 			}
@@ -254,18 +293,32 @@ public class Graph {
 				lineWithMultipleContent = line.split("\t");
 				elementName = lineWithMultipleContent[0];
 				currentElementID = Integer.parseInt(elementName.replaceAll("A", ""));
-				fromNode = Integer.parseInt(lineWithMultipleContent[1]) - 1;
-				toNode = Integer.parseInt(lineWithMultipleContent[2]) - 1;
+				fromNodeName = Integer.parseInt(lineWithMultipleContent[1]);
+				toNodeName = Integer.parseInt(lineWithMultipleContent[2]);
+				
+				if(!myMap.containsKey(fromNodeName)){
+					myMap.put(fromNodeName, lastNotMappedNodeGlobalID);
+					nodes[lastNotMappedNodeGlobalID].setName("NrN" + fromNodeName);
+					lastNotMappedNodeGlobalID++;
+				}
+				if(!myMap.containsKey(toNodeName)){
+					myMap.put(toNodeName, lastNotMappedNodeGlobalID);
+					nodes[lastNotMappedNodeGlobalID].setName("NrN" + toNodeName);
+					lastNotMappedNodeGlobalID++;
+				}
+				fromNodeID = myMap.get(fromNodeName);
+				toNodeID = myMap.get(toNodeName);
+				
 				traversalCost = Double.parseDouble(lineWithMultipleContent[3]);
 				demand = Double.parseDouble(lineWithMultipleContent[4]);
 				sumOfDemand += demand;
 				servicingCost = Double.parseDouble(lineWithMultipleContent[5]);
 				sumOfServicingCostsOfRequiredElements += servicingCost;
-				createdArc = new Arc(globalElementID, elementName, fromNode, toNode, traversalCost, servicingCost, demand, isRequired);
+				createdArc = new Arc(globalElementID, elementName, fromNodeID, toNodeID, traversalCost, servicingCost, demand, isRequired);
 				requiredArcs[i] = createdArc;
 				arcs[i] = createdArc;
-				nodes[fromNode].addConnection(false, false, i);
-				nodes[toNode].addConnection(false, true, i);
+				nodes[fromNodeID].addConnection(false, false, i);
+				nodes[toNodeID].addConnection(false, true, i);
 				
 				globalElementID++;
 			}
@@ -278,14 +331,31 @@ public class Graph {
 				line = bufferedReader.readLine();
 				lineWithMultipleContent = line.split("\t");
 				elementName = lineWithMultipleContent[0];
+				if(elementName.replaceAll("NrA", "").equals("")){
+					continue;
+				}
 				currentElementID = Integer.parseInt(elementName.replaceAll("NrA", ""));
-				fromNode = Integer.parseInt(lineWithMultipleContent[1]) - 1;
-				toNode = Integer.parseInt(lineWithMultipleContent[2]) - 1;
+				fromNodeName = Integer.parseInt(lineWithMultipleContent[1]);
+				toNodeName = Integer.parseInt(lineWithMultipleContent[2]);
+				
+				if(!myMap.containsKey(fromNodeName)){
+					myMap.put(fromNodeName, lastNotMappedNodeGlobalID);
+					nodes[lastNotMappedNodeGlobalID].setName("" + fromNodeName);
+					lastNotMappedNodeGlobalID++;
+				}
+				if(!myMap.containsKey(toNodeName)){
+					myMap.put(toNodeName, lastNotMappedNodeGlobalID);
+					nodes[lastNotMappedNodeGlobalID].setName("" + toNodeName);
+					lastNotMappedNodeGlobalID++;
+				}
+				fromNodeID = myMap.get(fromNodeName);
+				toNodeID = myMap.get(toNodeName);
+				
 				traversalCost = Double.parseDouble(lineWithMultipleContent[3]);
-				createdArc = new Arc(globalElementID, elementName, fromNode, toNode, traversalCost, 0, 0, isRequired);
+				createdArc = new Arc(globalElementID, elementName, fromNodeID, toNodeID, traversalCost, 0, 0, isRequired);
 				arcs[numberOfRequiredArcs + i] = createdArc;
-				nodes[fromNode].addConnection(false, false, numberOfRequiredArcs + i);
-				nodes[toNode].addConnection(false, true, numberOfRequiredArcs + i);
+				nodes[fromNodeID].addConnection(false, false, numberOfRequiredArcs + i);
+				nodes[toNodeID].addConnection(false, true, numberOfRequiredArcs + i);
 				
 				globalElementID++;
 			}
@@ -294,6 +364,16 @@ public class Graph {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+//		System.out.println("DN index: " + depotNodeIndex + "\n");
+//		System.out.println("The index to set: " + myMap.get(depotNodeIndex));
+//		if(!myMap.containsKey(depotNodeIndex)){
+//			System.out.println("This is bad");
+//		}
+		depotNodeIndex = myMap.get(depotNodeIndex);
+//		System.out.println("The new index is: " + depotNodeIndex);
+		
+		
 		numberOfRequiredElements = requiredNodes.length + requiredEdges.length + requiredArcs.length;
 		numberOfElements = globalElementID;
 		averageDeamnd = sumOfDemand / numberOfRequiredElements;
