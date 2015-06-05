@@ -3,7 +3,7 @@
 
 import csv
 
-filename = "2015-06-03_rute_310174_KV_B_Midtbyen"
+filename = "2015-06-05_rute_310179_KV_H_Midtbyen"
 
 output_file = open(filename + '.dat', 'w+')
 
