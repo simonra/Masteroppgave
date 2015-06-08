@@ -1,7 +1,7 @@
 \chapter{Theory}
 \label{theory}
 
-\section{Snow Plowing} % (fold)
+\section{Winter Road Maintenance} % (fold)
 \label{sec:snow_plowing}
 
 % \begin{wrapfigure}{o}{0.5\textwidth}
@@ -30,16 +30,16 @@ Salting is similar to gritting in the sense that the same vehicles and rudimenta
 
 Snow plowing is when snow is cleared by pushing it aside. In daily life various tools are used for clearing snow in this way, such as for an instance general purpose or specialized snow shovels. But for road maintenance vehicle mounted snowplows are the preferred appliance. Although they are not suitable for improving friction arising due to ice, snowplows are great at removing snow that is a direct obstacle to the traffic, and they can improve the friction  by removing densely packed and polished tracks in the snow.
 
+\subsection{Organization of Winter Road Maintenance in Norway and Trondheim} % (fold)
+\label{ssub:how_winter_road_maintenance_is_organized_in_norway_and_trondheim}
+
+
 In Norway the winter road maintenance is a responsibility that is divided between the NPRA, the local municipalities, and the owners of private roads (which are responsible for maintaining their own roads). The NPRA has made two handbooks [håndbok 111 og R610] that specify the constraints on when what kind of winter road maintenance should be performed, and what condition roads should be in after they have been serviced. In [R610] they define 5 classes of winter maintenance standards for roads, as shown in table \ref{tab:wmscfrsbtn}.
-
-
 
 \rowcolors{2}{gray!15}{white}
 \begin{table}[tbph]
 \centering
 %ref side 120 i http://www.vegvesen.no/_attachment/61430/binary/964067?fast_title=H%C3%A5ndbok+R610+Standard+for+drift+og+vedlikehold+av+riksveger.pdf
-\caption{Winter maintenance standard classes for roads specified by the NPRA}
-\label{tab:wmscfrsbtn}
 \begin{tabular}{p{0.38\textwidth}p{0.62\textwidth}}
 \hline
 \textbf{Class Name}                 &  \textbf{Class Description, author's translation}                                                                                    \\ \hline
@@ -49,10 +49,9 @@ Winter maintenance class C -- DkC  &  Approved road condition is bare road (dry 
 Winter maintenance class D -- DkD  &  Approved road condition is hard snow/ice.                                                                                           \\
 Winter maintenance class E -- DkE  &  Approved road condition is hard snow/ice. Friction as low as 0.20 is acceptable. DkE may not be used for national roads.  \\ \hline
 \end{tabular}
+\caption{Winter maintenance standard classes for roads specified by the NPRA}
+\label{tab:wmscfrsbtn}
 \end{table}
-
-
-
 
 In addition to being sorted into one of these maintenance classes, each road is also sorted into a functional class by the NPRA. In total the NPRA operates with 10 functional classes depending on the amount of daily traffic, size, etc. However Trondheim municipality only operates with 6 functional classes of roads in their maps. And because the text will mainly be considering winter road maintenance from the municipalitys perspective, the following 6 classes that they have defined (as translated by the author) will be used further in this text:
 
@@ -73,12 +72,13 @@ Another important thing that has been considered when creating the zones are wha
 
 Something the zones in overlapping areas of the map do have in common are the places where the snow is to be stored and disposed of. In the countryside the snow can often be dumped on the side of the road and left there. But in cities, and densely populated areas, it is not so simple. There are various snow depots where the snow is moved for long term storage, and the snow that gets cleared from the city centers proximity is put into the ocean at the harbor. But all of the snow cannot be immediately moved to these locations while the roads are being cleared. Therefore as can be seen on the municipalitys maps, there are marked several locations where snow can be temporarily stored while the work is being performed.
 
-To complete all of this work, the municipality has chosen to handle some of the zones themselves, and set out others to contractors. The municipality has a lot of the equipment needed for handling the biggest roads, and the intricate situation in the city centre. As operators they use their own drivers. The contractors handling the rest of the work range from individuals that use their own vehicles (typically tractors), to specialized companies with several vehicles and drivers. All of the work is coordinated centrally by the management at the municipality, both the parts performed by the municipalitys drivers and the contractors. They set up the schedules for the maintenance work that needs to be done regularly, and calling out the individual drivers when there has been a weather-incident.
+To complete all of this work, the municipality has chosen to handle some of the zones themselves, and set out the other to contractors. The municipality has a lot of the equipment needed for handling the biggest roads, and the intricate situation in the city centre. To operate their equipemnt they use their own drivers. The contractors handling the remaining roads range from individuals that use their own vehicles (typically tractors), to specialized companies with several vehicles and drivers. All of the work is coordinated centrally, by the management at the municipality. They organize both the work carried out by the municipalitys drivers, and that done by the contractors. They set up the schedules for the maintenance work that needs to be done regularly, and call out individual drivers when there has been a weather-incident.
 
+% subsubsection how_winter_road_maintenance_is_organized_in_norway_and_trondheim (end)
 
+Given this outline of how the municipality handles the snow removal part of winter road maintenance, how snow plowing can be modelled and solved needs to be addressed. The next section will explore the models used for similar problems to routing for snow plowing, and what methods have been used to try to find solutions to them.
 
 % section snow_plowing (end)
-
 
 \section{The Node, Edge, and Arc Rouring Problem}
 \label{the_nearp}
