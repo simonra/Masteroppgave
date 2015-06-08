@@ -4,18 +4,6 @@
 \section{Snow Plowing} % (fold)
 \label{sec:snow_plowing}
 
-What is snow plowing? Short definition.
-Why is it done? Make road usable at all, have safe friction values, in some cases to remove it from places that cant handle it or its melting (such as roofs)
-What kind of equipment is used? Shovels, trucks, tractors, etc. (should cables be mentioned at all? Perhaps only if we introduce the roof scenario, and to outline why it is infeasible to do for the entire road network?)
-What are the municipalitys duties, wants, and needs?
-	Relation between NPRA and municipality, hierarchy of roads, etc.
-	The pavement problem (equipment, order in which things are done, political ambitions)
-	The storage problem (deal with parking companies, problem with roadside in rural areas where it is the only walkway for children to school, the fjord being the final destination)
-
-Summary of what municipality has to handle
-In the porcess they want to reduce man-hours, equipment durability, environmental impact of the operations, temporary storage needs (so that the areas can be used for their original intended purposes), quick cleanup after weather events,
-Some requirements are non-negotiable: the friction values have to be restored to a certain threshold within a timeframe set by the NPRA, and the timeframe is shorter for higher priority road types so a solution should be looking at them first.
-
 % \begin{wrapfigure}{o}{0.5\textwidth}
 % 	\begin{center}
 % 		\includegraphics[width=0.5\textwidth]{figures/MachineryIllustrations/pixabay_snow-blower-584380_1280.jpg}
@@ -34,8 +22,55 @@ Some requirements are non-negotiable: the friction values have to be restored to
 	\label{fig:snowplow_in_alley}
 \end{wrapfigure}
 
-Snow plowing is a vital part of winter road maintenance in places that get a lot of snow during the winter. It describes the act of removing snow by pushing it aside, usually by the means of a snowplow. In a day to day setting, the populace will clear their driveways or roofs with shovels (either general purpose shovels or specialized snow showels) or snow blowers. In some cases heating cables are used to melt the snow so that it does not have to be physically removed. However when doing large scale snow removal, such as the NPRA or municipality clearing roads, approaches like this become unfeasible. What the municipality and NPRA do is that they employ snow plows, which are specialized vehicles. They are either custom made, or modified tractors or trucks.
+In places where the temperature regularly goes below the freezing point of water, winter road maintenance has to be performed. Under such conditions ice can grow on the roads, and they might become blocked by snow. The work done in ensuring that the roads have enough friction to be safe for use by pedestrians and vehicles, and clear enough of snow so that they may pass at all, is what is called winter road maintenance.
 
+The three most common ways of performing winter road maintenance are gritting, salting, and plowing. Gritting describes the act of spreading granular materials such as pebbles or sand on slippery surfaces so that they get more friction. It is often performed on walkways and smaller roads as less resource intensive way to temporarily make it safe for pedestrians and roads with light traffic. In practice sand and combinations of sand and salt are preferred over pebbles when gritting.
+
+Salting is similar to gritting in the sense that the same vehicles and rudimentary process is used to distribute it. However it acts in a different way, and there are other constraints to consider when using it. As opposed to gritting, salting is not done to increase the friction on top of the snow or ice that may be on the road. Instead it is done to melt ice, or ensure that ice does not form in the first place. Thus a desired amount of friction is achieved by keeping the road clean. The main challenge with salting, and the reason that gritting may be preferred over salting in many situations, is that salting on top of a layer of snow has disastrous results. You get a slippery gooey matter that cannot be easily be removed from the road other than by scraping it off. Therefore it is almost always performed as a preventative measure, usually right after a stretch of road has been plowed.
+
+Snow plowing is when snow is cleared by pushing it aside. In daily life various tools are used for clearing snow in this way, such as for an instance general purpose or specialized snow shovels. But for road maintenance vehicle mounted snowplows are the preferred appliance. Although they are not suitable for improving friction arising due to ice, snowplows are great at removing snow that is a direct obstacle to the traffic, and they can improve the friction  by removing densely packed and polished tracks in the snow.
+
+In Norway the winter road maintenance is a responsibility that is divided between the NPRA, the local municipalities, and the owners of private roads (which are responsible for maintaining their own roads). The NPRA has made two handbooks [håndbok 111 og R610] that specify the constraints on when what kind of winter road maintenance should be performed, and what condition roads should be in after they have been serviced. In [R610] they define 5 classes of winter maintenance standards for roads, as shown in table \ref{tab:wmscfrsbtn}.
+
+{
+\rowcolors{2}{gray!15}{white}
+\begin{table}[tbph]
+\centering
+%ref side 120 i http://www.vegvesen.no/_attachment/61430/binary/964067?fast_title=H%C3%A5ndbok+R610+Standard+for+drift+og+vedlikehold+av+riksveger.pdf
+\caption{Winter maintenance standard classes for roads specified by the NPRA}
+\label{tab:wmscfrsbtn}
+\begin{tabular}{rl}
+\hline
+\textbf{Class Name}                 &  \textbf{Class Description, author's translation}                                                                                    \\ \hline
+Winter maintenance class A --- DkA  &  Approved road condition is bare road (dry or wet).                                                                                  \\
+Winter maintenance class B --- DkB  &  Approved road condition is bare road (dry or wet), hard snow/ice is permissible outside rut for limited periods.                    \\
+Winter maintenance class C --- DkC  &  Approved road condition is bare road (dry or wet) in mild periods and hard snow/ice in cold periods.                                \\
+Winter maintenance class D --- DkD  &  Approved road condition is hard snow/ice.                                                                                           \\
+Winter maintenance class E --- DkE  &  Approved road condition is hard snow/ice. Friction as low as 0.20 is acceptable. DkE may not be used for Norwegian national roads.  \\ \hline
+\end{tabular}
+\end{table}
+}
+
+In addition to being sorted into one of these maintenance classes, each road is also sorted into a functional class by the NPRA. In total the NPRA operates with 10 functional classes depending on the amount of daily traffic, size, etc. However Trondheim municipality only operates with 6 functional classes of roads in their maps. And because the text will mainly be considering winter road maintenance from the municipalitys perspective, the following 6 classes that they have defined (as translated by the author) will be used further in this text:
+
+\begin{itemize}
+    \item Riksveg (National road)
+    \item Fylkesveg (County road)
+    \item Kommunalveg/Hovedveg (Municipal road)
+    \item Boliggate (Street)
+    \item GS-veg (abbreviation for Gang- og Sykkelvei, translates to Footpaths and Cycle Paths) %https://www.regjeringen.no/en/topics/municipalities-and-regions/by--og-stedsutvikling/framtidensbyer/area-and-transport/footpaths-and-cycle-paths/id547994/
+    \item Sykkelfelt (Bicycle lane/path)
+\end{itemize}
+
+Out of these the municipality is responsible is responsible for maintaining all, except national and county roads, for which the responsibility falls to the NPRA. As of february the 25th 2015, there are 212 km of municipal roads, 336 km of streets, and 180 km of footpaths and cycle paths that the municipality of Trondheim is responsible for maintaining during the winter (\url{https://www.trondheim.kommune.no/content/1117746169/Vinterdrift-2014-15}, only in Norwegian). To make servicing all these 728 km of roads feasible, they have divided the road network into several smaller zones.
+
+An important factor in deciding the zones is what amount of work can be performed in one trip with the equipment. For gritting the size of each zone may depend on how much sand can be carried before the vehicle has to return to a sand depot to refill. When plowing the size of the zone might be restricted by how fast a vehicle can cover the entirety of it, so that it is returned to the required condition before too much time has passed.
+
+Another important thing that has been considered when creating the zones are what type of equipment is suitable for processing what kind of road. The large municipal roads might be suitable to service with a snowplow truck. Smaller alleys and streets on the other hand are better approached with smaller tractors that can actually fit through them. Therefore when looking at the zones it can be seen that many of them are inside the same area of the map, but containing different roads.
+
+Something the zones in overlapping areas of the map do have in common are the places where the snow is to be stored and disposed of. In the countryside the snow can often be dumped on the side of the road and left there. But in cities, and densely populated areas, it is not so simple. There are various snow depots where the snow is moved for long term storage, and the snow that gets cleared from the city centers proximity is put into the ocean at the harbor. But all of the snow cannot be immediately moved to these locations while the roads are being cleared. Therefore as can be seen on the municipalitys maps, there are marked several locations where snow can be temporarily stored while the work is being performed.
+
+To complete all of this work, the municipality has chosen to handle some of the zones themselves, and set out others to contractors. The municipality has a lot of the equipment needed for handling the biggest roads, and the intricate situation in the city centre. As operators they use their own drivers. The contractors handling the rest of the work range from individuals that use their own vehicles (typically tractors), to specialized companies with several vehicles and drivers. All of the work is coordinated centrally by the management at the municipality, both the parts performed by the municipalitys drivers and the contractors. They set up the schedules for the maintenance work that needs to be done regularly, and calling out the individual drivers when there has been a weather-incident.
 
 
 
