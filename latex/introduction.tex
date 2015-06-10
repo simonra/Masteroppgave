@@ -1,56 +1,34 @@
 \chapter{Introduction}
 
+
+
 \section{Background and Motivation}
 
-The background for this thesis was that the municipality of Trondheim (in Sør-Trønderlag county, Norway) wanted to look into improving the performance of their winter road maintenance work. We were approached with the challenge of optimizing the routes they use for their snow plowing operation. After some initial meetings with our supervisors, the municipality, and the Norwegian Public Roads Administration (NPRA), we had determined the scope of our pre-project which took place in the autumn of 2014.
 
-Our initial research showed that routing is a hard problem and that even with heuristic an exact solution is not guaranteed. Furthermore our resources were limited to one, maybe two semetsters. This contributed to that we soon realized that any solution of sufficient quality we might produce would not be a complete answer to the municipalitys challenge.
-
-An ideal solution would be one that looked at the entrie municipality, divided it into routes for each available vehicle (taking into account both the municipalitys vehicles and those of contractors), while making sure that each route is optimal for the chosen vehicle and that all the required area gets covered. At the same time it should take into consideration the features of each individual piece of road, such as slope, width, number of pedestriant crossings, and what parameters the user wants to optimize for. The durability loss of the vehicles, total distance moved for each vehicles, total time the drivers spend, the environmental impact of the operation, how traffic flow is affected, are all important factors one might want to optimize, and how one weights them may greatly affect the outcome.
-
-The outcome on the other hand, is specified by the NPRA
-% http://www.vegvesen.no/_attachment/61430/binary/964067?fast_title=H%C3%A5ndbok+R610+Standard+for+drift+og+vedlikehold+av+riksveger.pdf
-. In their manuals they have detailed what conditions should be like, how much time can pass before roads of certains types have to be restored to normal operational standards. In the National Road DataBase (NRDB) 
-%http://www.vegvesen.no/en/Professional/Roads+and+transport/National+Road+Data+Bank+NRDB
-the NPRA specify 10 different classes of roads (Funksjonell vegklasse sorted by Vegklasse). These span all roads from large highways to the smallest bicycle paths and dirt roads the NPRA has records of.
-
-However, because the responsibility of maintaining roads is split between the NPRA and the counties and municipalities (and for various other reasons), the county has their own maps. In their legends, they keep track of the 5 kinds of roads that they are responsible of maintaining. For the rest of this text we will use the countys naming scheme because they have an explicit one, and unlike the NRDB they do not use numbers but actual names to denote the different kinds of roads.
-
-The different types of roads (with our translations) are:
-\begin{itemize}
-	\item Fylkesveg (County road)
-	\item Kommunalveg (Municipal road)
-	\item Boliggate (Street)
-	\item GS-veg (abbreviation for Gang- og Sykkelvei, translates to Footpaths and Cycle Paths) %https://www.regjeringen.no/en/topics/municipalities-and-regions/by--og-stedsutvikling/framtidensbyer/area-and-transport/footpaths-and-cycle-paths/id547994/
-	\item Sykkelfelt (Bicycle lane/path)
-\end{itemize}
-
-The most notable items this list doesn't contain are what is generally labeled as Riks\-veger, and private roads, because the municipality is not responsible for either. Riks\-veger entails highways and usually larger roads connecting and passing through counties.
-
-An important part of the municipalitys work is as can be seen maintaining the roads used exclusively by pedestrians and bicycles. This is interesting from a routing perspective, because the network of these roads is highly complex (have lots of intersections/a high degree of connectivity if tought of as a graph), and maintaining them is influenced by and influences how the rest of the road network is maintained. For an instance, when clearing snow from the pavement the snow might end up in the road along, and later when clearing the snow from the road the snow might end up back on the pavement.
-
-Unfortunately when processing smaller roads and paths meant for pedestrians and bicycles the NRDB frequently lacks the neccessary data. Fortunately the municipalitys maps have a good overview of these roads and paths, and the NRDB has most metadata that could be considered relevant about the rest of the roads.
-
-Once we had an overview of what was desired done, we reached the challenge of figuring out how we should do it. After the ground work in our pre-project (SOURCE) we had identified the underlying problem, and what approach we wanted to use. We found that snow plowing can be modeled as a Chinese Postman Problem (CPP), which is a sub-problem of the Arc-Routing Problem (ARP), which in turn can be seen as a component of a Node, Edge, and Arc Routing Problem (NEARP) (SOURCES FROM PRE-PROJECT). Due to the variety of approaches that can be taken to snow plowing we decided to base or work on the NEARP.
-
-To solve our interpretation of the NEARP, we decided to use an Evolutionary Algorithm (EA) (SORUCE EA, SOURCE PRE-PROJECT).
 
 \section{Goals and Research Questions}
 
-Fordi skala se på optimalisering innenfor eksisterende soner.
 
-Lage grunnleggende form på heuristikk, lett å endre den til å bli bedre etterhvert som man har mer research-ressurster, men er veldig tydelig på at vi ikke optimaliserer det.
 
-Jobbe med eksisterende data så det er lett å holde output oppdatert med det nyeste som finnes av data.
 
-Se om vi i Trondheim kan finne bedre ruter enn de som benyttes fra før av (håntegnede/sjoføren lager selv).
-
-Se om vi i Trondheim kan finne bedre ruter enn de som benyttes fra før hvis vi tar utgangspunkt i eksisterende ruter (strech goal å gjøre dette på en pen måte (ikke hardkodet)).
+\rowcolors{1}{gray!15}{white}
+\begin{table}[tbph]
+\centering
+\begin{tabular}{cp{0.8\textwidth}}
+RQ1  &  Obtain and present the related work which gives the context for this thesis. \\
+RQ2  &  Configure the memetic algorithm so that it performs well.\\
+RQ3  &  Determine whether the memetic algorithm independently can find a route in Trondheim optimized for length weighted by speed with a random starting point. \\
+\end{tabular}
+\caption{Research questions}
+\label{tab:research_questions}
+\end{table}
 
 \section{Reseach Method}
 
+To address RQ1 large parts of chapter \ref{theory} will be dedicated to presenting the relevant related work which was found in the pre-project of this thesis. RQ2 will be treated in chapter \ref{cha:evolutionary_algorithm_configuration}, where the parameters are tuned in a set of quantitative experiments. Finally RQ3 is considered in chapter \ref{cha:experiments_and_results}. Here there will be a set of quantitative experiments to determine the quality of the routes produced by the memetic algoritm compared to the routes currently being driven. The comparison will be in terms of how the algorithms fitness function perceives them. After the results have been generated and evaluated by the system, the best that have been found will be shown to domain experts at the municipality. They will then give their assessment on the quality of the routes.
+
 \section{Thesis Structure}
 
-
+The first chapter after the introduction, named Theory, will start out by giving the neccessary background on snow plowing. After that the related work will be presented. In the following chapter, Architecture and Implementation, details of design decisions and important details of the implementation will be given. The next chapter, Evolutionary Algorithm Configuration, will outline the process of how the memetic algorithm was tuned and what parameters were found to give the best performance. In the Experiments and Results chapter which comes next, the performance of the memetic algorithm will be tested, and the experimental setup for how it processed Trondheim will be shown. Whereupon the resulting data will be presented and discussed. Finally, in the Evaluation and Conclusion chapter the entire process will be evaluated, and conclusions drawn from the results presented. At the very end the future work will outline how the work in this thesis can be extended.
 
 \cleardoublepage
