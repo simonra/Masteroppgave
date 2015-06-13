@@ -16,13 +16,13 @@ From meetings with the municipality and the Norwegian Public Roads Administratio
 % 	% license: CC0
 % \end{wrapfigure}
 
-% \begin{wrapfigure}{o}{0.5\textwidth}
-% 	\begin{center}
-% 		\includegraphics[width=0.5\textwidth]{figures/MachineryIllustrations/snowplow-Kent_Syrstadlokk-2012-04-18.jpg}
-% 	\end{center}
-% 	\caption{Snowplow in a Trondheim alley}
-% 	\label{fig:snowplow_in_alley}
-% \end{wrapfigure}
+\begin{wrapfigure}{o}{0.5\textwidth}
+	\begin{center}
+		\includegraphics[width=0.5\textwidth]{figures/MachineryIllustrations/snowplow-Kent_Syrstadlokk-2012-04-18.jpg}
+	\end{center}
+	\caption{Snowplow in a Trondheim alley}
+	\label{fig:snowplow_in_alley}
+\end{wrapfigure}
 
 In places where the temperature regularly goes below the freezing point of water, winter road maintenance has to be performed. Under such conditions ice can grow on the roads, and they might become blocked by snow. The work done in ensuring that the roads have enough friction to be safe for use by pedestrians and vehicles, and clear enough of snow so that they may pass at all, is what is called winter road maintenance.
 
@@ -278,7 +278,7 @@ But before the Floyd Warshall algorithm can be used to find the shortest distanc
 
 If this is to make sense when using the distance matrix in the fitness calculations, some assumptions have to be made when the matrix is initially set up. Nodes have to add zero cost when moving between elements that are inbound to it or outbound from it. Furthermore, going from a node onto and arc or edge, and conversely going of an arc or edge to a node, should cost zero. However, with these assumptions the Floyd Warshall algorithm should break down giving all paths a cost of zero, because the shortest distance between all neighbors initially is zero.
 
-This can be rectified when initializng the distance matrix with the distances between each pair of connected elements, by adding the cost of the destination element. The paths are then correctly found by the algorithm, but they end up being longer than they should be by the cost of the last destination element in the path. That is easy to fix once the algorithm is done finding the paths, by traversing the distance matrix and for each entry subtracting the cost of the destination element. Because this operation has a complexity of $O(|G|)$ it does not affect the overall complexity of preforming the algorithm, which is still $O(|G|^3)$. The pseudocode for the resulting modified Floyd Warshall algorithm is shown in algorithm \ref{floyd-warshall-pseudocode}.
+This can be rectified when initializng the distance matrix with the distances between each pair of connected elements, by adding the cost of the destination element. The paths are then correctly found by the algorithm, but they end up being longer than they should be by the cost of the last destination element in the path. That is easy to fix once the algorithm is done finding the paths, by traversing the distance matrix and for each entry subtracting the cost of the destination element. Because this operation has a complexity of $O(|G|)$ it does not affect the overall complexity of preforming the algorithm, which is still $O(|G|^3)$. The pseudocode for the resulting modified Floyd Warshall algorithm is shown in algorithm \ref{floyd-warshall-pseudocode} in appendix \ref{cha:pseudocode}.
 
 
 
@@ -291,7 +291,13 @@ This works fine for obtaining the fitness of a genome as long as the genome is t
 \subsection{The Split Algorithm} % (fold)
 \label{sub:the_split_algorithm}
 
-The Split algorithm is used to take a trip in a graph and split it into smaller sub-trips which originate and end in a depot node. It generates the sub-trips such that none of them exceed the vehicles demand capacity, they service the required elements in the same order as in the supplied trip, and the resulting sub-trips are the shortest possible combination given these constraints. The pseudocode for the Split algorithm can be seen in Algorithm \ref{split-pseudocode}.
+The Split algorithm is used to take a trip in a graph and split it into smaller sub-trips which originate and end in a depot node. It generates the sub-trips such that none of them exceed the vehicles demand capacity, they service the required elements in the same order as in the supplied trip, and the resulting sub-trips are the shortest possible combination given these constraints. The pseudocode for the Split algorithm can be seen in Algorithm \ref{split-pseudocode} in appendix \ref{cha:pseudocode}. An example graph that can be used for input to the split algorithm is shown in figure \ref{fig:sgwspp}
+
+\begin{figure}[thbp]
+    \centerline{\includegraphics[width=\textwidth]{figures/SplitIllustrations/Split_GraphWithShortestPathsPlain.pdf}}
+    \caption{Graph instance processed by the split algorithm. Edge traversal cost is given in the parantheses, the required edges are marked with bold. The vehicle demand capacity is 7.}
+    \label{fig:sgwspp}
+\end{figure}
 
 % \begin{algorithm}[thbp]
 % \caption{Split}\label{split-pseudocode}
@@ -336,11 +342,25 @@ The Split algorithm is used to take a trip in a graph and split it into smaller 
 
 The way the algortihm works is that it for each required element in the supplied trip checks whether going from the depot, servicing the element, and going back, is the sub-trip of least cost that services the current element. If so, the algorithm updates the list of predecessors indicating that going straight to the element from the depot is the best sub-trip for servicing it. At the same time, the elements value in the array of least costs of going to each element in the sub-trips is updated. The new value becomes the sum of the shortest paths of the previous splitted sub-trips, pluss the new found cost of visiting this element in its own sub-trip.
 
+\begin{figure}[thbp]
+    \centerline{\includegraphics[width=\textwidth]{figures/SplitIllustrations/Split_AuxiliaryGraph.pdf}}
+    \caption{The auxiliary graph built by split to process the graph shown in figure \ref{fig:sgwspp}. The least cost of processing each required edge found is shown in parantheses in their respective nodes in the auxiliary graph. The least-cost path through all required elements is highlighted with bold arrows.}
+    \label{fig:sag}
+\end{figure}
+
 After this, the algorithm tries to add one and one more required element to the current splitted sub-trip, until the next added element would exceed the vehicles capacity for servicing demand. To do the check, the algorithm first removes the cost of going from the last element in the currently splitted trip back to the depot from the trip. Then the cost of going to the next required element, and from that element to the depot, is added to the cost. If this updaed cost is lower than the currently lowest known cost for reaching the next element, and the demand load is manageable, the costs and predecessors arrays are updated. The next elements cost in the costs array is updated to the current cost, and its entry in the predecessors array is set to the index of the node at the beginning of the sub-trip currently being considered.
+
+This process of adding an element at a time to existing or new trips and checking whether the sum of demand is premissible and the length of the trip can be taught of as generating an auxiliary graph. If one uses the graph in figure \ref{fig:sgwspp} as an example, the resulting auxiliary graph would be the one shown in figure \ref{fig:sag}.
 
 For the purposes of finding the fitness value the algorithm makes it as  simple as looking at the last entry in the costs array. Because it is the sum of the costs of the shortest possible sub-trips leading up to the sub-trip containing the last element, and the cost of the sub-trip containing the last element, it is the cost of traversing all the sub-trips.
 
-The retrieval of the resulting trips is shown in algorithm \ref{split-retrieve-pseudocode}. This algorithm works by starting with the last node of the last splitted sub-trip, and iterating over the predecessor array gotten from the Split algorithm. That gives it a worst case running time of $O(|\text{required elements}|)$, that is still less than the asympthotical worst case of the split algorithm which is $O(|\text{required elements}|^2)$.
+\begin{figure}[thbp]
+    \centerline{\includegraphics[width=\textwidth]{figures/SplitIllustrations/Split_GraphWithRoutes.pdf}}
+    \caption{The trips generated from processing the graph in figure \ref{fig:sgwspp} with the split algorithm.}
+    \label{fig:sgwr}
+\end{figure}
+
+The retrieval of the resulting trips is shown in algorithm \ref{split-retrieve-pseudocode}. This algorithm works by starting with the last node of the last splitted sub-trip, and iterating over the predecessor array gotten from the Split algorithm. That gives it a worst case running time of $O(|\text{required elements}|)$, that is still less than the asympthotical worst case of the split algorithm which is $O(|\text{required elements}|^2)$. An example of what trips would be retrieved from the graph in figure \ref{fig:sgwspp} is shown in figure \ref{fig:sgwr}.
 
 % \begin{algorithm}[thbp]
 % \caption{Retrieve Trips from Split}\label{split-retrieve-pseudocode}
