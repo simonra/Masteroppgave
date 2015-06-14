@@ -89,12 +89,14 @@ with open(filename + '.csv', 'rb') as csvfile:
 	for row in inputted_csv:
 		if row[6] != '' and row[2] == 't':
 			element_id = 'A' + row[0]
-			if row[6] == 1:
+			if row[6] == '1':
 				from_node = row[3]
 				to_node = row[4]
-			else:
+			elif row[6] == '-1':
 				from_node = row[4]
 				to_node = row[3]
+			else:
+				raise Exception('Hmm: ' + row[6] + "Does not seem right")
 			if row[5] == '':
 				traversal_cost = str(int(float(row[1])))
 			else:
@@ -110,12 +112,14 @@ with open(filename + '.csv', 'rb') as csvfile:
 	for row in inputted_csv:
 		if row[6] != '' and row[2] == 'f':
 			element_id = 'NrA' + row[0]
-			if row[6] == 1:
+			if row[6] == '1':
 				from_node = row[3]
 				to_node = row[4]
-			else:
+			elif row[6] == '-1':
 				from_node = row[4]
 				to_node = row[3]
+			else:
+				raise Exception('Hmm: ' + row[6] + "Does not seem right")
 			if row[5] == '':
 				traversal_cost = str(int(float(row[1])))
 			else:
