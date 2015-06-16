@@ -36,7 +36,7 @@ Snow plowing is when snow is cleared by pushing it aside. In daily life various 
 \label{ssub:how_winter_road_maintenance_is_organized_in_norway_and_trondheim}
 
 
-In Norway the winter road maintenance is a responsibility that is divided between the NPRA, the local municipalities, and the owners of private roads (which are responsible for maintaining their own roads). The NPRA has made two handbooks \todo{refer to håndbok 111 og R610} that specify the constraints on when what kind of winter road maintenance should be performed, and what condition roads should be in after they have been serviced. In \todo{ refer to [R610]} they define 5 classes of winter maintenance standards for roads, as shown in table \ref{tab:wmscfrsbtn}.
+In Norway the winter road maintenance is a responsibility that is divided between the NPRA, the local municipalities, and the owners of private roads (which are responsible for maintaining their own roads). The NPRA has issued a handbook, R610 \cite{svvR610}, which specifies the constraints on when what kind of winter road maintenance should be performed, and what condition roads should be in after they have been serviced. In the handbook they define 5 classes of winter maintenance standards for roads, as shown in table \ref{tab:wmscfrsbtn}.
 
 \rowcolors{2}{gray!15}{white}
 \begin{table}[tbph]
@@ -69,7 +69,7 @@ In addition to being sorted into one of these maintenance classes, each road is 
     \item Sykkelfelt (Bicycle lane/path)
 \end{itemize}
 
-Out of these the municipality is responsible is responsible for maintaining all, except national and county roads, for which the responsibility falls to the NPRA. As of february the 25th 2015, there are 212 km of municipal roads, 336 km of streets, and 180 km of footpaths and cycle paths that the municipality of Trondheim is responsible for maintaining during the winter (\todo{refer to the url}\url{https://www.trondheim.kommune.no/content/1117746169/Vinterdrift-2014-15}, only in Norwegian). To make servicing all these 728 km of roads feasible, they have divided the road network into several smaller zones.
+Out of these the municipality is responsible is responsible for maintaining all, except national and county roads, for which the responsibility falls to the NPRA. As of february the 25th 2015, there are 212 km of municipal roads, 336 km of streets, and 180 km of footpaths and cycle paths that the municipality of Trondheim is responsible for maintaining during the winter (\cite{trondheimKommuneVinterdriftNettside}, only in Norwegian). To make servicing all these 728 km of roads feasible, they have divided the road network into several smaller zones.
 
 An important factor in deciding the zones is what amount of work can be performed in one trip with the equipment. For gritting the size of each zone may depend on how much sand can be carried before the vehicle has to return to a sand depot to refill. When plowing the size of the zone might be restricted by how fast a vehicle can cover the entirety of it, so that it is returned to the required condition before too much time has passed.
 
@@ -88,7 +88,7 @@ Given this outline of how the municipality handles the snow removal part of wint
 \section{The Node, Edge, and Arc Rouring Problem}
 \label{the_nearp}
 
-In the pre project leading up to this thesis, a structured literature review was performed \todo{refer to the pre-project}. The focus was finding whether routing for snow plowing as in Trondheim is a known and solved problem. And in case it is, how should one go about trying to solve it.
+In the pre project leading up to this thesis, a structured literature review was performed \cite{forprosjektet}. The focus was finding whether routing for snow plowing as in Trondheim is a known and solved problem. And in case it is, how should one go about trying to solve it.
 
 In the structured literature review it was found that the current take on problems like snow plowing has long roots. The simplest possible interpretation is that it is about traversing a graph G=\{N,E\} in a certain way. Which would make it similar to the “Seven bridges of Königsberg Problem”, that is about finding a cycle that traverses the graph and visits all the edges exactly once, and was solved by the Swiss mathematician Leonhard Euler in 1735 \cite{eulerBridges}.
 
@@ -149,9 +149,9 @@ As such MAs can be considered as the current state of the art apporach to solvin
 
 \section{Evolutionary Algorithms} % (fold)
 \label{sec:evolutionary_algorithms}
-Now that the reasons for using an EA has been laid out, what EAs are, and how they can be implemented should be discussed. EAs were one of the earliest bio-inspired algorithms, whose outline were first discussed by Alan Turing \todo{refer to turing COMPUTING MACHINERY AND INTELLIGENCE, 1950}. The idea is that EAs should mimic the biological processes in evolution, abstracting potential solutions to a population of individuals that have traits which are combined and altered through generations.
+Now that the reasons for using an EA has been laid out, what EAs are, and how they can be implemented should be discussed. EAs were one of the earliest bio-inspired algorithms, whose outline were first discussed by Alan Turing \cite{turing1950computing}. The idea is that EAs should mimic the biological processes in evolution, abstracting potential solutions to a population of individuals that have traits which are combined and altered through generations.
 
-A common variant of EAs are GAs \todo{refer to Holland, 1975, Adaptation in Natural and Artificial Systems}. In the paradigm of the GA, at the core of each individual there is a genome. This genome is an alternative representation of a solution to the probem one is trying to solve with the GA, that satisfies certain properties.
+A common variant of EAs are GAs \cite{holland1975originalGA}. In the paradigm of the GA, at the core of each individual there is a genome. This genome is an alternative representation of a solution to the probem one is trying to solve with the GA, that satisfies certain properties.
 
 When there is a new generation, new individuals are made by combining existing members of the population. This is done by taking two or more individuals, and combining their genomes into a new genome, that becomes the foundation for a new individual. This process is often called crossover. A genome must thus be constructed so that it can be merged with another genome in such a way that the output is a valid genome that represents a solution.
 
@@ -161,11 +161,11 @@ It must also be possible to convert a genome to a solution of the problem the GA
 
 The fitness can then be used to determine whether an optimal solution to the problem has been found. If not, for an instance because it is unknown what a problems global optimal value is, the fitness is often used in determining what individuals are coupled when the nex generation is created, and what combination of pre-existing individuals and new individuals should make up the population at the end of the generation/beginning of the next generation.
 
-To improve on GAs the concept of memeticism can be introduced, turning them into MAs \todo{refer to On evolution, search, optimization, genetic algorithms and martial arts: Towards memetic algorithms Moscato 1989}. Memeticism is the term used for describing that individuals can be improved after being generated, mimicing the ability of real life organism in evolutionary systems to learn. In practice this is often done by replacing the mutation step with doing a simple local search, such as hill climbing, to improve the genome \todo{refer to Competitive Memetic Algorithms for Arc Routing Problems lacomme prins rad RAMDANE-CHERIF 2002}.
+To improve on GAs the concept of memeticism can be introduced, turning them into MAs \cite{moscato1989memeticism}. Memeticism is the term used for describing that individuals can be improved after being generated, mimicing the ability of real life organism in evolutionary systems to learn. In practice this is often done by replacing the mutation step with doing a simple local search, such as hill climbing, to improve the genome \cite{lacomme2004competitiveMA}.
 
 With the genome being such a central piece in making an EA work, it is natural to let it be the first thing one considers when making a specialized EA for for an instance snow plowing. Initially the approach was to figure out what the genome was to represent. In the case of routing for snow plowing, a solution, and thus what the genome should represent is a route for a snow plow. But what if there, like in the k-CPP and CARP, are several snow plows? Then the genome has to represent a set of trips for each vehicle. Ideally, the genome should be able to represent both these cases.
 
-The solution found in the literature was to let the genome represent a single circular route, a grand tour of the underlying graph \todo{refer to Competitive Memetic Algorithms for Arc Routing Problems lacomme prins rad RAMDANE-CHERIF 2002}. When dealing with multiple vehicles this tour is splitted into several shorter trips, one for each vehicle. Once the genome and the phenotype it represents is decided, one can begin to look into how the goodness of each individual should be determined, ie. how to calculate the fitness.
+The solution found in the literature was to let the genome represent a single circular route, a grand tour of the underlying graph \cite{lacomme2004competitiveMA}. When dealing with multiple vehicles this tour is splitted into several shorter trips, one for each vehicle. Once the genome and the phenotype it represents is decided, one can begin to look into how the goodness of each individual should be determined, ie. how to calculate the fitness.
 
 % Circular, splittable. 
 % Underlying graph -> graph as set -> required elements.
@@ -272,7 +272,7 @@ The next step then becomes finding the costs of going between the required eleme
 % \end{algorithmic}
 % \end{algorithm}
 
-To verify the output, and to be able to display it on a map, a predecessor or successor matrix should be created. This would allow generated trips to be recreated in theri entirety. The two candidates algorithms that would accommodate the needs and be efficient, were Dijkstras algorithm \todo{refer to dijkstra . A note on two problems in connexion with graphs, 1959} iterated once for each element, or the Floyd-Warshall algorithm \todo{refer to Floyd-Warshall floyd Algorithm 97: Shortest Path 1962}. The Floyd-Warshall algorithm was chosen because because the code would end up being simpler and therefore more maintainable and easier to modify at a later time than an iterated Dijkstras algorithm.
+To verify the output, and to be able to display it on a map, a predecessor or successor matrix should be created. This would allow generated trips to be recreated in theri entirety. The two candidates algorithms that would accommodate the needs and be efficient, were Dijkstras algorithm \cite{dijkstra1959note} iterated once for each element, or the Floyd-Warshall algorithm \cite{floyd1962algorithm}. The Floyd-Warshall algorithm was chosen because because the code would end up being simpler and therefore more maintainable and easier to modify at a later time than an iterated Dijkstras algorithm.
 
 But before the Floyd-Warshall algorithm can be used to find the shortest distance between all the elements from the graph in the genome, it must be decided how the distance between nodes and edges or arcs should be handeled. Usually the resulting shortest path matrix gives the shortest path between nodes. But with how the genome is constructed one will have to know the distance between not only nodes, but also between otehr elements, such as the distance from a required edge to a required arc. A solution to this is to let the algorithm treat every element as it would usually treat nodes, while at the same time treating every element as an arc.
 
@@ -291,7 +291,7 @@ This works fine for obtaining the fitness of a genome as long as the genome is t
 \subsection{The Split Algorithm} % (fold)
 \label{sub:the_split_algorithm}
 
-The Split algorithm is used to take a trip in a graph and split it into smaller sub-trips which originate and end in a depot node \todo{refer to ulusoy The fleet size and mix problem for capacitated arc routing 1985}. It generates the sub-trips such that none of them exceed the vehicles demand capacity, they service the required elements in the same order as in the supplied trip, and the resulting sub-trips are the shortest possible combination given these constraints. The pseudocode for the Split algorithm can be seen in Algorithm \ref{split-pseudocode} in appendix \ref{cha:pseudocode}. An example graph that can be used for input to the split algorithm is shown in figure \ref{fig:sgwspp}
+The Split algorithm is used to take a trip in a graph and split it into smaller sub-trips which originate and end in a depot node \cite{ulusoy1985CARP}. It generates the sub-trips such that none of them exceed the vehicles demand capacity, they service the required elements in the same order as in the supplied trip, and the resulting sub-trips are the shortest possible combination given these constraints. The pseudocode for the Split algorithm can be seen in Algorithm \ref{split-pseudocode} in appendix \ref{cha:pseudocode}. An example graph that can be used for input to the split algorithm is shown in figure \ref{fig:sgwspp}
 
 \begin{figure}[thbp]
     \centerline{\includegraphics[width=\textwidth]{figures/SplitIllustrations/Split_GraphWithShortestPathsPlain.pdf}}
