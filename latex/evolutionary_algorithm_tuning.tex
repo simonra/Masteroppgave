@@ -1,4 +1,4 @@
-\chapter{Evolutionary Algorithm Configuration} % (fold)
+\chapter{Memetic Algorithm Configuration} % (fold)
 \label{cha:evolutionary_algorithm_configuration}
 
 The first thing to consider after having implemented the MA, is figuring out what parameters should be used for it to perform well. Depending on the configuration, the MAs performance can be change dramatically, and the quality of the results may vary. This chapter will look into the background for doing the configuration, outline the experimental plan for doing the tuning, show the results, and present a brief discussion on the outcome.
@@ -9,7 +9,7 @@ Here the outline of how the parameters that should be used when running the MA w
 
 Some combinations of the parameters yield higher quality results faster (both in terms of actual time spent and number of generations passed before the output stabilizes, ie. the program settles at a local optimum). Therefore it is interesting to determine the best combination of parameters.
 
-Initially these were the parameters for EA that the user could set:
+Initially these were the parameters for MA that the user could set:
 \begin{itemize}
 	\item How the genomes that would get to produce children were selected.
 	\item How the nex generation would be produced from the current set of adults and children.
@@ -28,11 +28,11 @@ Initially these were the parameters for EA that the user could set:
 \section{Experimental Plan} % (fold)
 \label{sec:experimental_plan}
 % This should be the section about what we want to do, and why we want to do it
-For the results to be as describing as possible, these tests should be run with the same input one wants to apply the EA to. That has the advantage of the results giving clear indications as to the computational time required, one could come across a very good solution in the process. And if the structure of the search space (in this case the mapping of fitnesses to different permutations of visiting required elements in the underlying graph) influences the choice of parameters, it would become clear at this point.
+For the results to be as describing as possible, these tests should be run with the same input one wants to apply the MA to. That has the advantage of the results giving clear indications as to the computational time required, one could come across a very good solution in the process. And if the structure of the search space (in this case the mapping of fitnesses to different permutations of visiting required elements in the underlying graph) influences the choice of parameters, it would become clear at this point.
 
 In the light of the research questions (specially RQ3) that would mean running the tests on a subsection of Trondheim with data from the NRDB. In practise this posed several challenges. First of all, at the point in time where these tests could be done, the module structuring data from the NRDB was not complete. Second, if the assumption of that the structure of the search space might influence the outcome, it could be argued that different parts of Trondheim can be signifficantly different from each other. And that one therefore should optimize the parameters for each section that one processes. Which in turn leads to the dilema of selecting the most representative section of the map, if such a thing is even possible. Third, if using real world data, there would be no way of knowing whether an optimal solution has been found, and evaluating the output beyond whether it is completely outlandish or somewhat reasonable. Fourth, it should be easy for a human to verify the output, both for correctness and whether the calculated fitness values make any sense.
 
-To tackle these challenges, a new data set was produced for the tuning. It can be found as a file named circle\_test.dat in the suplementary materials. The structure of the created graph is that of a directed cycle (as seen in figure \ref{fig:ctgnaloc}), with each of the arcs being required elements, which had several good qualities given the criteria above. First of all it would be easy for a human to verify the output. There is only one global optimum, which is easily identifiable, visiting each node and arc in order exacly once. Furthermore its fitness is trivial to calculate, as it is the sum of the traversal and servicing costs of all the elements exactly once. Any other ordering of the elements would lead to the circle being traversed more than once. And all the possible orderings of the required elements the EA could make would have a ditstinct fitness.
+To tackle these challenges, a new data set was produced for the tuning. It can be found as a file named circle\_test.dat in the suplementary materials. The structure of the created graph is that of a directed cycle (as seen in figure \ref{fig:ctgnaloc}), with each of the arcs being required elements, which had several good qualities given the criteria above. First of all it would be easy for a human to verify the output. There is only one global optimum, which is easily identifiable, visiting each node and arc in order exacly once. Furthermore its fitness is trivial to calculate, as it is the sum of the traversal and servicing costs of all the elements exactly once. Any other ordering of the elements would lead to the circle being traversed more than once. And all the possible orderings of the required elements the MA could make would have a ditstinct fitness.
 
 An example of an ideal solution to the circle test shown in figure \ref{fig:ctgnaloc} would be the genome shown in figure \ref{fig:bpgftscte}, which has a fitness value of 60.
 
@@ -68,7 +68,7 @@ While using the circle test data set might not give an exact answer to what conf
 \section{Experimental Setup} % (fold)
 \label{sec:experimental_setup}
 % This section should be about how we did the experiments, ie. what parameters we used and so forth
-The tuning of the EA was split into three parts. Determining the population size, parent selection, and adult selection. 
+The tuning of the MA was split into three parts. Determining the population size, parent selection, and adult selection. 
 For each part, a set of parameters to be tested were selected based on the author's previous experience with tuning EAs and the size of the problem at hand. Then each configuration was to be ran 30 times to gather data about the best results found under the configuration, and the population averages. To make the results as comparable as possible, it was chosen to let each configuration run for exactly 100000 generations. For each run all the genotypes were initialized randomly, and each 16th generation the best fitness of the population, the average fitness of the population, and the standard deviation of the fitness of the population at that point was recorded.
 
 For determining the population size, it was decided to try population sizes corresponding to 10\%, 50\%, 100\%, and 200\% of the genome length. When testing it uniform selection was used for parent selection, and full generational replacement for the adult selection.
@@ -259,11 +259,11 @@ The results obtained here were according to the predictions about a bigger popul
 \section{Evaluation and Conclusion} % (fold)
 \label{sec:evaluation_and_conclusion}
 
-The above experiments lead us to the following conclusions about the parameters for the EA. Section \ref{sub:parent_selection} indicated that the best parent selection method for the algorithm is fitness proportionate selection. As for the adult selection section \ref{sub:adult_selection} shows that overproduction is the adult selection type that gives the best fitnesses in the implementation. When it comes to the mutation tests in section \ref{sub:mutation_types}, it can be seen that memetic improvement gives much better results than random mutation.
+The above experiments lead us to the following conclusions about the parameters for the MA. Section \ref{sub:parent_selection} indicated that the best parent selection method for the algorithm is fitness proportionate selection. As for the adult selection section \ref{sub:adult_selection} shows that overproduction is the adult selection type that gives the best fitnesses in the implementation. When it comes to the mutation tests in section \ref{sub:mutation_types}, it can be seen that memetic improvement gives much better results than random mutation.
 
 In section \ref{sub:population_size_control} it is found that a larger population is better, but it has diminishing returns, and a population size of 200\% the length of the genome is not much better than a population size equivalent to 100\% the length of the genome. It contradicts the findings from section \ref{sub:population_size}, but it was found that those are most likely due to introducing the previous best each generation and the portion of the population it constitutes as populations grow smaller when no other form of elitism or directing of the population is present.
 
-None of the configurations found an ideal solution with a fintess value of 60. The best fitness values the EA got were about 400 (found when doing the mutation configurations in section \ref{sub:mutation_types}) which is not too bad. The found fintess value indicates that the EA gives a solution that goes $\frac{400}{60} = 6.\overline{66} \approx 7$ times more than it needs around the circle. Considering that this can be achieved by switching the order of 7 pairs in the circle the quality of the solutions while not optimal are still acceptable.
+None of the configurations found an ideal solution with a fintess value of 60. The best fitness values the MA got were about 400 (found when doing the mutation configurations in section \ref{sub:mutation_types}) which is not too bad. The found fintess value indicates that the MA gives a solution that goes $\frac{400}{60} = 6.\overline{66} \approx 7$ times more than it needs around the circle. Considering that this can be achieved by switching the order of 7 pairs in the circle the quality of the solutions while not optimal are still acceptable.
 
 Overall the experiments ran smoothly, usable results were obtained, and more importantly all of the results above are 100\% reproducible beacause all the configurations and random-seeds of each run of each experiment were kept.
 

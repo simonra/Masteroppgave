@@ -1,13 +1,35 @@
 \chapter{Experiments and Results}
 \label{cha:experiments_and_results}
 
-\section{Experimental Plan}
-what we wanted to do
+In this chapter obtaining results from the MA will be considered. First there will be a section that looks into the results one gets when the MA is applied to the BHW \todo{exact number of instances here} benchmarks \citep{BHWdocumentationSINTEF}. Because the smaller BHW instances are solved to optimality, this will give an idea of the MAs performance relative to known optimal solutions. Then there will be a section about obtaining results when map data from Trondheim is used.
 
-\section{Experimental Setup}
-how we did it
+\section{The BHW Benchmark}
 
-\section{Results}
-what happened
+Here the MAs performance on the BHW test cases is going to be presented. The section will start out by outlining the experimental plan for the tests. After the experimental plan has been given, the experimental setup will be described. And finally the results of the tests will be presented.
+
+\subsection{Experimental Plan}
+Test the MAs performance on BHW graphs, to benchmark how close one can get to ideal solutions in a more realistic graph than the circle tests. To do this, run the MA on the BHW graphs, and compare the results with the known results.
+
+\subsection{Experimental Setup}
+run n times with the parameters found in the tuning chapter. Run on between 1 and 3 instances depending on what there is time for, and remark on how the results differ from the ideal ones in the following section.
+
+\subsection{Results}
+Display a table of the results (splitted lenght) that the MA has found in one column, and the number for the ideal solutions in the other column. Put the graphs in a separate appendix chapter and refer to them here (ie. \"For the complete results see the supplementary materials, and for the graphs showing the performance see ap chap x\").
+
+\section{Map Data from Trondheim}
+
+\subsection{Experimental Plan}
+Run the MA on map data from trondheim. Draw the resulting routes on a map. For verification purposes, compare the generated routes in fitness with the ones currently being driven, and see whether there are any obvious shortcomings in the drawn maps.
+
+\subsection{Experimental Setup}
+Run the MA a set number of times on the trondheim data, with the configuration found in the tuning chapter. When the output is given, strip it to the id-s without the extra nearp stuff, put it in a csv, and feed it into qgis. Draw a map, add hot water, and present results.
+Explain how the existing routes are obtained and fed into the system.
+
+\subsection{Results}
+Show some nice graphs of how the fitness converges over time.
+Show a created map, and refer to tiles with finer details in the appendix.
+Show how the fintess of the pre-existing routes relates to the fintess of the calculated ones.
+Discuss how the system does som smart things that humans would perhaps not (cover the city in a set of veird overlapping sections), how some interesting behavior like driving into a road, servicing it, and then driving back out the same end as it was started in and continue that route arises. Also highlight some missed one way roads and gaps in the map.
+
 
 \cleardoublepage
