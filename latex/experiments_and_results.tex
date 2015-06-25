@@ -4,6 +4,7 @@
 In this chapter obtaining results from the MA will be considered. First there will be a section that looks into the results one gets when the MA is applied to the BHW1 benchmark \citep{BHWdocumentationSINTEF}. Because the smaller BHW instances are solved to optimality, this will give an idea of the MAs performance relative to known optimal solutions. Then there will be a section about obtaining results when map data from Trondheim is used as input to the MA.
 
 \section{The BHW Benchmark}
+\label{sec:the_bhw_benchmark}
 
 Here the MAs performance on the BHW1 test case is going to be presented. Because the BHW1 benchmark has been solved optimally, and the solution is available, it can be used to verify the output of the MA. When comparing the fitness of the result from the MA with the fitness of the know solution one should be able to gauge the quality of the MAs output. And when observing the optimal route with the one made by the MA it should become apparent whether the MA is on the right track or not.
 
@@ -67,8 +68,12 @@ The best result obtained was the run labeled as 2015-06-24T01-34-22Z, which can 
 
 \section{Map Data from Trondheim}
 
+Now that it has been established that the MA works (as shown in chapter \ref{cha:evolutionary_algorithm_configuration}), and produces results of a reasonable quality when applied to benchmark problems (detailed in section \ref{sec:the_bhw_benchmark}), RQ3 should be addressed. RQ3 was stated in table \ref{tab:research_questions} as: \enquote{Determine whether the memetic algorithm independently can find a route in Trondheim optimized for length weighted by speed with a random starting point}.
+
+To properly test whether the MA can routes in Trondheim, it should be applied to map data form Trondheim. This section will start out by exploring what data should be gathered to properly deal with RQ3. Then the experiments used to obtain the data will be detailed. Finally after that the results obtained from the experiments will be outlined.
+
 \subsection{Experimental Plan}
-Run the MA on map data from trondheim. Draw the resulting routes on a map. For verification purposes, compare the generated routes in fitness with the ones currently being driven, and see whether there are any obvious shortcomings in the drawn maps.
+Run the MA on map data from trondheim. Draw the resulting routes on a map. For verification purposes, compare the generated routes in fitness with the ones currently being driven, and see whether there are any obvious shortcomings in the drawn maps. Talk about the signifficance of picking the starting point when one drives a giant circle anyways (ie. the shortest path to and from the starting point to the circuit will always be picked, and it doesn't really matter for the lenght of the circuit itself where one starts out).
 
 \subsection{Experimental Setup}
 Run the MA a set number of times on the trondheim data, with the configuration found in the tuning chapter. When the output is given, strip it to the id-s without the extra nearp stuff, put it in a csv, and feed it into qgis. Draw a map, add hot water, and present results.
