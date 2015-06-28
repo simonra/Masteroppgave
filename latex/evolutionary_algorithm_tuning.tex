@@ -93,7 +93,7 @@ Now that the experimental plan has been outlined, in this section the results wi
 
 When observing the results from the population size test runs, it can be noticed that that a lower population size yields better results. In figure \ref{fig:ctpab} it can be seen that the larger populations perform noticeably worse, with the largest population (120 individuals) getting a fitness value of around 700 by the end of the runs, while the smallest population size (6 individuals) end up with a fitness of about 600.
 
-A possible reason for this is that uniform selection combined with full generational replacement is not biased in any way. This makes it very random in terms of that the fintess of the individuals in the existing population will not affect future generations. The population will however be influenced by the previous generations in terms of that their genomes will be combinations of previous genomes with mutations.
+A possible reason for this is that uniform selection combined with full generational replacement is not biased in any way. This makes it very random in terms of that the fitness of the individuals in the existing population will not affect future generations. The population will however be influenced by the previous generations in terms of that their genomes will be combinations of previous genomes with mutations.
 
 A possible explanation then could be in that the best individual from each generation is kept, and is injected in place of the worst one at the end of each generation. This will have a hughe impact in a tiny population of only 6 individuals, effectively dragging the population towards the currently best. But as population sizes increase the best individual and its offspring have less impact on the average of the population.
 
@@ -127,7 +127,7 @@ This effect should be offset by introducing bias in the population towards that 
 \subsection{Parent Selection} % (fold)
 \label{sub:parent_selection}
 
-In figure \ref{fig:ctpsab} it can be seen that fitness proportionate selection with a final fitness of just below 500 is clearly better than the tournament selection that reaches a fitness a bit above 500, which in turn finds better results on average than uniform selection with a fintess of about 700. The averages fitness of each populations average seem to quickly decrease before beginning to decrease slowly for tournament and fitness proportionate selection, while the uniform selection shows only a very slow improvement over time.
+In figure \ref{fig:ctpsab} it can be seen that fitness proportionate selection with a final fitness of just below 500 is clearly better than the tournament selection that reaches a fitness a bit above 500, which in turn finds better results on average than uniform selection with a fitness of about 700. The averages fitness of each populations average seem to quickly decrease before beginning to decrease slowly for tournament and fitness proportionate selection, while the uniform selection shows only a very slow improvement over time.
 
 \begin{landscape}
 \begin{figure}[thbp]
@@ -157,7 +157,7 @@ In figure \ref{fig:ctpsab} it can be seen that fitness proportionate selection w
 \subsection{Adult Selection} % (fold)
 \label{sub:adult_selection}
 
-When looking at the results for the adult selection in figure \ref{fig:ctasab}, the most striking thing is that completely flat curve for the elitist mixing average best, indicating that there on average is no improvement at all in the best solutions found when using it as adult selection. This can be explained by observing that the average standard deviation in each population is 0 (figure \ref{fig:ctasasd}), coupled with that the average of fintess of the population being stuck on a single value in figure \ref{fig:ctasaa} indicating that all the individuals in the population have the same fitness. What has likely happened is that the population has become stuck in a local optimum, and all the individuals it produces are exact copies of the currently best found solution.
+When looking at the results for the adult selection in figure \ref{fig:ctasab}, the most striking thing is that completely flat curve for the elitist mixing average best, indicating that there on average is no improvement at all in the best solutions found when using it as adult selection. This can be explained by observing that the average standard deviation in each population is 0 (figure \ref{fig:ctasasd}), coupled with that the average of fitness of the population being stuck on a single value in figure \ref{fig:ctasaa} indicating that all the individuals in the population have the same fitness. What has likely happened is that the population has become stuck in a local optimum, and all the individuals it produces are exact copies of the currently best found solution.
 
 When looking for what adult selection gives the best output according to these results both overproduction and random mixing give better results than elitist mixing, and overproduction yields slightly better results than random mixing.
 
@@ -225,7 +225,7 @@ Figure \ref{fig:ctmasd} shows that the diversity of the population is somewhat l
 \subsection{Population Size Control} % (fold)
 \label{sub:population_size_control}
 
-Due to the unexpected results in the population size tests (section \ref{sub:population_size}), it was decided to look into whether the effect of the population size could be impacted by the choice of uniform parent selection and full generational replacement. A control test was designed where each population was again run 30 times, but this time with fintess scaling selection and overproduction with twice as many children as the population size.
+Due to the unexpected results in the population size tests (section \ref{sub:population_size}), it was decided to look into whether the effect of the population size could be impacted by the choice of uniform parent selection and full generational replacement. A control test was designed where each population was again run 30 times, but this time with fitness scaling selection and overproduction with twice as many children as the population size.
 
 The results obtained here were according to the predictions about a bigger population size being generally better, and that the results when not guiding the direction of the population in any way are most likely due to the proportion of it that the best individual represents. A larger population gives better results, but as the populations grow very large there are diminishing returns on expanding it further. As can be seen in figure \ref{fig:cpscab} the largest population gives only marginally better results than the second largest population, which gives somewhat better results than the third largest population, which in turn gives a lot better results than the smallest population.
 
@@ -263,7 +263,7 @@ The above experiments lead us to the following conclusions about the parameters 
 
 In section \ref{sub:population_size_control} it is found that a larger population is better, but it has diminishing returns, and a population size of 200\% the length of the genome is not much better than a population size equivalent to 100\% the length of the genome. It contradicts the findings from section \ref{sub:population_size}, but it was found that those are most likely due to introducing the previous best each generation and the portion of the population it constitutes as populations grow smaller when no other form of elitism or directing of the population is present.
 
-None of the configurations found an ideal solution with a fintess value of 60. The best fitness values the MA got were about 400 (found when doing the mutation configurations in section \ref{sub:mutation_types}) which is not too bad. The found fintess value indicates that the MA gives a solution that goes $\frac{400}{60} = 6.\overline{66} \approx 7$ times more than it needs around the circle. Considering that this can be achieved by switching the order of 7 pairs in the circle the quality of the solutions while not optimal are still acceptable.
+None of the configurations found an ideal solution with a fitness value of 60. The best fitness values the MA got were about 400 (found when doing the mutation configurations in section \ref{sub:mutation_types}) which is not too bad. The found fitness value indicates that the MA gives a solution that goes $\frac{400}{60} = 6.\overline{66} \approx 7$ times more than it needs around the circle. Considering that this can be achieved by switching the order of 7 pairs in the circle the quality of the solutions while not optimal are still acceptable.
 
 Overall the experiments ran smoothly, usable results were obtained, and more importantly all of the results above are 100\% reproducible beacause all the configurations and random-seeds of each run of each experiment were kept.
 
