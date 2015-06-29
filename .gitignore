@@ -6,6 +6,9 @@
 javakode/bin/*
 javakode/.settings/*
 
+#Excel ignores:
+~*.xlsx
+
 #Latex ignores:
 *.acn
 *.acr
