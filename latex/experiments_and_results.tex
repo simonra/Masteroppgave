@@ -139,14 +139,11 @@ The overall best fintesses obtained for each route, and the fintesses of how the
 \end{table}
 }
 
-But other than evaluating the routes by their fitness values, they should also be visually inspected to check for anomalities that might not have been caught so far in the process. A graphical representation is also usefull if the generated routes are to be applied by drivers in practice. The maps drawn for the generated routes have therefore been made, and are presented in figures \ref{fig:KV_B_drawn} and \ref{fig:KV_H_drawn}, for routes 310174\_KV\_B\_Midtbyen and 310179\_KV\_H\_Midtbyen respectively.
+But other than evaluating the routes by their fitness values, they should also be visually inspected to check for anomalities that might not have been caught so far in the process. A graphical representation is also usefull if the generated routes are to be applied by drivers in practice. The maps drawn for the generated routes have therefore been made, and are presented in figures \ref{fig:KV_B_drawn} and \ref{fig:KV_H_drawn}, for routes 310174\_KV\_B\_Midtbyen and 310179\_KV\_H\_Midtbyen respectively. The route mapped for 310174\_KV\_B\_Midtbyen had a fitness of 515610, and the one used to generate the map for the 310179\_KV\_H\_Midtbyen route had a fintess of 472610.
 
 In the figures, the numbers represent the order in which a road piece is visited. If one observes the maps carefully, it can be seen that there are some numbers that are missing. There are several reasons for this. First and foremost, some of the road pieces are very small, and labeling them would make the label collide with the labels of adjacent road pieces if one does not use a text size so small that it would be practically unreadable. Another factor that makes displaying the complete enumeration difficult is that some roads are traversed several times. Coupled with an already limited space to display the labels, this makes even more labels disappear. To show all the labels, one would have to print the map on A0 paper with a font-size of 4 points.
 
 The practical solution was to print with the size and resolution used in the figures. The are humanly readable, and it is relatively easy to infer the missing numbers upon inspection. For completeness the maps have been generated with a finer resolution (40 times 40 meters) in the style of a map book that spans several pages. For route 310174\_KV\_B\_Midtbyen the detailed map can be found in appendix \ref{sec:detailed_generated_map_for_route_310174_kv_b}, and for the 310179\_KV\_H\_Midtbyen route in appendix \ref{sec:detailed_generated_map_for_route_310179_kv_h}. They are also available digitally as interactive maps formated for QGIS in the supplementary materials.
-
-Another interesting thing to observe is that some pieces of road appear to be missing, but still used, such as the pieces at about (9207510\degree N,1157400\degree E) and (9207120\degree N,1157190\degree E) in the route for 310174\_KV\_B\_Midtbyen (shown in the second and twelfth tiles of the extended map in \ref{sec:detailed_generated_map_for_route_310174_kv_b} respectively).
-
 
 \begin{landscape}
 \begin{figure}[thbp]
@@ -163,6 +160,10 @@ Another interesting thing to observe is that some pieces of road appear to be mi
 	\label{fig:KV_H_drawn}
 \end{figure}
 \end{landscape}
+
+Another interesting thing to observe is that some pieces of road appear to be missing, but still used, such as the pieces at about (9207510\degree N,1157400\degree E) and (9207120\degree N,1157190\degree E) in the route for 310174\_KV\_B\_Midtbyen (shown in the second and twelfth tiles of the extended map in \ref{sec:detailed_generated_map_for_route_310174_kv_b} respectively). Initially, one might believe that the pieces of road are missing due to errors in the underlying data or have gone missing during the processing. However, the fact that the apparently missing pieces are the only possible entities that can hold the corresponding values that are not shown in the routes at those points indicates that the fault does not lie in the underlying data. Instead, it must be an error in how the data is displayed. Fortunately it would seem that it has no effect on the readability of the routes or the correctness of the input and output of the MA.
+
+To get a more thorough assessment of the drawn routes and some feedback on how well the visualization would work in practice, a meeting with the municipality and their snow plow drivers was set up \citep{meetingToAssesTheGeneratedRoutes}. There the maps as they were drawn in figures \ref{fig:KV_B_drawn} and \ref{fig:KV_H_drawn} was presented, alongside the interactive versions in QGIS to facilitate more detailed inspection of the routes.
 
 
 \cleardoublepage
