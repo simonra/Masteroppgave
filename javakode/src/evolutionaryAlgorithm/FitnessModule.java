@@ -18,14 +18,32 @@ public class FitnessModule {
 	public static double tripCost(int[] trip){
 		double cost = 0;
 		double sumOfDemandTimesTripNumber = 0;
-
+		
+//		System.out.println("The first element: " + trip[0]);
+//		System.out.println("The depot node index: " + Graph.getDeoptNodeIndex());
+		
 		cost += FloydWarshall.distance(Graph.getDeoptNodeIndex(), trip[0])
 				+ Graph.getElementByID(trip[0]).getServicingCost();
 		sumOfDemandTimesTripNumber += 1 * Graph.getElementByID(trip[0]).getDemand();
 		for (int i = 1; i < trip.length; i++) {
+//			if(FloydWarshall.distance(trip[i - 1], trip[i]) == Double.POSITIVE_INFINITY){
+//				cost += 999999
+//						+ Graph.getElementByID(trip[i]).getServicingCost();
+//			}else{
+//				cost += FloydWarshall.distance(trip[i - 1], trip[i])
+//						+ Graph.getElementByID(trip[i]).getServicingCost();				
+//			}
+			if(FloydWarshall.distance(trip[i - 1], trip[i]) == Double.POSITIVE_INFINITY){
+				System.out.println("Going from " + Graph.getElementByID(trip[i - 1]) + " to " + Graph.getElementByID(trip[i]) + " has infinite cost");
+				System.out.println("They are " + Graph.getElementByID(trip[i - 1]).getName() + " and " + Graph.getElementByID(trip[i]).getName());
+			}
+			
 			cost += FloydWarshall.distance(trip[i - 1], trip[i])
 					+ Graph.getElementByID(trip[i]).getServicingCost();
 			sumOfDemandTimesTripNumber += (i+1)*Graph.getElementByID(trip[i]).getDemand(); //Add 1 because number of trips is 1 indexed due to math
+//			System.out.println("The cost was updated in iteration " + i + " to: " + cost);
+//			System.out.println("The servicing cost was " + Graph.getElementByID(trip[i]).getServicingCost());
+//			System.out.println("The distance was: " + FloydWarshall.distance(trip[i - 1], trip[i]));
 		}
 		cost += FloydWarshall.distance(trip[trip.length - 1], Graph.getDeoptNodeIndex());
 

@@ -23,7 +23,8 @@ public class FileSaving {
 	static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss'Z'");
 	
 	public static void writeFloydWarshall(){
-		String contentToBeWritten = getGson().toJson(new FloydWarshall());
+//		String contentToBeWritten = getGson().toJson(new FloydWarshall());
+		String contentToBeWritten = new FloydWarshall().allPairsToString();
 		try {
 			PrintWriter writer = new PrintWriter(buildFileName("FloydWarshall"), "UTF-8");
 			writer.println(contentToBeWritten);

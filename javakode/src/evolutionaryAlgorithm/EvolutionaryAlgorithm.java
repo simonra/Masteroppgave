@@ -55,8 +55,13 @@ public class EvolutionaryAlgorithm {
 		bestIndividual = new Genotype(Collections.max(adults));
 		
 		while(true){
+//			System.out.println("Starting EA main loop");
+			
 			selectedParents.clear();
 			selectedParents = Selection.selectParents(adults);
+			
+//			System.out.println("Parent selection complete");
+			
 			children.clear();
 			for (int i = 0; i < selectedParents.size(); i += 2) {
 				int[] crossoverPoints = Utilities.getRandomCrossoverPoints();
@@ -65,10 +70,15 @@ public class EvolutionaryAlgorithm {
 				children.add(generatedChildren[1]);
 			}
 			
+//			System.out.println("Parent selection complete");
+			
 			for (Genotype child : children) {
 				child.mutate();
 				child.calculateFitness();
 			}
+			
+//			System.out.println("Mutation complete");
+			
 			
 			/*Make sure a mutated version of last best joins this
 			 * generations children so that we can see what happens
@@ -90,7 +100,7 @@ public class EvolutionaryAlgorithm {
 			
 			Selection.adultSelection(adults, children);
 			
-			
+//			System.out.println("Doing after generation cleanup");
 			
 			currentGenerationsCandidate = Collections.max(adults);
 			if (currentGenerationsCandidate.compareTo(bestIndividual) >  0) {
@@ -118,6 +128,7 @@ public class EvolutionaryAlgorithm {
 			if( (generationNumber - lastGenerationFitnessWasUpdated > EvolutionaryAlgorithmParams.MAX_GENERATIONS_WITHOUT_CHANGE) || generationNumber > EvolutionaryAlgorithmParams.MAX_GENERATIONS){
 				break;
 			}
+//			System.out.println("Generation complete");
 		}
 		
 		timeTaken = System.currentTimeMillis() - startTime;

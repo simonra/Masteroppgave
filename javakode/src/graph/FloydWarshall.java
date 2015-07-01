@@ -25,6 +25,10 @@ public class FloydWarshall {
 		}
 		do {
 			path.add(successor);
+			if(successor == -1){
+				System.out.println("The succeeding broke");
+				break;
+			}
 			successor = successors[successor][b];
 		} while(successor != b );
 		return path;
@@ -162,6 +166,7 @@ public class FloydWarshall {
 				outputString += allPairShortestDistances[i][j] + "\t";
 			}
 			outputString += "\n";
+//			System.out.println("Finished line " + i + " of " + allPairShortestDistances.length);
 		}
 		return outputString;
 	}
