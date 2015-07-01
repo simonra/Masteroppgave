@@ -165,5 +165,11 @@ Another interesting thing to observe is that some pieces of road appear to be mi
 
 To get a more thorough assessment of the drawn routes and some feedback on how well the visualization would work in practice, a meeting with the municipality and their snow plow drivers was set up \citep{meetingToAssesTheGeneratedRoutes}. There the maps as they were drawn in figures \ref{fig:KV_B_drawn} and \ref{fig:KV_H_drawn} was presented, alongside the interactive versions in QGIS to facilitate more detailed inspection of the routes.
 
+Overall they found the representation satisfactory. It was pointed out that the drawn maps should have less details to be more convenient to use in practice. While having each road be represented as relatively small pieces makes sens for maintaining details and integrity of the map data over time, it serves no use when the drivers are reading the maps. Their conclusion was that it would be better if each road was represented and numerated as one piece between intersections, although the representation in figures \ref{fig:KV_B_drawn} and \ref{fig:KV_H_drawn} is completely legible and fine to use for evaluation.
+
+Upon closer inspections of the maps, some new anomalities were also discovered. For an instance the road pieces labeled as number 211 to 215 in route 310174\_KV\_B\_Midtbyen are driving in and out of a one way driven alley, which should clearly not be done. It was discovered that the road pieces were not labeled as one way driven in the map data passed to the MA. Similarly in route 310179\_KV\_H\_Midtbyen the road pieces traversed as items number 53 to 56 and 148 to 152 in the big roundabout in the center of the town should be inaccessible to the vehicle used for servicing that route. The entire square in which the roundabout lies, although still maintained as part of the road network, and therefore in the underlying map data, has been blocked for traffic. However 
+
+\todo{brukbar, torget, begge er strengt tatt feil, men ikke saa farlig i praksis, og det blir uansett mye ekstrakjoering fordi man maa kjoere rund for aa ta den siste resten i noen tilfeller.}
+
 
 \cleardoublepage
