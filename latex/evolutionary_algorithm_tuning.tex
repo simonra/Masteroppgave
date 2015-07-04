@@ -36,13 +36,13 @@ To tackle these challenges, a new data set was produced for the tuning. It can b
 
 An example of an ideal solution to the circle test shown in figure \ref{fig:ctgnaloc} would be the genome shown in figure \ref{fig:bpgftscte}, which has a fitness value of 60.
 
-\begin{figure}[thbp]
+\begin{figure}[H]
 	\centerline{\includegraphics[width=\textwidth]{figures/CircleTests/CircleTestIllustrations/Circle_Test_Graph-No_arc_labels_or_costs.pdf}}
 	\caption{Circle Test Graph example with no arc labels or costs drawn in}
 	\label{fig:ctgnaloc}
 \end{figure}
 
-\begin{figure}[thbp]
+\begin{figure}[H]
 	\noindent
 	\fbox{
 		\parbox{\textwidth}{
@@ -65,6 +65,8 @@ While using the circle test data set might not give an exact answer to what conf
 
 % section experimental_plan (end)
 
+\clearpage
+
 \section{Experimental Setup} % (fold)
 \label{sec:experimental_setup}
 % This section should be about how we did the experiments, ie. what parameters we used and so forth
@@ -81,17 +83,17 @@ During the determination of whether random mutation or using hill climbing for m
 
 % section experimental_setup (end)
 
-\clearpage
+% \clearpage
 
 \section{Results} % (fold)
 \label{sec:results}
 
-Now that the experimental plan has been outlined, in this section the results will be presented. First the initial results for the population size experiment will be shown. Then the outcome of using different parameters for the parent selection is going to be laid out. After that the experimental results when testing different configurations for mutation are going to be presented. Finally, the results form a follow up experiment on the population size will be shown.
+Now that the experimental plan has been outlined, in this section the results will be presented. First the initial results for the population size experiment will be shown. Then the outcome of using different parameters for the parent selection is going to be laid out. After that the experimental results when testing different configurations for mutation are going to be presented. Finally, the results form a follow up experiment on the population size will be shown. All the relevant graphs can be found in appendix \ref{cha:memetic_algorithm_tunin_results}.
 
 \subsection{Population Size} % (fold)
 \label{sub:population_size}
 
-When observing the results from the population size test runs, it can be noticed that that a lower population size yields better results. In figure \ref{fig:ctpab} it can be seen that the larger populations perform noticeably worse, with the largest population (120 individuals) getting a fitness value of around 700 by the end of the runs, while the smallest population size (6 individuals) end up with a fitness of about 600.
+When observing the results from the population size test runs, it can be noticed that that a lower population size yields better results. In figure \ref{fig:ctpab} in appendix \ref{sec:population_size_testing_results} it can be seen that the larger populations perform noticeably worse, with the largest population (120 individuals) getting a fitness value of around 700 by the end of the runs, while the smallest population size (6 individuals) end up with a fitness of about 600.
 
 A possible reason for this is that uniform selection combined with full generational replacement is not biased in any way. This makes it very random in terms of that the fitness of the individuals in the existing population will not affect future generations. The population will however be influenced by the previous generations in terms of that their genomes will be combinations of previous genomes with mutations.
 
@@ -99,160 +101,160 @@ A possible explanation then could be in that the best individual from each gener
 
 This effect should be offset by introducing bias in the population towards that the individuals with better fitness have a better chance at impacting future generations. But just to be certain that this is a quirk of combining uniform selection, full generational mixing, and the constant reintroduction of the previous best single individual at the cost of the currently worst, a control experiment for parent size using another form of parent selection and generational replacement was set up.
 
-\begin{landscape}
-\begin{figure}[thbp]
-	\centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/PopulationSize/CircleTestsPopulationAverageBest.pdf}}
-	\caption{Population Size - Average Best}
-	\label{fig:ctpab}
-\end{figure}
-\end{landscape}
+% \begin{landscape}
+% \begin{figure}[thbp]
+% 	\centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/PopulationSize/CircleTestsPopulationAverageBest.pdf}}
+% 	\caption{Population Size - Average Best}
+% 	\label{fig:ctpab}
+% \end{figure}
+% \end{landscape}
 
-\begin{landscape}
-\begin{figure}[thbp]
-	\centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/PopulationSize/CircleTestsPopulationAverageAverage.pdf}}
-	\caption{Population Size - Average Average}
-\end{figure}
-\end{landscape}
+% \begin{landscape}
+% \begin{figure}[thbp]
+% 	\centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/PopulationSize/CircleTestsPopulationAverageAverage.pdf}}
+% 	\caption{Population Size - Average Average}
+% \end{figure}
+% \end{landscape}
 
-\begin{landscape}
-\begin{figure}[thbp]
-	\centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/PopulationSize/CircleTestsPopulationAverageStandardDeviation.pdf}}
-	\caption{Population Size - Average Standard Deviation}
-\end{figure}
-\end{landscape}
+% \begin{landscape}
+% \begin{figure}[thbp]
+% 	\centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/PopulationSize/CircleTestsPopulationAverageStandardDeviation.pdf}}
+% 	\caption{Population Size - Average Standard Deviation}
+% \end{figure}
+% \end{landscape}
 % subsection Population Size (end)
 
-\clearpage
+% \clearpage
 
 \subsection{Parent Selection} % (fold)
 \label{sub:parent_selection}
 
-In figure \ref{fig:ctpsab} it can be seen that fitness proportionate selection with a final fitness of just below 500 is clearly better than the tournament selection that reaches a fitness a bit above 500, which in turn finds better results on average than uniform selection with a fitness of about 700. The averages fitness of each populations average seem to quickly decrease before beginning to decrease slowly for tournament and fitness proportionate selection, while the uniform selection shows only a very slow improvement over time.
+In figure \ref{fig:ctpsab} in appendix \ref{sec:parent_selection_results} it can be seen that fitness proportionate selection with a final fitness of just below 500 is clearly better than the tournament selection that reaches a fitness a bit above 500, which in turn finds better results on average than uniform selection with a fitness of about 700. The averages fitness of each populations average seem to quickly decrease before beginning to decrease slowly for tournament and fitness proportionate selection, while the uniform selection shows only a very slow improvement over time.
 
-\begin{landscape}
-\begin{figure}[thbp]
-	\centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/ParentSelection/CircleTestParentSelectionAverageBest.pdf}}
-	\caption{Parent Selection - Average Best}
-	\label{fig:ctpsab}
-\end{figure}
-\end{landscape}
+% \begin{landscape}
+% \begin{figure}[thbp]
+% 	\centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/ParentSelection/CircleTestParentSelectionAverageBest.pdf}}
+% 	\caption{Parent Selection - Average Best}
+% 	\label{fig:ctpsab}
+% \end{figure}
+% \end{landscape}
 
-\begin{landscape}
-\begin{figure}[thbp]
-	\centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/ParentSelection/CircleTestParentSelectionAverageAverage.pdf}}
-	\caption{Parent Selection - Average Average}
-\end{figure}
-\end{landscape}
+% \begin{landscape}
+% \begin{figure}[thbp]
+% 	\centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/ParentSelection/CircleTestParentSelectionAverageAverage.pdf}}
+% 	\caption{Parent Selection - Average Average}
+% \end{figure}
+% \end{landscape}
 
-\begin{landscape}
-\begin{figure}[thbp]
-	\centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/ParentSelection/CircleTestParentSelectionAverageStandardDeviation.pdf}}
-	\caption{Parent Selection - Average Standard Deviation}
-\end{figure}
-\end{landscape}
+% \begin{landscape}
+% \begin{figure}[thbp]
+% 	\centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/ParentSelection/CircleTestParentSelectionAverageStandardDeviation.pdf}}
+% 	\caption{Parent Selection - Average Standard Deviation}
+% \end{figure}
+% \end{landscape}
 % subsection parent_selection (end)
 
-\clearpage
+% \clearpage
 
 \subsection{Adult Selection} % (fold)
 \label{sub:adult_selection}
 
-When looking at the results for the adult selection in figure \ref{fig:ctasab}, the most striking thing is that completely flat curve for the elitist mixing average best, indicating that there on average is no improvement at all in the best solutions found when using it as adult selection. This can be explained by observing that the average standard deviation in each population is 0 (figure \ref{fig:ctasasd}), coupled with that the average of fitness of the population being stuck on a single value in figure \ref{fig:ctasaa} indicating that all the individuals in the population have the same fitness. What has likely happened is that the population has become stuck in a local optimum, and all the individuals it produces are exact copies of the currently best found solution.
+When looking at the results for the adult selection in figure \ref{fig:ctasab} in appendix \ref{sec:adult_selection_results}, the most striking thing is that completely flat curve for the elitist mixing average best, indicating that there on average is no improvement at all in the best solutions found when using it as adult selection. This can be explained by observing that the average standard deviation in each population is 0 (figure \ref{fig:ctasasd}, appendix \ref{sec:adult_selection_results}), coupled with that the average of fitness of the population being stuck on a single value in figure \ref{fig:ctasaa} from appendix \ref{sec:adult_selection_results} indicating that all the individuals in the population have the same fitness. What has likely happened is that the population has become stuck in a local optimum, and all the individuals it produces are exact copies of the currently best found solution.
 
 When looking for what adult selection gives the best output according to these results both overproduction and random mixing give better results than elitist mixing, and overproduction yields slightly better results than random mixing.
 
-\begin{landscape}
-\begin{figure}[thbp]
-	\centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/AdultSelection/CircleTestAdultSelectionAverageBest.pdf}}
-	\caption{Adult Selection - Average Best}
-	\label{fig:ctasab}
-\end{figure}
-\end{landscape}
+% \begin{landscape}
+% \begin{figure}[thbp]
+% 	\centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/AdultSelection/CircleTestAdultSelectionAverageBest.pdf}}
+% 	\caption{Adult Selection - Average Best}
+% 	\label{fig:ctasab}
+% \end{figure}
+% \end{landscape}
 
-\begin{landscape}
-\begin{figure}[thbp]
-	\centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/AdultSelection/CircleTestAdultSelectionAverageAverage.pdf}}
-	\caption{Adult Selection - Average Average}
-	\label{fig:ctasaa}
-\end{figure}
-\end{landscape}
+% \begin{landscape}
+% \begin{figure}[thbp]
+% 	\centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/AdultSelection/CircleTestAdultSelectionAverageAverage.pdf}}
+% 	\caption{Adult Selection - Average Average}
+% 	\label{fig:ctasaa}
+% \end{figure}
+% \end{landscape}
 
-\begin{landscape}
-\begin{figure}[thbp]
-	\centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/AdultSelection/CircleTestAdultSelectionAverageStandardDeviation.pdf}}
-	\caption{Adult Selection - Average Standard Deviation}
-	\label{fig:ctasasd}
-\end{figure}
-\end{landscape}
+% \begin{landscape}
+% \begin{figure}[thbp]
+% 	\centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/AdultSelection/CircleTestAdultSelectionAverageStandardDeviation.pdf}}
+% 	\caption{Adult Selection - Average Standard Deviation}
+% 	\label{fig:ctasasd}
+% \end{figure}
+% \end{landscape}
 % subsection adult_selection (end)
 
-\clearpage
+% \clearpage
 
 \subsection{Mutation Types} % (fold)
 \label{sub:mutation_types}
 
-As can be seen from figure \ref{fig:ctmab} and \ref{fig:ctmaa} the memetic improvement yields better results than when doing random mutation. Adding a memetically improved child to the children before the adult selection seems to make little difference, though it reaches a tad better solutions a little bit earlyer than when not adding it. For both memetic approaches the fitness value tends to get as good as just below 400 in the long run, as can be seen in figure \ref{fig:ctmab}.
+As can be seen from figure \ref{fig:ctmab} and \ref{fig:ctmaa} in appendix \ref{sec:mutation_types_results} the memetic improvement yields better results than when doing random mutation. Adding a memetically improved child to the children before the adult selection seems to make little difference, though it reaches a tad better solutions a little bit earlyer than when not adding it. For both memetic approaches the fitness value tends to get as good as just below 400 in the long run, as can be seen in figure \ref{fig:ctmab} from appendix \ref{sec:mutation_types_results}.
 
-Figure \ref{fig:ctmasd} shows that the diversity of the population is somewhat lower when doing memetic improvement instead of random mutation.
+Figure \ref{fig:ctmasd} in appendix \ref{sec:mutation_types_results} shows that the diversity of the population is somewhat lower when doing memetic improvement instead of random mutation.
 
-\begin{landscape}
-\begin{figure}[thbp]
-	\centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/Mutation/CircleTestMutationAverageBest.pdf}}
-	\caption{Mutation - Average Best}
-	\label{fig:ctmab}
-\end{figure}
-\end{landscape}
+% \begin{landscape}
+% \begin{figure}[thbp]
+% 	\centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/Mutation/CircleTestMutationAverageBest.pdf}}
+% 	\caption{Mutation - Average Best}
+% 	\label{fig:ctmab}
+% \end{figure}
+% \end{landscape}
 
-\begin{landscape}
-\begin{figure}[thbp]
-	\centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/Mutation/CircleTestMutationAverageAverage.pdf}}
-	\caption{Mutation - Average Average}
-	\label{fig:ctmaa}
-\end{figure}
-\end{landscape}
+% \begin{landscape}
+% \begin{figure}[thbp]
+% 	\centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/Mutation/CircleTestMutationAverageAverage.pdf}}
+% 	\caption{Mutation - Average Average}
+% 	\label{fig:ctmaa}
+% \end{figure}
+% \end{landscape}
 
-\begin{landscape}
-\begin{figure}[thbp]
-	\centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/Mutation/CircleTestMutationAverageStandardDeviation.pdf}}
-	\caption{Mutation - Average Standard Deviation}
-	\label{fig:ctmasd}
-\end{figure}
-\end{landscape}
+% \begin{landscape}
+% \begin{figure}[thbp]
+% 	\centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/Mutation/CircleTestMutationAverageStandardDeviation.pdf}}
+% 	\caption{Mutation - Average Standard Deviation}
+% 	\label{fig:ctmasd}
+% \end{figure}
+% \end{landscape}
 % subsection mutation_types (end)
 
-\clearpage
+% \clearpage
 
 \subsection{Population Size Control} % (fold)
 \label{sub:population_size_control}
 
 Due to the unexpected results in the population size tests (section \ref{sub:population_size}), it was decided to look into whether the effect of the population size could be impacted by the choice of uniform parent selection and full generational replacement. A control test was designed where each population was again run 30 times, but this time with fitness scaling selection and overproduction with twice as many children as the population size.
 
-The results obtained here were according to the predictions about a bigger population size being generally better, and that the results when not guiding the direction of the population in any way are most likely due to the proportion of it that the best individual represents. A larger population gives better results, but as the populations grow very large there are diminishing returns on expanding it further. As can be seen in figure \ref{fig:cpscab} the largest population gives only marginally better results than the second largest population, which gives somewhat better results than the third largest population, which in turn gives a lot better results than the smallest population.
+The results obtained here were according to the predictions about a bigger population size being generally better, and that the results when not guiding the direction of the population in any way are most likely due to the proportion of it that the best individual represents. A larger population gives better results, but as the populations grow very large there are diminishing returns on expanding it further. As can be seen in figure \ref{fig:cpscab} in appendix \ref{sec:population_size_control_results} the largest population gives only marginally better results than the second largest population, which gives somewhat better results than the third largest population, which in turn gives a lot better results than the smallest population.
 
-\begin{landscape}
-\begin{figure}[thbp]
-	\centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/PopulationSizeControl/CirclePopulationSizeControllAverageBest.pdf}}
-	\caption{Population Size Control - Average Best}
-	\label{fig:cpscab}
-\end{figure}
-\end{landscape}
+% \begin{landscape}
+% \begin{figure}[thbp]
+% 	\centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/PopulationSizeControl/CirclePopulationSizeControllAverageBest.pdf}}
+% 	\caption{Population Size Control - Average Best}
+% 	\label{fig:cpscab}
+% \end{figure}
+% \end{landscape}
 
-\begin{landscape}
-\begin{figure}[thbp]
-	\centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/PopulationSizeControl/CirclePopulationSizeControllAverageAverage.pdf}}
-	\caption{Population Size Control - Average Average}
-\end{figure}
-\end{landscape}
+% \begin{landscape}
+% \begin{figure}[thbp]
+% 	\centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/PopulationSizeControl/CirclePopulationSizeControllAverageAverage.pdf}}
+% 	\caption{Population Size Control - Average Average}
+% \end{figure}
+% \end{landscape}
 
-\begin{landscape}
-\begin{figure}[thbp]
-	\centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/PopulationSizeControl/CirclePopulationSizeControllAverageStandardDeviation.pdf}}
-	\caption{Population Size Control - Average Standard Deviation}
-\end{figure}
-\end{landscape}
+% \begin{landscape}
+% \begin{figure}[thbp]
+% 	\centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/PopulationSizeControl/CirclePopulationSizeControllAverageStandardDeviation.pdf}}
+% 	\caption{Population Size Control - Average Standard Deviation}
+% \end{figure}
+% \end{landscape}
 % subsection population_size_control (end)
 
-\clearpage
+% \clearpage
 
 % section results (end)
 
