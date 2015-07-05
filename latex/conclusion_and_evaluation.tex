@@ -34,17 +34,13 @@ Another improvement that should be done is to merge as many road pieces in the u
 
 In relation to how the maps are read, a nice expansion upon the work would be to make an interactive map of the routes that does not require proficiency in setting up or using QGIS. If the map of the routes are available for an instance in an online format on a webpage, it would be possible for the drivers or other interested parties to view larger routes in more detail. It could also make it easier to compare routes.
 
-But other than pure technical improvements in how the routes are generated and represented, there are also improvements that can be made to the experiments, and also the input data iteslf. For an instance considering what was discovered about the effect of population sizes and improvement of the average fitness of the population over time in chapter \ref{sec:results}. It is clear that it should be examined further to obtain a certain proof of that the only reason for the odd result that given much randomness a smaller population is better if you reinser the best individual of the previous generation each generation.
+But other than pure technical improvements in how the routes are generated and represented, there are also improvements that can be made to the experiments, and also the input data iteslf. For an instance considering what was discovered about the effect of population sizes and improvement of the average fitness of the population over time in chapter \ref{sec:results}. It is clear that it should be examined further to obtain a certain proof of that the only reason for the odd result that given much randomness a smaller population is better if you reinsert the best individual of the previous generation each generation.
 
+The improvements that can be made to the heurisitc are however maybe the most important ones. First and foremost by using more of the available features of the underlying data and working them in to the data that is sent to the MA. If the width of the road and the number of files for an instance were included in the input data the heurisitc could be more precise in determining the amount of vehicles and passes needed for clearing a given road. Coupled with data about what types of vehicles are available and how many it could be used to determine an optimal sectoring of the road network.
 
+With more data available, the heurisitc could also be made to optimize other things than just length, or a prioritized combination of features of the routes to optimize. Considering the desire to get the traffic running as smoothly as fast as possible, optimizing for clearing the most heavily trafficated roads first and finishing the job as fast as possible could be one thing to gear the MA towards. Another thing that could be interesting to optimize for is the fuel consumption of the plowing. This would affect the environmental impact of the plowing, but would also be important in reducing the total cost of the plowing operations.
 
-
-
-% improve the heurisitc
 % Reduce constant factors (of running time (ex some loops could be n\^2 instead of 2\*n\^2)).
-
-% \subsection{Better Heuristic}
-% Several vehicle types and ability to divide into zones
 
 % Take todays weather into consideration (ie. make a real-time system, and differentiate between emergency servicing and maintenace work).
 
