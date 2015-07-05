@@ -5,38 +5,16 @@ So far in this thesis many toppics have been covered. Chapter \ref{theory} cover
 This chapter will be focused on rounding off the thesis. It will start off by evaluating what questions have been answered and to what extent. Then the work with the thesis itself is going to be discussed. Afther that there will be a section on the contributions to the field of the work. And finally the future work that can be done to expand upon what has been covered in this thesis will be outlined.
 
 \section{Evaluation}
-% Evaluation of results
-
-% RQ1 was answered by...
-% RQ2 was answered by ... in section ...
-
 % All in all it can be concluded that given a good model, snow plowing routing in Trondheim (or the entirety of norway for that matter) is possible and feasible.
 
 When evaluating the work in this thesis the research questions should be considered. The first research question was stated in chapter \ref{cha:introduction} as \emph{\enquote{Obtain and present the related work which gives the context for this thesis}}. It was subsequently treated in chapter \ref{theory}, which covered both the background for snow plowing and the theory surrounding routing problems. Chapter \ref{sec:routing_algorithms} discussed why a MA was chosen as the approach to the routing problem, and later in chapter \ref{sec:evolutionary_algorithms} MAs were explained more in details. Then in chapter \ref{sub:fitness_for_snow_plowing} the theory on how to adapt a MA better to the task of snow plowing was dealt with. Finally in chapters \ref{sub:all_pairs_shortest_path} and \ref{sub:the_split_algorithm} the reasoning behind the adaption of a couple of known algorithms was laid out. Thus chapter \ref{theory} has presented related work, tied it to the setting of the thesis, and thereby answered RQ1.
 
 The second research question in this thesis was given as \emph{\enquote{Configure the memetic algorithm so that it performs well}}. To do the configuration a test case that is simple for a human to verify the correctness of the solution to was made and presented in chapter \ref{cha:evolutionary_algorithm_configuration}. The MA was then applied to the porblem with a variety of configurations, and a combination of parameters that work well was found. One might think that at this point RQ2 has been completely answered, but when treating the results in chapter \ref{cha:evolutionary_algorithm_configuration} an interesting pattern in the MAs solutions became apparent. The MA, while capable of finding good solutions, is incapable of finding the optimal solution, even in cases where it is trivial for humans to do so. However it was deemed that the results it produced were of a sufficent quality to move forewards. And because the routes found by the MA in chapter \ref{sec:map_data_from_trondheim} are better than the ones currently being driven the MA can be considered to perform well, and RQ2 satisfyingly addressed by the work presented in chapter \ref{cha:evolutionary_algorithm_configuration}.
 
-Chapter \ref{sec:map_data_from_trondheim} is also relevant when evaluating how the third research question, \emph{\enquote{Determine whether the memetic algorithm independently can find a route in Trondheim optimized for length weighted by speed with a random starting point}}, was dealt with. 
-
+Chapter \ref{sec:map_data_from_trondheim} is also relevant when evaluating how the third research question, \emph{\enquote{Determine whether the memetic algorithm independently can find a route in Trondheim optimized for length weighted by speed with a random starting point}}, was dealt with. There it was showed what results are obtained when the MA is applied to data from Trondheim. And when looking at the outcomes it would seem that the MA has indeed managed to produce routes that are good in terms of length weighted by speed and with random starting points. But for the routes generated in chapter \ref{sec:map_data_from_trondheim} it can be argued that they do not have a random starting point because it was chosen to be the first required road piece in a route that appeard in the input file to the MA. However it should be considered that which road piece is the first is rather arbitrary, and that the route is a giant circle and starting on a required point on that circle. Then it becomes clear that it does not really matter where the driver choses to start as long as he drives the shortest possible path to the route, and that the starting point can be randomly chosen and the route be exactly the same. In that light RQ3 has been fully answered by the work presented in chapter \ref{sec:map_data_from_trondheim}. It could also be argued that it shows that given a model of sufficently high quality routing for snow plowing in Trondheim, or anywhere else in Norway with similar constraints, is possible and feasible.
 
 The question that remains at the end then, is whether the goal of \emph{\enquote{Make a system that can generate optimal routes for snow plowing in Trondheim}} has been reached. Because the work in chapter \ref{cha:evolutionary_algorithm_configuration} relating to RQ2 showed that the MA is incapable of finding optimal solutions, the answer has to be no. But the work still has merits in terms of that the solutions it finds are estimated to be of a high quality by the domain experts given the input used. As such the project should be considered a success even though its goal has not been reached.
 
-
-% \rowcolors{1}{gray!15}{white}
-% \begin{table}[H]
-% \centering
-% \begin{tabular}{cp{0.8\textwidth}}
-% RQ1  &  Obtain and present the related work which gives the context for this thesis. \\
-% RQ2  &  Configure the memetic algorithm so that it performs well.\\
-% RQ3  &  Determine whether the memetic algorithm independently can find a route in Trondheim optimized for length weighted by speed with a random starting point. \\
-% \end{tabular}
-% \caption{Research questions}
-% \label{tab:research_questions}
-% \end{table}
-
-% \begin{description}
-% 	\item [Goal] Make a system that can generate optimal routes for snow plowing in Trondheim.
-% \end{description}
 
 \section{Discussion}
 Discussion of results
