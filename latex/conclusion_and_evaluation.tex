@@ -5,7 +5,6 @@ So far in this thesis many toppics have been covered. Chapter \ref{theory} cover
 This chapter will be focused on rounding off the thesis. It will start off by evaluating what questions have been answered and to what extent. Then the work with the thesis itself is going to be discussed. Afther that there will be a section on the contributions to the field of the work. And finally the future work that can be done to expand upon what has been covered in this thesis will be outlined.
 
 \section{Evaluation}
-% All in all it can be concluded that given a good model, snow plowing routing in Trondheim (or the entirety of norway for that matter) is possible and feasible.
 
 When evaluating the work in this thesis the research questions should be considered. The first research question was stated in chapter \ref{cha:introduction} as \emph{\enquote{Obtain and present the related work which gives the context for this thesis}}. It was subsequently treated in chapter \ref{theory}, which covered both the background for snow plowing and the theory surrounding routing problems. Chapter \ref{sec:routing_algorithms} discussed why a MA was chosen as the approach to the routing problem, and later in chapter \ref{sec:evolutionary_algorithms} MAs were explained more in details. Then in chapter \ref{sub:fitness_for_snow_plowing} the theory on how to adapt a MA better to the task of snow plowing was dealt with. Finally in chapters \ref{sub:all_pairs_shortest_path} and \ref{sub:the_split_algorithm} the reasoning behind the adaption of a couple of known algorithms was laid out. Thus chapter \ref{theory} has presented related work, tied it to the setting of the thesis, and thereby answered RQ1.
 
@@ -14,7 +13,6 @@ The second research question in this thesis was given as \emph{\enquote{Configur
 Chapter \ref{sec:map_data_from_trondheim} is also relevant when evaluating how the third research question, \emph{\enquote{Determine whether the memetic algorithm independently can find a route in Trondheim optimized for length weighted by speed with a random starting point}}, was dealt with. There it was showed what results are obtained when the MA is applied to data from Trondheim. And when looking at the outcomes it would seem that the MA has indeed managed to produce routes that are good in terms of length weighted by speed and with random starting points. But for the routes generated in chapter \ref{sec:map_data_from_trondheim} it can be argued that they do not have a random starting point because it was chosen to be the first required road piece in a route that appeard in the input file to the MA. However it should be considered that which road piece is the first is rather arbitrary, and that the route is a giant circle and starting on a required point on that circle. Then it becomes clear that it does not really matter where the driver choses to start as long as he drives the shortest possible path to the route, and that the starting point can be randomly chosen and the route be exactly the same. In that light RQ3 has been fully answered by the work presented in chapter \ref{sec:map_data_from_trondheim}. It could also be argued that it shows that given a model of sufficently high quality routing for snow plowing in Trondheim, or anywhere else in Norway with similar constraints, is possible and feasible.
 
 The question that remains at the end then, is whether the goal of \emph{\enquote{Make a system that can generate optimal routes for snow plowing in Trondheim}} has been reached. Because the work in chapter \ref{cha:evolutionary_algorithm_configuration} relating to RQ2 showed that the MA is incapable of finding optimal solutions, the answer has to be no. But the work still has merits in terms of that the solutions it finds are estimated to be of a high quality by the domain experts given the input used. As such the project should be considered a success even though its goal has not been reached.
-
 
 \section{Discussion}
 Discussion of results
@@ -25,21 +23,31 @@ Implementation could be better (more paralell and generally optimal)
 
 
 \section{Contributions}
-How do our findings contribute to the field. Of what signifficance are our findings?
+
+The work carried out in this thesis does not represent an improvement upon know solutions to routing problems, nor does it introduce any new techniques for solving them. However it does explore how solutions to routing for snow plowing in Trondheim can be done, and in the process it has verified that MAs can be applied with success to routing problems. The most sifnificant outcome of the work for the field is that it shows that the map data required to make routes for snow plowing in Norway exists, is publicly available, and can successfully be used for routing.
 
 \section{Future Work}
-What we didn't do but know that could be done
 
-\subsection{Improve Performance}
-Much of the code could be parallized, perhaps altered so that it can run on gpu-s
+First and foremost it should be examined why the MA is incapable of finding the optimal solution even in simple cases. Even if it should take an unreasonably long time, it would be nice to know that the MA is capable of finding the optimal solution if run indefinitely. On a related note, the overall performance of the MA should be improved. As the implementation is now it only works serially on one processor core. It could benefit greatly by being optimized for running in paralell on several cores, or perhaps even on a graphics card. The creation of each child, and evaluation of its fintess could be done paralelly, greatly increasing how fast each generation is processed and the overall performance of the MA.
 
-Reduce constant factors (of running time (ex some loops could be n\^2 instead of 2\*n\^2)).
+Another improvement that should be done is to merge as many road pieces in the underlying data before it is fed to the MA or drawn up as a map. When merging them before feeding the data to the MA the number of elements in the network to process is reduced and the performance will improve. The reasons for the improvement would be amongst other things that there would be fewer elements to itterate over each time the fitness is calculated, and when there are fewer pieces of road that are required the number of possible ways to make a route sink dramatically. It is also desirable to reduce the number of road pieces when drawing up the generated routes as maps. It would make the routes easier to read for the drivers because it would remove much detail that is not neccessary for their work.
 
-\subsection{Better Heuristic}
-Several vehicle types and ability to divide into zones
+In relation to how the maps are read, a nice expansion upon the work would be to make an interactive map of the routes that does not require proficiency in setting up or using QGIS. If the map of the routes are available for an instance in an online format on a webpage, it would be possible for the drivers or other interested parties to view larger routes in more detail. It could also make it easier to compare routes.
 
-Take todays weather into consideration (ie. make a real-time system, and differentiate between emergency servicing and maintenace work).
+But other than pure technical improvements in how the routes are generated and represented, there are also improvements that can be made to the experiments, and also the input data iteslf. For an instance considering what was discovered about the effect of population sizes and improvement of the average fitness of the population over time in chapter \ref{sec:results}. It is clear that it should be examined further to obtain a certain proof of that the only reason for the odd result that given much randomness a smaller population is better if you reinser the best individual of the previous generation each generation.
 
-Give output in terms of not only what we currently do, but also total distance, amount of fuel spent, time spent, vehicle durability (how much is their lifespan reduced by by doing the suggested route), or environmental impact. This will allow the operator to choose what to optimize, and it could even be a weighting among all the different evaluation types. Input could then for an instance be fuel > time > distance > environmental impact, or 90\% environment, 80\% fuel, 85\%time, etc.
+
+
+
+
+% improve the heurisitc
+% Reduce constant factors (of running time (ex some loops could be n\^2 instead of 2\*n\^2)).
+
+% \subsection{Better Heuristic}
+% Several vehicle types and ability to divide into zones
+
+% Take todays weather into consideration (ie. make a real-time system, and differentiate between emergency servicing and maintenace work).
+
+% Give output in terms of not only what we currently do, but also total distance, amount of fuel spent, time spent, vehicle durability (how much is their lifespan reduced by by doing the suggested route), or environmental impact. This will allow the operator to choose what to optimize, and it could even be a weighting among all the different evaluation types. Input could then for an instance be fuel > time > distance > environmental impact, or 90\% environment, 80\% fuel, 85\%time, etc.
 
 \cleardoublepage
