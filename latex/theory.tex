@@ -20,7 +20,7 @@ From meetings with the municipality and the Norwegian Public Roads Administratio
     \begin{center}
         \includegraphics[width=0.5\textwidth]{figures/MachineryIllustrations/snowplow-Kent_Syrstadlokk-2012-04-18.jpg}
     \end{center}
-    \caption{Snowplow in a Trondheim alley. Copyright Kent Syrstadlokk 2015, used with his permission.}
+    \caption{Snowplow in a Trondheim alley. Copyright Kent Syrstadløkk 2015, used with his permission.}
     \label{fig:snowplow_in_alley}
 \end{wrapfigure}
 
@@ -144,7 +144,7 @@ Now with the definition of what kind of problem snow plowing in Trondheim having
 
 % Historical approaches and solutions -> What we gonna use ((M)EA) -> EA -> Fitness -> FLW (basiskomponent) -> Grand tour vs Split som fitness -> Split forklart.
 
-\section{Routing Algorithms} % (fold)
+\section{Routing Algorithm's} % (fold)
 \label{sec:routing_algorithms}
 
 In the structured literature review, several methods of solving routing problems came to light. Clearly, the most desirable outcome would be a solution that is known to be optimal. Moreover, for the polynomial time cases such as the plain CPP where all the edges have to be serviced by one postman, exact solutions methods exist. However, for the NP-hard cases like the CARP, exact solutions quickly become infeasible as problem sizes grow. Some of the best approaches perform well for problems with up to 7 vehicles, 50 nodes, and 97 edges \citep{belenguer2003cutting}.
@@ -153,16 +153,16 @@ These limitations of the exact methods have lead to efforts in pursuing other wa
 
 Other methods that have shown to be robust both in terms of quality of solutions are Ant Colony Optimization (ACO) \citep{santos2010ACO} and Greedy Randomized Adaptive Search Procedure (GRASP) \citep{usberti2013grasp}. Both yield solutions of similar quality to those found by Tabu Search, but ACO outperforms GRASP on running time.
 
-Lately, the most promising results have been given by Evolutionary Algorithms (EA). Genetic Algorithms (GA), a common type of EA's, have been shown to provide high-quality solutions for large instances of the CARP/NEARP \citep{lacomme2001GA}, and generally to outperform other non-evolutionary methods \citep{wohlk2008decade}. A further improvement on GA's has been made by Memetic Algorithms (MA) \citep{prins2005memeticNEARP}. They have a reasonable running time, and they are capable of finding the highest quality solutions for the larger problem instances.
+Lately, the most promising results have been given by Evolutionary Algorithm's (EA's). GA's, a common type of EA's, have been shown to provide high-quality solutions for large instances of the CARP/NEARP \citep{lacomme2001GA}, and generally to outperform other non-evolutionary methods \citep{wohlk2008decade}. A further improvement on GA's has been made by MA's \citep{prins2005memeticNEARP}. They have a reasonable running time, and they are capable of finding the highest quality solutions for the larger problem instances.
 
 As such MAs can be considered as the current state of the art approach to solving NEARPs, which is the reason they have been chosen for the work with snow plowing in Trondheim in this thesis.
 
 % section routing_algorithms (end)
 
 
-\section{Evolutionary Algorithms} % (fold)
+\section{Evolutionary Algorithm's} % (fold)
 \label{sec:evolutionary_algorithms}
-Now that the reasons for using an EA has been laid out, what EA's are, and how they can be implemented should be discussed. EA's were one of the earliest bio-inspired algorithms, whose outline were first discussed by Alan Turing in \citet{turing1950computing}. The idea is that EA's should mimic the biological processes in evolution, abstracting potential solutions to a population of individuals that have traits that are combined and altered through generations.
+Now that the reasons for using an EA has been laid out, what EA's are, and how they can be implemented should be discussed. EA's were one of the earliest bio-inspired algorithm's, whose outline were first discussed by Alan Turing in \citet{turing1950computing}. The idea is that EA's should mimic the biological processes in evolution, abstracting potential solutions to a population of individuals that have traits that are combined and altered through generations.
 
 A common variant of EA's are GA's, as presented in \citet{holland1975originalGA}. In the paradigm of the GA, at the core of each individual there is a genome. This genome is an alternative representation of a solution to the problem one is trying to solve with the GA, which satisfies certain properties.
 
@@ -281,7 +281,7 @@ The next step then becomes finding the costs of going between the required eleme
 % \end{algorithmic}
 % \end{algorithm}
 
-To verify the output, and to be able to display it on a map, a predecessor or successor matrix should be created. Such a matrix would allow generated trips to be recreated in their entirety. The two candidates algorithms that would accommodate the needs and be efficient were Dijkstra's algorithm \citep{dijkstra1959note} iterated once for each element or the Floyd-Warshall algorithm \citep{floyd1962algorithm}. The Floyd-Warshall algorithm was chosen because the code would end up being simpler and, therefore, more maintainable and easier to modify at a later time than an iterated Dijkstra's algorithm.
+To verify the output, and to be able to display it on a map, a predecessor or successor matrix should be created. Such a matrix would allow generated trips to be recreated in their entirety. The two candidates algorithm's that would accommodate the needs and be efficient were Dijkstra's algorithm \citep{dijkstra1959note} iterated once for each element or the Floyd-Warshall algorithm \citep{floyd1962algorithm}. The Floyd-Warshall algorithm was chosen because the code would end up being simpler and, therefore, more maintainable and easier to modify at a later time than an iterated Dijkstra's algorithm.
 
 There is one thing one has to consider before the Floyd-Warshall algorithm can be used to find the shortest distance between all the elements from the graph in the genome. It must be decided how the distance between nodes and edges or arcs should be handled. Usually, the resulting shortest path matrix gives the shortest path between nodes. However, with how the genome is constructed one will have to know the distance between not only nodes but also between other elements, such as the distance from a required edge to a required arc. A solution to this is to let the algorithm treat every element as it would usually treat nodes while at the same time treating every element as an arc.
 
