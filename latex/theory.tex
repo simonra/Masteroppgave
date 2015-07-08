@@ -133,7 +133,7 @@ Especially the variation known as the Capacitated Arc Routing Problem (CARP) \ci
 
 This lack of clarity has in turn given rise to definitions that try to include more constraints so that the problems one wants to solve are more accurately described. Within the ARP paradigm, the Extended Capacitated Arc Routing Problem (ECARP) has been defined to handle this \citep{lacomme2004competitiveMA}. It tries to take into account things such as that the problem might be in a mixed graph, the edges/arcs can have a varying cost, special constraints such as u-turns being forbidden in ordinary intersections, or a maximum limit on trip lengths.
 
-The problem definition found that fits the case of Trondheim best, however, is the Node Edge and Arc Routing Problem (NEARP) \citep{prins2005memeticNEARP}. It describes the problem of servicing a subset of the nodes, edges, and arcs in a mixed graph, with a homogeneous set of vehicles. Like in the k-CPP and CARP, each vehicle is capacitated in terms of demand it can service (cost it can handle). The elements of the graph that require servicing have a fixed demand, and all of the arcs and edges have a traversal cost while nodes have no traversal cost.
+The problem definition found that fits the case of Trondheim best, however, is the Node Edge and Arc Routing Problem (NEARP) \citep{prins2005memeticNEARP}. It describes the problem of servicing a subset of the nodes, edges, and arcs in a mixed graph, with a homogeneous set of vehicles. Like in the k-CPP and CARP, each vehicle is capacitated in terms of demand it can service (cost it can handle). The elements of the graph that require servicing have a fixed demand, and all of the arcs and edges have a traversal cost while nodes have no traversal cost (although required nodes do have a servicing cost).
 
 Because it combines the CARP, VRP, and the General Routing Problem, it takes into account many of the features of the underlying network desired to use for structuring the graph, such as the assumption of a mixed graph. Another feature that makes it a better model is that it considers both nodes, arcs, and edges as elements of the graph that can need servicing. This assumption makes sense in a snow plowing setting, where not only roads and one-way roads, but also intersections need to be plowed.
 
@@ -199,7 +199,7 @@ The solution found in the literature was to let the genome represent a single ci
 \subsection{Fitness for Snow Plowing} % (fold)
 \label{sub:fitness_for_snow_plowing}
 
-There are many things to keep in mind when trying to determine the fitness of a route in a complex operation like snow plowing. In interviews with the municipality and the NPRA, some of the most important factors that impact the execution of the plowing, and most likely should affect the goodness of a solution were discussed \citep{meetingBigOneInTheFall}. They are shown in figures \ref{fig:environmental_factors} and \ref{fig:imposed_constraints}.
+There are many things to keep in mind when trying to determine the fitness of a route in a complex operation like snow plowing. In interviews with the municipality and the NPRA, some of the most important factors that impact the execution of the plowing, and most likely should affect the goodness of a solution were discussed.\footnote{Meeting with Trondheim Municipality and the NPRA. Trondheim Bydrift, 3. etage, Tempeveien 22, 7031 Trondheim, Norway. 2014-09-02 09:00.} They are shown in figures \ref{fig:environmental_factors} and \ref{fig:imposed_constraints}.
 
 
 \begin{figure}[thbp]
