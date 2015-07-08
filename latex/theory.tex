@@ -36,7 +36,7 @@ Snow plowing is when snow is cleared by pushing it aside. In daily life, various
 \label{ssub:how_winter_road_maintenance_is_organized_in_norway_and_trondheim}
 
 
-In Norway, the winter road maintenance is a responsibility that is divided between the NPRA, the local municipalities, and the owners of private roads (which are responsible for maintaining their own roads). The NPRA has issued a handbook, R610 \citep{svvR610}, which specifies the constraints on when what kind of winter road maintenance should be performed, and what condition roads should be in after they have been serviced. In the handbook, they define five classes of winter maintenance standards for roads, as shown in table \ref{tab:wmscfrsbtn}.
+In Norway, the winter road maintenance is a responsibility that is divided between the NPRA, the local municipalities, and the owners of private roads (which are responsible for maintaining their own roads). The NPRA has issued a handbook, R610 \citep{svvR610}, which specifies the constraints on when what kind of winter road maintenance should be performed, and what condition roads should be in after they have been serviced. In the handbook, they define five classes of winter maintenance standards for roads, as shown in Table \ref{tab:wmscfrsbtn}.
 
 \rowcolors{2}{gray!15}{white}
 \begin{table}[tbph]
@@ -58,7 +58,7 @@ Winter maintenance class E -- DkE  &  Approved road condition is hard snow/ice. 
 \end{table}
 \footnotetext{track in the road made by the wheels when many vehicles often pass }
 
-Besides being sorted into one of these maintenance classes, each road is also sorted into a functional class by the NPRA. In total, the NPRA operates with ten functional classes depending on factors such as the amount of daily traffic or size. However, Trondheim municipality only operates with six functional classes of roads in their maps. They are shown in the list below as translated by the author, and an example can be seen in figure \ref{fig:map_KV_B_used}. Because the text will mainly be considering winter road maintenance from the municipality's perspective, those are the definitions that will be used further in this text.
+Besides being sorted into one of these maintenance classes, each road is also sorted into a functional class by the NPRA. In total, the NPRA operates with ten functional classes depending on factors such as the amount of daily traffic or size. However, Trondheim municipality only operates with six functional classes of roads in their maps. They are shown in the list below as translated by the author, and an example can be seen in Figure \ref{fig:map_KV_B_used}. Because the text will mainly be considering winter road maintenance from the municipality's perspective, those are the definitions that will be used further in this text.
 
 \begin{landscape}
 \begin{figure}[thbp]
@@ -300,7 +300,7 @@ This summation works fine for obtaining the fitness of a genome as long as the g
 \subsection{The Split Algorithm} % (fold)
 \label{sub:the_split_algorithm}
 
-The Split algorithm is used to take a trip in a graph and split it into smaller sub-trips that originate and end in a depot node \citep{ulusoy1985CARP}. It generates the sub-trips such that none of them exceed the vehicles demand capacity, they service the required elements in the same order as in the supplied trip, and the resulting sub-trips are the shortest possible combination given these constraints. The pseudocode for the Split algorithm can be seen in Algorithm \ref{split-pseudocode} in Appendix \ref{cha:pseudocode}. An example graph that can be used for input to the split algorithm is shown in figure \ref{fig:sgwspp}
+The Split algorithm is used to take a trip in a graph and split it into smaller sub-trips that originate and end in a depot node \citep{ulusoy1985CARP}. It generates the sub-trips such that none of them exceed the vehicles demand capacity, they service the required elements in the same order as in the supplied trip, and the resulting sub-trips are the shortest possible combination given these constraints. The pseudocode for the Split algorithm can be seen in Algorithm \ref{split-pseudocode} in Appendix \ref{cha:pseudocode}. An example graph that can be used for input to the split algorithm is shown in Figure \ref{fig:sgwspp}
 
 \begin{figure}[thbp]
     \centerline{\includegraphics[width=\textwidth]{figures/SplitIllustrations/Split_GraphWithShortestPathsPlain.pdf}}
@@ -353,23 +353,23 @@ The way the algorithm works to find the sub-trip of least cost that services the
 
 \begin{figure}[thbp]
     \centerline{\includegraphics[width=\textwidth]{figures/SplitIllustrations/Split_AuxiliaryGraph.pdf}}
-    \caption{The auxiliary graph built by split to process the graph shown in figure \ref{fig:sgwspp}. The least cost of processing each required edge found is shown in parentheses in their respective nodes in the auxiliary graph. The least-cost path through all required elements is highlighted with bold arrows.}
+    \caption{The auxiliary graph built by split to process the graph shown in Figure \ref{fig:sgwspp}. The least cost of processing each required edge found is shown in parentheses in their respective nodes in the auxiliary graph. The least-cost path through all required elements is highlighted with bold arrows.}
     \label{fig:sag}
 \end{figure}
 
 After this, the algorithm tries to add one and one more required element to the current splitted sub-trip, until the next added element would exceed the vehicles capacity for servicing demand. To do the check, the algorithm first removes the cost of going from the last element in the currently splitted trip back to the depot from the end of the trip. Then the cost of going to the next required element, and from that element to the depot, is added to the cost. If this updated cost is lower than the currently lowest known cost for reaching the next element, and the demand load is manageable, the costs and predecessors arrays are updated. The next elements cost in the costs array is updated to the current cost, and its entry in the predecessors array is set to the index of the node at the beginning of the sub-trip currently being considered.
 
-This process of adding an element at a time to existing or new trips and checking whether the sum of demand is permissible and the length of the trip can be taught of as generating an auxiliary graph. If one uses the graph in figure \ref{fig:sgwspp} as an example, the resulting auxiliary graph would be the one shown in figure \ref{fig:sag}.
+This process of adding an element at a time to existing or new trips and checking whether the sum of demand is permissible and the length of the trip can be taught of as generating an auxiliary graph. If one uses the graph in Figure \ref{fig:sgwspp} as an example, the resulting auxiliary graph would be the one shown in Figure \ref{fig:sag}.
 
 For the purposes of finding the fitness value, the algorithm makes it as simple as looking at the last entry in the costs array. It is the sum of the costs of the shortest possible sub-trips leading up to the sub-trip containing the last element. Because the cost of this sub-trip also contains the last element and its cost, it is the cost of traversing all the sub-trips.
 
 \begin{figure}[thbp]
     \centerline{\includegraphics[width=\textwidth]{figures/SplitIllustrations/Split_GraphWithRoutes.pdf}}
-    \caption{The trips generated from processing the graph in figure \ref{fig:sgwspp} with the split algorithm.}
+    \caption{The trips generated from processing the graph in Figure \ref{fig:sgwspp} with the split algorithm.}
     \label{fig:sgwr}
 \end{figure}
 
-The retrieval of the resulting trips is shown in algorithm \ref{split-retrieve-pseudocode}. This algorithm works by starting with the last node of the last splitted sub-trip and iterating over the predecessor array gotten from the Split algorithm. That gives it a worst case running time of $O(|\text{required elements}|)$. However, that is still less than the asymptotical worst case of the split algorithm that is $O(|\text{required elements}|^2)$. An example of what trips would be retrieved from the graph in figure \ref{fig:sgwspp} is shown in figure \ref{fig:sgwr}.
+The retrieval of the resulting trips is shown in Algorithm \ref{split-retrieve-pseudocode}. This algorithm works by starting with the last node of the last splitted sub-trip and iterating over the predecessor array gotten from the Split algorithm. That gives it a worst case running time of $O(|\text{required elements}|)$. However, that is still less than the asymptotical worst case of the split algorithm that is $O(|\text{required elements}|^2)$. An example of what trips would be retrieved from the graph in Figure \ref{fig:sgwspp} is shown in Figure \ref{fig:sgwr}.
 
 % \begin{algorithm}[thbp]
 % \caption{Retrieve Trips from Split}\label{split-retrieve-pseudocode}
