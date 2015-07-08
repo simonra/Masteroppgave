@@ -263,13 +263,13 @@ The results obtained here are according to the predictions about a bigger popula
 
 The above experiments lead us to the following conclusions about the parameters for the MA. Chapter \ref{sub:parent_selection} indicated that the best parent selection method for the algorithm is fitness proportionate selection. As for the adult selection, chapter \ref{sub:adult_selection} shows that overproduction is the adult selection type that gives the best fitnesses in the implementation. When it comes to the mutation tests in chapter \ref{sub:mutation_types}, it can be seen that memetic improvement gives much better results than random mutation.
 
-In chapter \ref{sub:population_size_control} it is found that larger populations yield better results, but that increasing the size has diminishing returns. It is also shown that a population size of 200\% the length of the genome is not much better than a population size equivalent to 100\% the length of the genome. It contradicts the findings from chapter \ref{sub:population_size}, but it indicates that those findings are arising due to a specific combination of factors. A smaller population happens to be better in the following situation:
+Chapter \ref{sub:population_size_control} shows that larger populations yield better results, but that increasing the size has diminishing returns. It also shows that a population size of 200\% the length of the genome is not much better than a population size equivalent to 100\% the length of the genome. The findings in the chapter contradicts the findings from Chapter \ref{sub:population_size}, but they indicate that those findings are arising due to a specific combination of factors. A smaller population happens to be better in the following situation:
 
-\begin{itemize}
+\begin{compactitem}
     \item The previous best individual is reintroduced each generation.
     \item The portion of the population the best individual constitutes grows larger as populations grow smaller.
     \item No other form of elitism or directing of the populations development is present.
-\end{itemize}
+\end{compactitem}
 
 None of the configurations found an ideal solution with a fitness value of 60. The best fitness values the MA got were about 400 (found when doing the mutation configurations in chapter \ref{sub:mutation_types}) which is not too bad. The found fitness value indicates that the MA gives a solution that goes $\frac{400}{60} = 6.\overline{66} \approx 7$ times more than it needs around the circle. Considering that this can be achieved by switching the order of 7 pairs in the circle the quality of the solutions while not optimal are still acceptable.
 
