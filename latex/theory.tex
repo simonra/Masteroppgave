@@ -164,7 +164,17 @@ As such MAs can be considered as the current state of the art approach to solvin
 \label{sec:evolutionary_algorithms}
 Now that the reasons for using an EA has been laid out, what EA's are, and how they can be implemented should be discussed. EA's were one of the earliest bio-inspired algorithm's, whose outline were first discussed by Alan Turing in \citet{turing1950computing}. The idea is that EA's should mimic the biological processes in evolution, abstracting potential solutions to a population of individuals that have traits that are combined and altered through generations.
 
-A common variant of EA's are GA's, as presented in \citet{holland1975originalGA}. In the paradigm of the GA, at the core of each individual there is a genome. This genome is an alternative representation of a solution to the problem one is trying to solve with the GA, which satisfies certain properties.
+
+\begin{wrapfigure}{o}{0.4\textwidth}
+    \begin{center}
+        \includegraphics[width=0.4\textwidth]{figures/GA_general_flow_illustration.pdf}
+    \end{center}
+    \caption{How evolution flows in genetic algorithm's. Reproduced according illustraion in \citet{gaFlowIllustrationSource}}
+    \label{fig:ga_flow_illustraion}
+\end{wrapfigure}
+
+
+A common variant of EA's are GA's, as presented in \citet{holland1975originalGA}. An illustration of their general workflow can be found in Figure \ref{fig:ga_flow_illustraion}. In the paradigm of the GA, at the core of each individual there is a genome. This genome is an alternative representation of a solution to the problem one is trying to solve with the GA, which satisfies certain properties.
 
 When there is a new generation, new individuals are made by combining existing members of the population. This combination is done by taking two or more individuals and combining their genomes into a new genome, which becomes the foundation for a new individual. This process is often called crossover. A genome must thus be constructed so that it can be merged with another genome in such a way that the output is a valid genome that represents a solution.
 
