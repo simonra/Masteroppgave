@@ -379,7 +379,7 @@ For the purposes of finding the fitness value, the algorithm makes it as simple 
     \label{fig:sgwr}
 \end{figure}
 
-The retrieval of the resulting trips is shown in Algorithm \ref{split-retrieve-pseudocode}. This algorithm works by starting with the last node of the last splitted sub-trip and iterating over the predecessor array gotten from the Split algorithm. That gives it a worst case running time of $O(|\text{required elements}|)$. However, that is still less than the asymptotical worst case of the split algorithm that is $O(|\text{required elements}|^2)$. An example of what trips would be retrieved from the graph in Figure \ref{fig:sgwspp} is shown in Figure \ref{fig:sgwr}.
+The retrieval of the resulting trips is shown in Algorithm \ref{split-retrieve-pseudocode} in Appendix \ref{sec:split_retrieve_trips_pseudocode}. This algorithm works by starting with the last node of the last splitted sub-trip and iterating over the predecessor array gotten from the Split algorithm. That gives it a worst case running time of $O(|\text{required elements}|)$. However, that is still less than the asymptotical worst case of the split algorithm that is $O(|\text{required elements}|^2)$. An example of trips that would be retrieved from the graph Figure \ref{fig:sgwspp} illustrates is shown in Figure \ref{fig:sgwr}.
 
 % \begin{algorithm}[thbp]
 % \caption{Retrieve Trips from Split}\label{split-retrieve-pseudocode}
