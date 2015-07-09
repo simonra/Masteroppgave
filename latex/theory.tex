@@ -1,7 +1,7 @@
 \chapter{Theory}
 \label{theory}
 
-From meetings with the municipality and the Norwegian Public Roads Administration, and the pre-project leading up to this thesis, much of the background theory has come to light. Here the material is going to be presented. First in a section that covers theory on winter road maintenance. Then in the rest of the chapter focus will be on routing problems, and how the theory can be applied to the situation in Trondheim.
+From meetings with the municipality and the Norwegian Public Roads Administration (NPRA) much background theory has come to light. Here the material is going to be presented. First in a section that covers theory on winter road maintenance. Then rest of the chapter focus will be on routing problems, and how theory can be applied to the situation in Trondheim.
 
 \section{Winter Road Maintenance} % (fold)
 \label{sec:snow_plowing}
@@ -36,7 +36,7 @@ Snow plowing is when snow is cleared by pushing it aside. In daily life, various
 \label{ssub:how_winter_road_maintenance_is_organized_in_norway_and_trondheim}
 
 
-In Norway, the winter road maintenance is a responsibility that is divided between the NPRA, the local municipalities, and the owners of private roads (which are responsible for maintaining their own roads). The NPRA has issued a handbook, R610 \citep{svvR610}, which specifies the constraints on when what kind of winter road maintenance should be performed, and what condition roads should be in after they have been serviced. In the handbook, they define five classes of winter maintenance standards for roads, as shown in Table \ref{tab:wmscfrsbtn}.
+In Norway, the winter road maintenance is a responsibility that is divided between the NPRA, the local municipalities, and the owners of private roads (which are responsible for maintaining their own roads). The NPRA has issued a handbook, R610 \citep{svvR610}, which specifies the constraints on when and what kind of winter road maintenance should be performed, and what condition roads should be in after they have been serviced. In the handbook, they define five classes of winter maintenance standards for roads, as shown in Table \ref{tab:wmscfrsbtn}.
 
 \rowcolors{2}{gray!15}{white}
 \begin{table}[tbph]
@@ -53,7 +53,7 @@ Winter maintenance class D -- DkD  &  Approved road condition is hard snow/ice. 
 Winter maintenance class E -- DkE  &  Approved road condition is hard snow/ice.  Friction as low as 0.20 is acceptable. DkE may not be used for national roads.  \\ \hline
 \end{tabular}
 }
-\caption{Winter maintenance standard classes for roads specified by the NPRA (author's translation)}
+\caption{Winter maintenance standard classes for roads specified by the NPRA (authors translation)}
 \label{tab:wmscfrsbtn}
 \end{table}
 \footnotetext{track in the road made by the wheels when many vehicles often pass }
@@ -78,13 +78,13 @@ Besides being sorted into one of these maintenance classes, each road is also so
 \end{itemize}
 
 
-Out of these, the municipality is responsible is responsible for maintaining all, except national and county roads, for which the responsibility falls to the NPRA. As of February the 25th 2015, there are 212 km of municipal roads, 336 km of streets, and 180 km of footpaths and cycle paths that the municipality of Trondheim is responsible for maintaining during the winter (\citep{trondheimKommuneVinterdriftNettside}, only in Norwegian). To make servicing all these 728 km of roads feasible, they have divided the road network into several smaller zones.
+Out of these, the municipality is responsible for maintaining all, except national and county roads, for which the responsibility falls to the NPRA. As of February the 25th 2015, there are 212 km of municipal roads, 336 km of streets, and 180 km of footpaths and cycle paths that the municipality of Trondheim is responsible for maintaining during the winter (\citep{trondheimKommuneVinterdriftNettside}, only in Norwegian). To make servicing all these 728 km of roads feasible, they have divided the road network into several smaller zones.
 
 An important factor in deciding the zones is what amount of work can be performed in one trip with the equipment. For gritting, the size of each zone may depend on how much sand can be carried before the vehicle has to return to a sand depot to refill. When plowing, the size of the zone might be restricted by how fast a vehicle can cover the entirety of it so that it is returned to the required condition before too much time has passed.
 
 Another important thing that has been considered when creating the zones is what type of equipment is suitable for processing what kind of road. The large municipal roads might be suitable to service with a snowplow truck. Smaller alleys and streets, on the other hand, are better approached with smaller tractors that can fit through them. Therefore when looking at the zones it can be seen that many of them are inside the same area of the map, but containing different roads.
 
-Something the zones in overlapping areas of the map do have in common are the places where the snow is to be stored and disposed of. In the countryside, the snow can often be dumped on the side of the road and left there. However, in cities, and densely populated areas, it is not so simple. There are various snow depots where the snow is moved for long-term storage, and the snow that gets cleared from the city centers proximity is put into the ocean at the harbor. However, all of the snow cannot be immediately moved to these locations while the roads are being cleared. Therefore, as can be seen on the municipality's maps, there are marked several areas where snow can be temporarily stored while the work is being performed.
+Something the zones in overlapping areas of the map do have in common are the places where the snow is to be stored and disposed of. In the countryside, the snow can often be dumped on the side of the road and left there. However, in cities, and densely populated areas, it is not so simple. There are various snow depots where the snow is moved for long-term storage, and the snow that gets cleared from the city centers proximity is put into the ocean at the harbor. However, all of the snow cannot be immediately moved to these locations while the roads are being cleared. Therefore, as seen on the municipality's maps, there are several areas where snow can be temporarily stored while the work is being performed.
 
 To complete all of this work, the municipality has chosen to handle some of the zones themselves, and set out the other to contractors. The municipality has a lot of the equipment needed for handling the biggest roads, and the intricate situation in the city center. To operate their equipment they use their own drivers. The contractors handling the remaining roads range from individuals that use their own vehicles (typically tractors), to specialized companies with several vehicles and drivers. All of the work is coordinated centrally, by the management at the municipality. They organize both the work carried out by the municipality's drivers, and that done by the contractors. They set up the schedules for the maintenance work that needs to be done regularly and call out individual drivers when there has been a weather-incident.
 
@@ -169,7 +169,7 @@ Now that the reasons for using an EA has been laid out, what EA's are, and how t
     \begin{center}
         \includegraphics[width=0.4\textwidth]{figures/GA_general_flow_illustration.pdf}
     \end{center}
-    \caption{How evolution flows in genetic algorithm's. Reproduced according illustraion in \citet{gaFlowIllustrationSource}}
+    \caption{How evolution flows in genetic algorithm's. Reproduced according to illustraion in \citet{gaFlowIllustrationSource}}
     \label{fig:ga_flow_illustraion}
 \end{wrapfigure}
 
