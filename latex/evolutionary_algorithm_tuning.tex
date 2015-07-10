@@ -3,7 +3,7 @@
 
 The first thing to consider after having implemented the MA is figuring out what parameters should be used for it to perform well. Depending on the configuration, the MAs performance can be changed dramatically, and the quality of the results may vary. This chapter will look into the background for doing the configuration, outline the experimental plan for doing the tuning, show the results, and present a brief discussion on the outcome.
 
-\section{Background and Motivation} % (fold)
+\section{Parameter Tuning} % (fold)
 \label{sec:background_and_motivation}
 Here the outline of how the parameters that should be used when running the MA will be discussed. There are several features that could be tweaked or enabled and disabled to alter how the MA works. For instance the population size and number of parents that get to reproduce each generation are values that can be adjusted. However, whether to use random mutation or memetic optimization is a choice of whether to use one of two implementations.
 
@@ -101,60 +101,10 @@ A possible explanation then could be in that the best individual from each gener
 
 This effect should be offset by introducing bias in the population towards that the individuals with better fitness have a better chance at impacting future generations. However, to be certain that this is a quirk of combining uniform selection, full generational mixing, and the constant reintroduction of the previous best single individual at the cost of the currently worst, more testing should be done. Therefore, a control experiment for parent size using another form of parent selection and generational replacement is set up.
 
-% \begin{landscape}
-% \begin{figure}[thbp]
-%     \centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/PopulationSize/CircleTestsPopulationAverageBest.pdf}}
-%     \caption{Population Size - Average Best}
-%     \label{fig:ctpab}
-% \end{figure}
-% \end{landscape}
-
-% \begin{landscape}
-% \begin{figure}[thbp]
-%     \centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/PopulationSize/CircleTestsPopulationAverageAverage.pdf}}
-%     \caption{Population Size - Average Average}
-% \end{figure}
-% \end{landscape}
-
-% \begin{landscape}
-% \begin{figure}[thbp]
-%     \centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/PopulationSize/CircleTestsPopulationAverageStandardDeviation.pdf}}
-%     \caption{Population Size - Average Standard Deviation}
-% \end{figure}
-% \end{landscape}
-% subsection Population Size (end)
-
-% \clearpage
-
 \subsection{Parent Selection} % (fold)
 \label{sub:parent_selection}
 
 In Figure \ref{fig:ctpsab} in Appendix \ref{sec:parent_selection_results} it can be seen that fitness proportionate selection is clearly better than the tournament selection, which in turn finds better results on average than uniform selection. Their final fitnesses are just below 500, a bit above 500, and around 700 respectively. The averages fitness of each populations average seems to decrease quickly before beginning to decrease more slowly for tournament and fitness proportionate selection while the uniform selection shows only a very slow improvement over time.
-
-% \begin{landscape}
-% \begin{figure}[thbp]
-%     \centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/ParentSelection/CircleTestParentSelectionAverageBest.pdf}}
-%     \caption{Parent Selection - Average Best}
-%     \label{fig:ctpsab}
-% \end{figure}
-% \end{landscape}
-
-% \begin{landscape}
-% \begin{figure}[thbp]
-%     \centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/ParentSelection/CircleTestParentSelectionAverageAverage.pdf}}
-%     \caption{Parent Selection - Average Average}
-% \end{figure}
-% \end{landscape}
-
-% \begin{landscape}
-% \begin{figure}[thbp]
-%     \centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/ParentSelection/CircleTestParentSelectionAverageStandardDeviation.pdf}}
-%     \caption{Parent Selection - Average Standard Deviation}
-% \end{figure}
-% \end{landscape}
-% subsection parent_selection (end)
-
-% \clearpage
 
 \subsection{Adult Selection} % (fold)
 \label{sub:adult_selection}
@@ -163,66 +113,12 @@ When looking at the results for the adult selection in Figure \ref{fig:ctasab} i
 
 When looking for what adult selection gives the best output according to these results both overproduction and random mixing give better results than elitist mixing and overproduction yields slightly better results than random mixing.
 
-% \begin{landscape}
-% \begin{figure}[thbp]
-%     \centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/AdultSelection/CircleTestAdultSelectionAverageBest.pdf}}
-%     \caption{Adult Selection - Average Best}
-%     \label{fig:ctasab}
-% \end{figure}
-% \end{landscape}
-
-% \begin{landscape}
-% \begin{figure}[thbp]
-%     \centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/AdultSelection/CircleTestAdultSelectionAverageAverage.pdf}}
-%     \caption{Adult Selection - Average Average}
-%     \label{fig:ctasaa}
-% \end{figure}
-% \end{landscape}
-
-% \begin{landscape}
-% \begin{figure}[thbp]
-%     \centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/AdultSelection/CircleTestAdultSelectionAverageStandardDeviation.pdf}}
-%     \caption{Adult Selection - Average Standard Deviation}
-%     \label{fig:ctasasd}
-% \end{figure}
-% \end{landscape}
-% subsection adult_selection (end)
-
-% \clearpage
-
 \subsection{Mutation Types} % (fold)
 \label{sub:mutation_types}
 
 As seen from figures \ref{fig:ctmab} and \ref{fig:ctmaa} in Appendix \ref{sec:mutation_types_results} the memetic improvement yields better results than when doing random mutation. Adding a memetically improved child to the children before the adult selection seems to make little difference though it reaches a somewhat better solutions a little bit earlier than when not adding it. For both memetic approaches the fitness value tends to get as good as just below 400 in the long run, as seen in Figure \ref{fig:ctmab} from Appendix \ref{sec:mutation_types_results}.
 
 Figure \ref{fig:ctmasd} in Appendix \ref{sec:mutation_types_results} shows that the diversity of the population is somewhat lower when doing memetic improvement instead of random mutation.
-
-% \begin{landscape}
-% \begin{figure}[thbp]
-%     \centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/Mutation/CircleTestMutationAverageBest.pdf}}
-%     \caption{Mutation - Average Best}
-%     \label{fig:ctmab}
-% \end{figure}
-% \end{landscape}
-
-% \begin{landscape}
-% \begin{figure}[thbp]
-%     \centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/Mutation/CircleTestMutationAverageAverage.pdf}}
-%     \caption{Mutation - Average Average}
-%     \label{fig:ctmaa}
-% \end{figure}
-% \end{landscape}
-
-% \begin{landscape}
-% \begin{figure}[thbp]
-%     \centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/Mutation/CircleTestMutationAverageStandardDeviation.pdf}}
-%     \caption{Mutation - Average Standard Deviation}
-%     \label{fig:ctmasd}
-% \end{figure}
-% \end{landscape}
-% subsection mutation_types (end)
-
-% \clearpage
 
 \subsection{Population Size Control} % (fold)
 \label{sub:population_size_control}
@@ -233,34 +129,7 @@ The results that were obtained are according to the predictions about a populati
 
 A larger population gives better results, but as the populations grow very large, there are diminishing returns on expanding it further. As seen in Figure \ref{fig:cpscab} in Appendix \ref{sec:population_size_control_results} the largest population gives only marginally better results than the second largest population. Which in turn gives somewhat better results than the third largest population, which gives a lot better results than the smallest population.
 
-% \begin{landscape}
-% \begin{figure}[thbp]
-%     \centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/PopulationSizeControl/CirclePopulationSizeControllAverageBest.pdf}}
-%     \caption{Population Size Control - Average Best}
-%     \label{fig:cpscab}
-% \end{figure}
-% \end{landscape}
-
-% \begin{landscape}
-% \begin{figure}[thbp]
-%     \centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/PopulationSizeControl/CirclePopulationSizeControllAverageAverage.pdf}}
-%     \caption{Population Size Control - Average Average}
-% \end{figure}
-% \end{landscape}
-
-% \begin{landscape}
-% \begin{figure}[thbp]
-%     \centerline{\includegraphics[height=0.945\textwidth]{figures/CircleTests/PopulationSizeControl/CirclePopulationSizeControllAverageStandardDeviation.pdf}}
-%     \caption{Population Size Control - Average Standard Deviation}
-% \end{figure}
-% \end{landscape}
-% subsection population_size_control (end)
-
-% \clearpage
-
-% section results (end)
-
-\section{Evaluation and Conclusion} % (fold)
+\section{Summary of Parameter Tuning Results} % (fold)
 \label{sec:evaluation_and_conclusion}
 
 The above experiments lead us to the following conclusions about the parameters for the MA. Chapter \ref{sub:parent_selection} indicated that the best parent selection method for the algorithm is fitness proportionate selection. As for the adult selection, Chapter \ref{sub:adult_selection} shows that overproduction is the adult selection type that gives the best fitnesses in our implementation. When it comes to the mutation tests in Chapter \ref{sub:mutation_types}, it can be seen that memetic improvement gives much better results than random mutation.
@@ -277,7 +146,7 @@ None of the configurations found an ideal solution with a fitness value of 60. T
 
 Overall the experiments ran smoothly, usable results were obtained, and more importantly all of the results above are 100\% reproducible because all the configurations and random-seeds of each run of each experiment were kept.
 
-What could be improved: A test that also tests splitting would be better. Using real-world test data would give indications as to running time, which would make it better in itself. Furthermore, that could provide more parameters, which in turn could make the MA perform even better. Another significant limitation is that other configurations of the tournament selection were not looked into.
+There are several things that could be improved. A test that also tests splitting would be better. Using real-world test data would give indications as to running time, which would make it better in itself. Furthermore, that could provide more parameters, which in turn could make the MA perform even better. Another significant limitation is that other configurations of the tournament selection were not looked into.
 
 {
 \rowcolors{2}{gray!15}{white}
