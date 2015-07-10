@@ -113,12 +113,6 @@ To get the fitness of the routes as they are currently being driven for comparis
 A similar process is going to be used when the resulting routes are drawn as maps. Instead of adding characters to denote whether an element is a node, edge, or arch, all extra characters except the numerical IDs of the elements and delimiters will be stripped. The resulting list is then going to be fed to QGIS in the form of a CSV-file, where a graphical representation of it will be made. Finally, a meeting with the municipality and the snow plow drivers will be set up so that feedback on the results from domain experts can be presented.
 
 \subsection{Results}
-% Show some nice graphs of how the fitness converges over time.
-% Show a created map and refer to tiles with finer details in the appendix.
-% Show how the fitness of the pre-existing routes relates to the fitness of the calculated ones.
-% Discuss how the system does som smart things that humans would perhaps not (cover the city in a set of weird overlapping sections), how some interesting behavior like driving into a road, servicing it, and then driving back out the same end as it was started in and continue that route arises. Also highlight some missed one-way roads and gaps in the map.
-
-
 
 The charts showing how the MA behaves when run for 100000 generations can be seen in the figures in Appendix \ref{cha:gotpotmwatmdft}. From figures \ref{fig:KV_B_100k_aa} and \ref{fig:KV_H_100k_aa} it comes forth that the algorithm generally tends to stabilize after 10000 generations, and figures \ref{fig:KV_B_100k_ab} and \ref{fig:KV_H_100k_ab} show that there is little improvement in the best found solution after that point. In the charts showing the combined results of the MA running for 50000 generations and 100000 generations when the first 50000 generations are plotted, one can find the fitness at which the MA tends to converge to at 50000 generations. For route 310174\_KV\_B\_Midtbyen the best fitness found on average has a value of 564882 which can be seen in Figure \ref{fig:KV_B_50k_ab}, and for route 310179\_KV\_H\_Midtbyen the average best fitness after 50000 generations is 411770, as seen in \ref{fig:KV_H_50k_ab}.
 

@@ -6,16 +6,6 @@ From meetings with the municipality and the Norwegian Public Roads Administratio
 \section{Winter Road Maintenance} % (fold)
 \label{sec:snow_plowing}
 
-% \begin{wrapfigure}{o}{0.5\textwidth}
-%     \begin{center}
-%         \includegraphics[width=0.5\textwidth]{figures/MachineryIllustrations/pixabay_snow-blower-584380_1280.jpg}
-%     \end{center}
-%     \caption{Snowblower}
-%     \label{fig:snowblower}
-%     % source (2015-06-03T23:38:30Z): http://pixabay.com/en/snow-blower-man-work-winter-snow-584380/
-%     % license: CC0
-% \end{wrapfigure}
-
 \begin{wrapfigure}{o}{0.5\textwidth}
     \begin{center}
         \includegraphics[width=0.5\textwidth]{figures/MachineryIllustrations/snowplow-Kent_Syrstadlokk-2012-04-18.jpg}
@@ -137,10 +127,7 @@ Because it combines the CARP, VRP, and the General Routing Problem, it takes int
 
 Now with the definition of what kind of problem snow plowing in Trondheim having been presented, how it can be solved should be considered.
 
-
 % section the_nearp (end)
-
-% Historical approaches and solutions -> What we gonna use ((M)EA) -> EA -> Fitness -> FLW (basiskomponent) -> Grand tour vs Split som fitness -> Split forklart.
 
 \section{Routing Algorithm's} % (fold)
 \label{sec:routing_algorithms}
@@ -157,7 +144,6 @@ As such MAs can be considered a current state of the art approach to solving NEA
 
 % section routing_algorithms (end)
 
-
 \section{Evolutionary Algorithm's} % (fold)
 \label{sec:evolutionary_algorithms}
 Now that the reasons for using an EA has been laid out, what EA's are, and how they can be implemented should be discussed. EA's were one of the earliest bio-inspired algorithm's, whose outline were first discussed by Alan Turing in \citet{turing1950computing}. The idea is that EA's should mimic the biological processes in evolution, abstracting potential solutions to a population of individuals that have traits that are combined and altered through generations.
@@ -170,7 +156,6 @@ Now that the reasons for using an EA has been laid out, what EA's are, and how t
     \caption{How evolution flows in genetic algorithm's. Reproduced according to illustraion in \citet{gaFlowIllustrationSource}}
     \label{fig:ga_flow_illustraion}
 \end{wrapfigure}
-
 
 A common variant of EA's are GA's, as presented in \citet{holland1975originalGA}. An illustration of their general workflow can be found in Figure \ref{fig:ga_flow_illustraion}. In the paradigm of the GA, at the core of each individual there is a genome. This genome is an alternative representation of a solution to the problem one is trying to solve with the GA, which satisfies certain properties.
 
@@ -187,12 +172,6 @@ To improve on GA's the concept of memetics can be introduced, turning them into 
 With the genome being such a central piece in making an EA work, it is natural to let it be the first thing one considers when making a specialized EA for instance for snow plowing. Initially, the approach was to figure out what the genome was to represent. In the case of routing for snow plowing, a solution, and thus what the genome should represent is a route for a snow plow. However, what if there, like in the k-CPP and CARP, are several snow plows? Then the genome has to represent a set of trips for each vehicle. Ideally, the genome should be able to represent both these cases.
 
 The solution found in the literature was to let the genome represent a single circular route, a grand tour of the underlying graph as done in \citet{lacomme2001GA}. When dealing with multiple vehicles this tour is splitted into several shorter trips, one for each vehicle. Once the genome and the phenotype it represents is decided, one can begin to look into how the goodness of each individual should be determined, ie. how to calculate the fitness.
-
-% Circular, splittable. 
-% Underlying graph -> graph as set -> required elements.
-% Giant trip and splittable
-
-% Snow plowing -> Snow plowing genome / phenotype -> How to fitness.
 
 \subsection{Fitness for Snow Plowing} % (fold)
 \label{sub:fitness_for_snow_plowing}
@@ -228,8 +207,6 @@ There are many things to keep in mind when trying to determine the fitness of a 
 \end{description}
 \end{figure}
 
-% When what is needed to calculate the fitness has been obtained, the next step becomes setting up the calculation process.
-
 When one has gained an overview of what variables are required to find the fitness, the next task becomes setting up the calculation. The format of the benchmarks that have been chosen as the input format dictates how the values are supplied to the algorithm. Each edge and arc has an associated cost of passing through without doing work, the deadheading cost. Nodes have no deadheading cost. All the factors that affect traversing, simply passing through the graph, should, therefore, be stored in the deadheading cost.
 
 All the elements in the graph that require servicing, including nodes, also have a servicing cost besides the deadheading cost. The servicing cost is the measure of how much it costs to perform work on the required element. Besides the servicing cost, each required element has value for demand. This value is used to indicate how much work needs to be done, in the case of snow plowing it can be interpreted as for instance the amount of snow that needs to be removed. The capacity of vehicles is expressed as the amount of demand they can service in one trip.
@@ -243,52 +220,6 @@ The next step then becomes finding the costs of going between the required eleme
 \subsection{All-Pairs Shortest Path} % (fold)
 \label{sub:all_pairs_shortest_path}
 
-% \begin{algorithm}[thbp]
-% \caption{Floyd-Warshall}\label{floyd-warshall-pseudocode}
-% \begin{algorithmic}[1]
-
-% \Procedure{Floyd-Warshall}{Graph}
-%     \State \textbf{let} $numberOfElements \leftarrow \sum (|N|+|E|+|A|) \in Graph$
-%     \State \textbf{let} $distances$ be a $numberOfElements \times numberOfElements$ array
-%     \State \textbf{let} $successors$ be a $numberOfElements \times numberOfElements$ array
-%     \State \textbf{set} all entries in $distances$ \textbf{to} $\infty$
-%     \State \textbf{set} all entries in $successors$ \textbf{to} $-1$
-%     \Statex
-%     \For{\textbf{each} element $e \in N \cup E \cup A \in Graph$}
-%         \State $distances[e][e] \leftarrow 0$
-%         \State $successors[e][e] \leftarrow e$
-%     \EndFor
-%     \Statex
-%     \For{\textbf{each} element $e \in N \cup E \cup A \in Graph$}
-%         \State \textbf{let} $adjacent \leftarrow $ elements adjacent to $e$ in $Graph$
-%         \For{\textbf{each} element $e_a \in adjacent$}
-%             \State $distances[e][e_a] \leftarrow e_a.passThroughCost$
-%             \State $successors[e][e_a] \leftarrow e_a$
-%             \State $successors[e_a][e] \leftarrow e$
-%         \EndFor
-%     \EndFor
-%     \Statex
-%     \For{$k \leftarrow 0$ \textbf{to} $numberOfElements$}
-%         \For{$i \leftarrow 0$ \textbf{to} $numberOfElements$}
-%             \For{$j \leftarrow 0$ \textbf{to} $numberOfElements$}
-%                 \If{$distances[i][j] > distances[i][k] + distances[k][j]$}
-%                     \State $distances[i][j] = distances[i][k] + distances[k][j]$
-%                     \State $successors[i][j] = successors[i][k]$
-%                 \EndIf
-%             \EndFor
-%         \EndFor
-%     \EndFor
-%     \Statex
-%     \For{\textbf{each} element $(e_i,e_j) \in N \cup E \cup A \in Graph$}
-%         \If{$e_i \neq e_j$}
-%             \State $distances[e_j][e_i] \leftarrow distances[e_j][e_i] - e_i.passThroughCost$
-%         \EndIf
-%     \EndFor
-% \EndProcedure
-
-% \end{algorithmic}
-% \end{algorithm}
-
 To verify the output, and to be able to display it on a map, a predecessor or successor matrix should be created. Such a matrix would allow generated trips to be recreated in their entirety. The two candidates algorithm's that would accommodate the needs and be efficient were Dijkstra's algorithm \citep{dijkstra1959note} iterated once for each element or the Floyd-Warshall algorithm \citep{floyd1962algorithm}. The Floyd-Warshall algorithm was chosen because the code would end up being simpler and, therefore, more maintainable and easier to modify at a later time than an iterated Dijkstra's algorithm.
 
 There is one thing one has to consider before the Floyd-Warshall algorithm can be used to find the shortest distance between all the elements from the graph in the genome. It must be decided how the distance between nodes and edges or arcs should be handled. Usually, the resulting shortest path matrix gives the shortest path between nodes. However, with how the genome is constructed one will have to know the distance between not only nodes but also between other elements, such as the distance from a required edge to a required arc. A solution to this is to let the algorithm treat every element as it would usually treat nodes while at the same time treating every element as an arc.
@@ -296,8 +227,6 @@ There is one thing one has to consider before the Floyd-Warshall algorithm can b
 If this is to make sense when using the distance matrix in the fitness calculations, some assumptions have to be made when the matrix is initially set up. Nodes have to add zero cost when moving between elements that are inbound to it or outbound from it. Furthermore, going from a node onto and arc or edge, and conversely going off an arc or edge to a node, should cost zero. However, with these assumptions the Floyd-Warshall algorithm should break down giving all paths a cost of zero because the shortest distance between all neighbors initially is zero.
 
 This issue can be rectified when initializing the distance matrix with the distances between each pair of connected elements, by adding the cost of the destination element. The paths are then correctly found by the algorithm, but they end up being longer than they should be by the cost of the last destination element in the path. That is easy to fix once the algorithm is done finding the paths, by traversing the distance matrix and for each entry subtracting the cost of the destination element. Because this operation has a complexity of $O(|G|)$ it does not affect the overall complexity of performing the algorithm, which is still $O(|G|^3)$. The pseudocode for the resulting modified Floyd-Warshall algorithm is shown in Algorithm \ref{floyd-warshall-pseudocode} in Appendix \ref{cha:pseudocode}.
-
-
 
 With the all-pairs shortest path matrix, calculating the fitness of a trip given as a set of required elements from the graph (such as a genome) becomes a matter of traversing the required elements. When doing this, one adds their servicing costs and looks up and adds the distance between them from the distance matrix.
 
@@ -315,47 +244,6 @@ The Split algorithm is used to take a trip in a graph and split it into smaller 
     \caption{Graph instance processed by the split algorithm. Edge traversal cost is given in the parentheses, and the required edges are marked with bold. The vehicle demand capacity is 8.}
     \label{fig:sgwspp}
 \end{figure}
-
-% \begin{algorithm}[thbp]
-% \caption{Split}\label{split-pseudocode}
-% \begin{algorithmic}[1]
-
-% \Procedure{Split}{Genotype,Graph,Distances}
-%     \State \textbf{let} $numberOfElements \leftarrow \sum (|N|+|E|+|A|) \in Graph$
-%     \State \textbf{let} $e_k$ be the k'th element from the Genotypes ordering of the set $(N \cup E \cup A) \in Graph$ in its genome
-%     \State \textbf{let} $costs$ be an array of length $numberOfElements + 1$
-%     \State \textbf{let} $predecessors$ be an array of length $numberOfElements + 1$
-%     \State \textbf{set} all entries in $costs$ to $\infty$
-%     \State $costs[0] \leftarrow 0$
-%     \State $predecessors[0] \leftarrow 0$
-%     \Statex
-%     \For{$i \leftarrow 1$ \textbf{to} $numberOfElements + 1$}
-%         \State $j \leftarrow i$
-%         \State $load \leftarrow 0$
-%         \State $cost \leftarrow 0$
-%         \DoWhile
-%             \State $load \leftarrow load + e_j.demand$
-%             \Statex
-%             \If{$i = j$}
-%                 \State $cost \leftarrow($ distance from depot to $e_{i-1}) + e_{i-1}.servicing\_cost +($ distance from $e_{i-1}$ to the depot $)$
-%             \Else
-%                 \State $cost \leftarrow  cost - ($ distance from $e_{j-2}$ to depot $) + ($distance from $e_{j-2}$ to $e_{j-1}) + e_{j-1}.servicing\_cost +($ distance from $e_{j-1}$ to the depot $)$
-%             \EndIf
-%             \Statex
-%             \If{$(load < vehicle\_capacity)\wedge(costs[i - 1] + cost < costs[j])$}
-%                 \State $costs[j] \leftarrow costs[i - 1] + cost$
-%                 \State $predecessors[j] \leftarrow i - 1$
-%             \EndIf
-%             \Statex
-%             \State $j \leftarrow j + 1$
-%         \EndDoWhile{$(j < numberOfElements + 1)\wedge(load < vehicle\_capacity)$}
-%     \EndFor
-%     \Statex
-%     \State \textbf{let} $Genotype.fitness \leftarrow costs[last\_index]$
-% \EndProcedure
-
-% \end{algorithmic}
-% \end{algorithm}
 
 The way the algorithm works to find the sub-trip of least cost that services the current element is as follows. For each required element in the supplied trip, it checks whether going from the depot, servicing the element, and going back is the least cost sub-trip. If so, the algorithm updates the list of predecessors indicating that going straight to the element from the depot is the best sub-trip for servicing it. At the same time, the elements value in the array of least costs of going to each element in the sub-trips is updated. The new value becomes the sum of the shortest paths of the previous splitted sub-trips, plus the new found cost of visiting this element in its own sub-trip.
 
@@ -378,31 +266,5 @@ For the purposes of finding the fitness value, the algorithm makes it as simple 
 \end{figure}
 
 The retrieval of the resulting trips is shown in Algorithm \ref{split-retrieve-pseudocode} in Appendix \ref{sec:split_retrieve_trips_pseudocode}. This algorithm works by starting with the last node of the last splitted sub-trip and iterating over the predecessor array gotten from the Split algorithm. That gives it a worst case running time of $O(|\text{required elements}|)$. However, that is still less than the asymptotical worst case of the split algorithm that is $O(|\text{required elements}|^2)$. An example of trips that would be retrieved from the graph Figure \ref{fig:sgwspp} illustrates is shown in Figure \ref{fig:sgwr}.
-
-% \begin{algorithm}[thbp]
-% \caption{Retrieve Trips from Split}\label{split-retrieve-pseudocode}
-% \begin{algorithmic}[1]
-
-% \Procedure{Retrieve Trips From Split}{predecessors, genotype}
-%     \State \textbf{let} $list\_of\_trips$ be an empty list
-%     \State $j \leftarrow$ number of tasks
-%     \DoWhile
-%         \State $i \leftarrow predecessors[j]$
-%         \State \textbf{let} $current\_trip$ be a new array of size $j - i$
-%         \For{$k \leftarrow i + 1$ \textbf{to} $k \leq j$, $k \leftarrow k + 1$}
-%             \State $current\_trip[k-(i+1)] \leftarrow genotype.genome[k-1]$
-%         \EndFor
-%         \State \textbf{add} $current\_trip$ \textbf{to} the beginning of $list\_of\_trips$
-%         \State $j \leftarrow i$
-%     \EndDoWhile{$i \neq 0$}
-% \EndProcedure
-
-% \end{algorithmic}
-% \end{algorithm}
-
-
-% subsection the_split_algorithm (end)
-% section evolutionary_algorithms (end)
-% chapter theory (end)
 
 \cleardoublepage
