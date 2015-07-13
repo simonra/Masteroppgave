@@ -1,7 +1,7 @@
 \chapter{Introduction}
 \label{cha:introduction}
 
-This thesis will deal with the issue of snow plowing. What it is, how it can be modeled and processed, and how approach it in practice. The first chapter will start out with looking into the background of the issue, and why it is of interest to try to find good routes for snow plowing. Then the goal of the thesis, and the research questions utilized to reach it are going to be stated. After which there will be a brief section discussing how each research question is going to be handled. Finally at the end of the chapter the layout for the rest of the thesis will be outlined.
+This thesis will deal with the issue of snow plowing. What it is, how it can be modeled and processed, and how to approach it in practice. The first chapter will start out with looking into the background of the issue, and why it is of interest to try to find good routes for snow plowing. Then the goal of the thesis, and the research questions utilized to reach it are going to be stated. After which there will be a brief section discussing how each research question is going to be handled. Finally at the end of the chapter the layout for the rest of the thesis will be outlined.
 
 \section{Background and Motivation}
 
@@ -20,11 +20,11 @@ The main goal for this thesis can be stated as follows:
 
 In the context of this thesis, system refers to a set of scripts and programs. Most importantly it encompasses the module that handles road-map data, and an MA that will process the map data to yield routes.
 
-To reach this goal, the first research question that should be addressed is obtaining and presenting the relevant related work that gives the context for this thesis. Answering this might show whether optimal routes are possible to find at all, and why an MA was chosen as the approach.
+To reach this goal, the first research question that should be addressed is obtaining and presenting the relevant related work that gives the context for this thesis. Answering this might show whether optimal routes are possible to find at all. Additionally the answer can show why an MA was chosen as the approach after the pre-project \citep{forprosjektet}.
 
 The second research question that should be answered given that an MA has been selected as the approach is how to configure it so that it performs well. Being closely related to genetic algorithm's (GA's), MA's will also perform horribly if initialized with the wrong parameters, and finding good ones is non-trivial. Therefore not only the parameters themselves but also the process of obtaining them should be shown.
 
-Finally in addressing the goal there needs to be a research question that asks to determine whether the MA independently can find a route in Trondheim optimized for length weighted by speed with a random starting point. Answering this should reveal whether the goal has been completely reached, what (if any?) areas are left to explore in the future work, and whether the MA performs satisfactorily for the application.
+Finally in addressing the goal there needs to be a research question that asks to determine whether the MA independently can optimize a route in Trondheim for snow plowing. Answering this should reveal whether the goal has been completely reached, what (if any?) areas are left to explore in the future work, and whether the MA performs satisfactorily for the application.
 
 \rowcolors{1}{gray!15}{white}
 \begin{table}[H]
@@ -32,7 +32,7 @@ Finally in addressing the goal there needs to be a research question that asks t
 \begin{tabular}{cp{0.8\textwidth}}
 RQ1  &  Obtain and present the related work that gives the context for this thesis. \\
 RQ2  &  Configure the memetic algorithm so that it performs well.\\
-RQ3  &  Determine whether the memetic algorithm independently can find a route in Trondheim optimized for length weighted by speed with a random starting point. \\
+RQ3  &  Determine whether the memetic algorithm independently can find a route in Trondheim optimized for snow plowing. \\
 \end{tabular}
 \caption{Research questions}
 \label{tab:research_questions}
