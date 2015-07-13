@@ -1,7 +1,7 @@
 \chapter{Theory}
 \label{theory}
 
-From meetings with the municipality and the Norwegian Public Roads Administration (NPRA) much background theory has come to light. Here the material is going to be presented. First in a section that covers theory on winter road maintenance. Then rest of the chapter focus will be on routing problems, and how theory can be applied to the situation in Trondheim.
+From meetings with the municipality and the Norwegian Public Roads Administration (NPRA) much background theory has come to light. Here the material is going to be presented. First in a section that covers theory on winter road maintenance. Then the rest of the chapter focus will be on routing problems, and how theory can be applied to the situation in Trondheim.
 
 \section{Winter Road Maintenance} % (fold)
 \label{sec:snow_plowing}
@@ -24,7 +24,6 @@ Snow plowing is when snow is cleared by pushing it aside. In daily life, various
 
 \subsection{Organization of Winter Road Maintenance in Norway and Trondheim} % (fold)
 \label{ssub:how_winter_road_maintenance_is_organized_in_norway_and_trondheim}
-
 
 In Norway, the winter road maintenance is a responsibility that is divided between the NPRA, the local municipalities, and the owners of private roads (which are responsible for maintaining their own roads). The NPRA has issued a handbook, R610 \citep{svvR610}, which specifies the constraints on when and what kind of winter road maintenance should be performed, and what condition roads should be in after they have been serviced. In the handbook, they define five classes of winter maintenance standards for roads, as shown in Table \ref{tab:wmscfrsbtn}.
 
@@ -67,7 +66,6 @@ Besides being sorted into one of these maintenance classes, each road is also so
     \item Sykkelfelt (Bicycle lane/path)
 \end{itemize}
 
-
 Out of these, the municipality is responsible for maintaining all, except national and county roads, for which the responsibility falls to the NPRA. As of February the 25th 2015, there are 212 km of municipal roads, 336 km of streets, and 180 km of footpaths and cycle paths that the municipality of Trondheim is responsible for maintaining during the winter (\citep{trondheimKommuneVinterdriftNettside}, only in Norwegian). To make servicing all these 728 km of roads feasible, they have divided the road network into several smaller zones.
 
 An important factor in deciding the zones is what amount of work can be performed in one trip with the equipment. For gritting, the size of each zone may depend on how much sand can be carried before the vehicle has to return to a sand depot to refill. When plowing, the size of the zone might be restricted by how fast a vehicle can cover the entirety of it so that it is returned to the required condition before too much time has passed.
@@ -76,11 +74,11 @@ Another important thing that has been considered when creating the zones is what
 
 Something the zones in overlapping areas of the map do have in common are the places where the snow is to be stored and disposed of. In the countryside, the snow can often be dumped on the side of the road and left there. However, in cities, and densely populated areas, it is not so simple. There are various snow depots where the snow is moved for long-term storage, and the snow that gets cleared from the city centers proximity is put into the ocean at the harbor. However, all of the snow cannot be immediately moved to these locations while the roads are being cleared. Therefore, as seen on the municipality's maps, there are several areas where snow can be temporarily stored while the work is being performed.
 
-To complete all of this work, the municipality has chosen to handle some of the zones themselves, and set out the other to contractors. The municipality has a lot of the equipment needed for handling the biggest roads, and the intricate situation in the city center. To operate their equipment they use their own drivers. The contractors handling the remaining roads range from individuals that use their own vehicles (typically tractors), to specialized companies with several vehicles and drivers. All of the work is coordinated centrally, by the management at the municipality. The municipality organizes both the work carried out by the municipality's drivers, and that done by the contractors. The management sets up the schedules for the maintenance work that needs to be done regularly and call out individual drivers when there has been a weather-incident.
+To complete all of this work, the municipality has chosen to handle some of the zones themselves and set out the other to contractors. The municipality has a lot of the equipment needed for handling the biggest roads, and the intricate situation in the city center. To operate their equipment they use their own drivers. The contractors handling the remaining roads range from individuals that use their own vehicles (typically tractors), to specialized companies with several vehicles and drivers. All of the work is coordinated centrally, by the management at the municipality. The municipality organizes both the work carried out by the municipality's drivers and that done by the contractors. The management sets up the schedules for the maintenance work that needs to be regularly done and call out individual drivers when there has been a weather-incident.
 
 % subsubsection how_winter_road_maintenance_is_organized_in_norway_and_trondheim (end)
 
-Given this outline of how the municipality handles the snow removal part of winter road maintenance, how snow plowing can be modelled and solved needs to be addressed. The next section will explore the models used for similar problems to routing for snow plowing, and what methods have been used to try to find solutions to them.
+Given this outline of how the municipality handles the snow removal part of winter road maintenance, how snow plowing can be modeled and solved needs to be addressed. The next section will explore the models used for similar problems to routing for snow plowing, and what methods have been used to try to find solutions to them.
 
 % section snow_plowing (end)
 
@@ -93,7 +91,7 @@ In the structured literature review, it is found that the current take on proble
 
 However, it is not until more than 200 years later (in 1962) that a graph traversal problem that is more relevant to snow plowing is proposed \citep{wohlk2008decade}. The Chinese mathematician and former postman, Mei-Ko Kwan describes the problem of finding the shortest trip that visits all the edges in a graph at least once \citep{meiKoKwanCPP}. It is the converse of the Vehicle Routing Problem (VRP), which is about visiting all the nodes of the graph at the lowest possible cost \citep{laporte1992vehicle}. The problem has become known as the Chinese Postman Problem (CPP).
 
-\citet{wohlk2008decade} presents that the CPP, if it contains only undirected edges or directed edges (arcs) (G=\{N,E\} or G=\{N,A\}), can be solved in polynomial time. However, if it is a mixed graph containing both (G=\{N,E,A\}) it is NP-hard. The related VRP also being NP-hard has interesting implication for route optimization problem in general. Because many problems can be reduced to either the VRP or CPP they are by extension NP-hard too. The NP-hardness makes heuristic approaches the most feasible way of obtaining good solutions. Coupled with the complexity of modelling real-life situations it is extremely difficult to improve the state of the art algorithm's and models at the same time.
+\citet{wohlk2008decade} presents that the CPP, if it contains only undirected edges or directed edges (arcs) (G=\{N,E\} or G=\{N,A\}), can be solved in polynomial time. However, if it is a mixed graph containing both (G=\{N,E,A\}) it is NP-hard. The related VRP also being NP-hard has interesting implication for route optimization problem in general. Because many problems can be reduced to either the VRP or CPP, they are by extension NP-hard too. The NP-hardness makes heuristic approaches the most feasible way of obtaining good solutions. Coupled with the complexity of modeling real-life situations it is extremely difficult to improve the state of the art algorithm's and models at the same time.
 
 Over the following decades, several variations on the CPP have been made to handle specific challenges. Here follow definitions of some of the most known formulations and how they are tied to snow plowing:
 
@@ -105,7 +103,7 @@ Over the following decades, several variations on the CPP have been made to hand
 
 \item [The Hierarchical Chinese Postman Problem (HCPP)] \citep{ghiani2000HCPP} emerges when one wants to investigate how solutions would change if one required some edges to be serviced before others. It is a situation that often arises in practice. For instance in snow plowing one might want to service a more used road before a less used road.
 
-\item [The Windy Postman Problem (WPP)] is the attempt at accounting for that an edge can have a different cost each time you pass through it \citep{dussault2013WPP}. This is a relevant consideration when snow plowing, because simply passing through a road and plowing it takes a different amount of resources and time. Even passing through a road that has already been plowed and one that has not can have separate costs.
+\item [The Windy Postman Problem (WPP)] is the attempt at accounting for that an edge can have a different cost each time you pass through it \citep{dussault2013WPP}. This is a relevant consideration when snow plowing because simply passing through a road and plowing it takes a different amount of resources and time. Even passing through a road that has already been plowed and one that has not can have separate costs.
 
 \item [The k-postman Chinese Postman Problem (k-CPP)] is the attempt at modeling a scenario where there is a depot node, and k postmen \citep{edmonds1973kCPP}. It can also be interpreted as one postman that can do k trips of a certain cost. If implemented correctly it can be argued that splitted trips from the k-CPP can be used for sectoring the road network between different contractors.
 
@@ -123,7 +121,7 @@ This lack of clarity has in turn given rise to definitions that try to include m
 
 The problem definition found that fits the case of Trondheim best, however, is the Node Edge and Arc Routing Problem (NEARP) \citep{prins2005memeticNEARP}. It describes the problem of servicing a subset of the nodes, edges, and arcs in a mixed graph, with a homogeneous set of vehicles. Like in the k-CPP and CARP, each vehicle is capacitated in terms of demand it can service (cost it can handle). The elements of the graph that require servicing have a fixed demand, and all of the arcs and edges have a traversal cost while nodes have no traversal cost (although required nodes do have a servicing cost).
 
-Because it combines the CARP, VRP, and the General Routing Problem, it takes into account many of the features of the underlying network desired to use for structuring the graph, such as the assumption of a mixed graph. Another feature that makes it a better model is that it considers both nodes, arcs, and edges as elements of the graph that can need servicing. This assumption makes sense in a snow plowing setting, where not only roads and one-way roads, but also intersections need to be plowed.
+Because it combines the CARP, VRP, and the General Routing Problem, it takes into account many of the features of the underlying network desired to use for structuring the graph, such as the assumption of a mixed graph. Another feature that makes it a better model is that it considers both nodes, arcs and edges as elements of the graph that can need servicing. This assumption makes sense in a snow plowing setting, where not only roads and one-way roads but also intersections need to be plowed.
 
 Now with the definition of what kind of problem snow plowing in Trondheim having been presented, how it can be solved should be considered.
 
@@ -148,12 +146,11 @@ As such MAs can be considered a current state of the art approach to solving NEA
 \label{sec:evolutionary_algorithms}
 Now that the reasons for using an EA has been laid out, what EA's are, and how they can be implemented should be discussed. EA's were one of the earliest bio-inspired algorithm's, whose outline were first discussed by Alan Turing in \citet{turing1950computing}. The idea is that EA's should mimic the biological processes in evolution, abstracting potential solutions to a population of individuals that have traits that are combined and altered through generations.
 
-
 \begin{wrapfigure}{o}{0.4\textwidth}
     \begin{center}
         \includegraphics[width=0.4\textwidth]{figures/GA_general_flow_illustration.pdf}
     \end{center}
-    \caption{How evolution flows in genetic algorithm's. Reproduced according to illustraion in \citet{gaFlowIllustrationSource}}
+    \caption{How evolution flows in genetic algorithms. Reproduced according to illustration in \citet{gaFlowIllustrationSource}}
     \label{fig:ga_flow_illustraion}
 \end{wrapfigure}
 
@@ -171,13 +168,12 @@ To improve on GA's the concept of memetics can be introduced, turning them into 
 
 With the genome being such a central piece in making an EA work, it is natural to let it be the first thing one considers when making a specialized EA for instance for snow plowing. Initially, the approach was to figure out what the genome was to represent. In the case of routing for snow plowing, a solution, and thus what the genome should represent is a route for a snow plow. However, what if there, like in the k-CPP and CARP, are several snow plows? Then the genome has to represent a set of trips for each vehicle. Ideally, the genome should be able to represent both these cases.
 
-The solution found in the literature was to let the genome represent a single circular route, a grand tour of the underlying graph as done in \citet{lacomme2001GA}. When dealing with multiple vehicles this tour is splitted into several shorter trips, one for each vehicle. Once the genome and the phenotype it represents is decided, one can begin to look into how the goodness of each individual should be determined, ie. how to calculate the fitness.
+The solution found in the literature was to let the genome represent a single circular route, a grand tour of the underlying graph as done in \citet{lacomme2001GA}. When dealing with multiple vehicles this tour is splitted into several shorter trips, one for each vehicle. Once the genome and the phenotype it represents is decided, one can begin to look into how the goodness of each individual should be determined, i.e., how to calculate the fitness.
 
 \subsection{Fitness for Snow Plowing} % (fold)
 \label{sub:fitness_for_snow_plowing}
 
 There are many things to keep in mind when trying to determine the fitness of a route in a complex operation like snow plowing. In interviews with the municipality and the NPRA, some of the most important factors that impact the execution of the plowing, and most likely should affect the goodness of a solution were discussed.\footnote{Meeting with Trondheim Municipality and the NPRA. Trondheim Bydrift, 3. etage, Tempeveien 22, 7031 Trondheim, Norway. 2014-09-02 09:00.} They are shown in figures \ref{fig:environmental_factors} and \ref{fig:imposed_constraints}.
-
 
 \begin{figure}[thbp]
 \caption{Factors arising from the environment}
@@ -253,7 +249,7 @@ The way the algorithm works to find the sub-trip of least cost that services the
     \label{fig:sag}
 \end{figure}
 
-After this, the algorithm tries to add one and one more required element to the current splitted sub-trip, until the next added element would exceed the vehicles capacity for servicing demand. To do the check, the algorithm first removes the cost of going from the last element in the currently splitted trip back to the depot from the end of the trip. Then the cost of going to the next required element, and from that element to the depot, is added to the cost. If this updated cost is lower than the currently lowest known cost for reaching the next element, and the demand load is manageable, the costs and predecessors arrays are updated. The next elements cost in the costs array is updated to the current cost, and its entry in the predecessors array is set to the index of the node at the beginning of the sub-trip currently being considered.
+After this, the algorithm tries to add one and one more required element to the current splitted sub-trip until the next added element would exceed the vehicles capacity for servicing demand. To do the check, the algorithm first removes the cost of going from the last element in the currently splitted trip back to the depot from the end of the trip. Then the cost of going to the next required element, and from that element to the depot, is added to the cost. If this updated cost is lower than the currently lowest known cost for reaching the next element, and the demand load is manageable, the costs and predecessors arrays are updated. The next element's cost in the costs array is updated to the current cost. At the same time, its entry in the predecessors array is set to the index of the node at the beginning of the sub-trip currently being considered.
 
 This process of adding an element at a time to existing or new trips and checking whether the sum of demand is permissible and the length of the trip can be taught of as generating an auxiliary graph. If one uses the graph in Figure \ref{fig:sgwspp} as an example, the resulting auxiliary graph would be the one shown in Figure \ref{fig:sag}.
 
