@@ -229,24 +229,33 @@ With the all-pairs shortest path matrix, calculating the fitness of a trip given
 This summation works fine for obtaining the fitness of a genome as long as the genome is to be interpreted as a single giant trip of the entire graph. However, when there are several vehicles the work should be divided between, one first has to determine how the graph should be split between them in order to calculate the cost of each vehicles trip.
 
 % subsection all_pairs_shortest_path (end)
+% \clearpage
 
 \subsection{The Split Algorithm} % (fold)
 \label{sub:the_split_algorithm}
 
 The Split algorithm is used to take a trip in a graph and split it into smaller sub-trips that originate and end in a depot node \citep{ulusoy1985CARP}. It generates the sub-trips such that none of them exceed the vehicles demand capacity, they service the required elements in the same order as in the supplied trip, and the resulting sub-trips are the shortest possible combination given these constraints. The pseudocode for the Split algorithm can be seen in Algorithm \ref{split-pseudocode} in Appendix \ref{cha:pseudocode}. An example graph that can be used for input to the split algorithm is shown in Figure \ref{fig:sgwspp}
 
-\begin{figure}[thbp]
-    \centerline{\includegraphics[width=\textwidth]{figures/SplitIllustrations/Split_GraphWithShortestPathsPlain.pdf}}
-    \caption{Graph instance processed by the split algorithm. Edge traversal cost is given in the parentheses, and the required edges are marked with bold. The vehicle demand capacity is 8.}
-    \label{fig:sgwspp}
-\end{figure}
+
 
 The way the algorithm works to find the sub-trip of least cost that services the current element is as follows. For each required element in the supplied trip, it checks whether going from the depot, servicing the element, and going back is the least cost sub-trip. If so, the algorithm updates the list of predecessors indicating that going straight to the element from the depot is the best sub-trip for servicing it. At the same time, the elements value in the array of least costs of going to each element in the sub-trips is updated. The new value becomes the sum of the shortest paths of the previous splitted sub-trips, plus the new found cost of visiting this element in its own sub-trip.
 
 \begin{figure}[thbp]
-    \centerline{\includegraphics[width=\textwidth]{figures/SplitIllustrations/Split_AuxiliaryGraph.pdf}}
+    \centerline{\includegraphics[width=0.95\textwidth]{figures/SplitIllustrations/Split_GraphWithShortestPathsPlain.pdf}}
+    \caption{Graph instance processed by the split algorithm. Edge traversal cost is given in the parentheses, and the required edges are marked with bold. The vehicle demand capacity is 8.}
+    \label{fig:sgwspp}
+\end{figure}
+
+\begin{figure}[thbp]
+    \centerline{\includegraphics[width=0.95\textwidth]{figures/SplitIllustrations/Split_AuxiliaryGraph.pdf}}
     \caption{The auxiliary graph built by split to process the graph shown in Figure \ref{fig:sgwspp}. The least cost of processing each required edge found is shown in parentheses in their respective nodes in the auxiliary graph. The least-cost path through all required elements is highlighted with bold arrows.}
     \label{fig:sag}
+\end{figure}
+
+\begin{figure}[thbp]
+    \centerline{\includegraphics[width=0.95\textwidth]{figures/SplitIllustrations/Split_GraphWithRoutes.pdf}}
+    \caption{The trips generated from processing the graph in Figure \ref{fig:sgwspp} with the split algorithm.}
+    \label{fig:sgwr}
 \end{figure}
 
 After this, the algorithm tries to add one and one more required element to the current splitted sub-trip until the next added element would exceed the vehicles capacity for servicing demand. To do the check, the algorithm first removes the cost of going from the last element in the currently splitted trip back to the depot from the end of the trip. Then the cost of going to the next required element, and from that element to the depot, is added to the cost. If this updated cost is lower than the currently lowest known cost for reaching the next element, and the demand load is manageable, the costs and predecessors arrays are updated. The next element's cost in the costs array is updated to the current cost. At the same time, its entry in the predecessors array is set to the index of the node at the beginning of the sub-trip currently being considered.
@@ -255,11 +264,7 @@ This process of adding an element at a time to existing or new trips and checkin
 
 For the purposes of finding the fitness value, the algorithm makes it as simple as looking at the last entry in the costs array. It is the sum of the costs of the shortest possible sub-trips leading up to the sub-trip containing the last element. Because the cost of this sub-trip also contains the last element and its cost, it is the cost of traversing all the sub-trips.
 
-\begin{figure}[thbp]
-    \centerline{\includegraphics[width=\textwidth]{figures/SplitIllustrations/Split_GraphWithRoutes.pdf}}
-    \caption{The trips generated from processing the graph in Figure \ref{fig:sgwspp} with the split algorithm.}
-    \label{fig:sgwr}
-\end{figure}
+
 
 The retrieval of the resulting trips is shown in Algorithm \ref{split-retrieve-pseudocode} in Appendix \ref{sec:split_retrieve_trips_pseudocode}. This algorithm works by starting with the last node of the last splitted sub-trip and iterating over the predecessor array obtained from the Split algorithm. That gives it a worst case running time of $O(|\text{required elements}|)$. However, that is still less than the asymptotical worst case of the split algorithm that is $O(|\text{required elements}|^2)$. An example of trips that would be retrieved from the graph Figure \ref{fig:sgwspp} illustrates is shown in Figure \ref{fig:sgwr}.
 
