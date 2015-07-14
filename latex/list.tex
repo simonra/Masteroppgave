@@ -1,3 +1,4 @@
+\clearpage
 \phantomsection
 \addcontentsline{toc}{chapter}{Table of Contents}
 \tableofcontents
@@ -32,7 +33,7 @@
 \def\thickhrulefill{\leavevmode \leaders \hrule height 1ex \hfill \kern \z@}
 \def\@makechapterhead#1{%
   %\vspace*{50\p@}%
-  \vspace*{10\p@}%
+  \vspace*{-35\p@}%
   {\parindent \z@ \centering \reset@font
         \thickhrulefill\quad
         \scshape \@chapapp{} \thechapter
@@ -51,7 +52,7 @@
   }}
 \def\@makeschapterhead#1{%
   %\vspace*{50\p@}%
-  \vspace*{10\p@}%
+  \vspace*{-35\p@}%
   {\parindent \z@ \centering \reset@font
         \thickhrulefill
         \par\nobreak
