@@ -1,11 +1,11 @@
 \chapter{Introduction}
 \label{cha:introduction}
 
-This thesis will deal with the issue of snow plowing. What it is, how it can be modeled and processed, and how to approach it in practice. The first chapter will start out with looking into the background of the issue, and why it is of interest to try to find good routes for snow plowing. Then the goal of the thesis, and the research questions utilized to reach it are going to be stated. After which there will be a brief section discussing how each research question is going to be handled. Finally at the end of the chapter the layout for the rest of the thesis will be outlined.
+This thesis will deal with the issue of snow plowing. What it is, how it can be modeled and processed, and how to approach it in practice. The first chapter will start out with looking into the background of the issue, and why it is of interest to try to find good routes for snow plowing. Then the goal of the thesis, and the research questions utilized to reach it are going to be stated. After which there will be a brief section discussing how each research question is going to be handled. Finally, at the end of the chapter the layout for the rest of the thesis will be outlined.
 
 \section{Background and Motivation}
 
-In the municipality of Trondheim (in Norway) there are cold winters, with lots of snow. Removing the snow is an important logistical challenge for the municipality due to the impact it has on the usability of the road infrastructure. The size and complexity of the road network make it hard to be sure that planned routes are as short and efficient as possible. Additionally the operations can in themselves prove an obstacle to traffic while carried out.
+In the municipality of Trondheim (in Norway) there are cold winters, with lots of snow. Removing the snow is an important logistical challenge for the municipality due to the impact it has on the usability of the road infrastructure. The size and complexity of the road network make it hard to be sure that planned routes are as short and efficient as possible. Additionally, the operations can in themselves prove an obstacle to traffic while carried out.
 
 The municipality desires to minimize the resources spent and externalities caused by the snow plowing. To achieve these goals they want to see whether better routes than the ones currently being driven can be generated programmatically. In order to address the concern, this thesis will build upon the work in the pre-project leading up to it \citep{forprosjektet}. The focus in the thesis will therefore be on whether better routes can be generated using memetic algorithms (MAs).
 
@@ -18,13 +18,13 @@ The main goal for this thesis can be stated as follows:
     \item [Goal] Make a system that can generate optimal routes for snow plowing in Trondheim.
 \end{description}
 
-In the context of this thesis, system refers to a set of scripts and programs. Most importantly it encompasses the module that handles road-map data, and an MA that will process the map data to yield routes.
+In the context of this thesis, \emph{system} refers to a set of scripts and programs. Most importantly it encompasses the module that handles road-map data, and an MA that will process the map data to yield routes.
 
-To reach this goal, the first research question that should be addressed is obtaining and presenting the relevant related work that gives the context for this thesis. Answering this might show whether optimal routes are possible to find at all. Additionally the answer can show why an MA was chosen as the approach after the pre-project \citep{forprosjektet}.
+To reach this goal, the first research question that should be addressed is obtaining and presenting the relevant related work that gives the context for this thesis. Answering this might show whether optimal routes are possible to find at all. Additionally, the answer can show why an MA was chosen as the approach after the pre-project \citep{forprosjektet}.
 
-The second research question that should be answered, given that an MA has been selected as the approach, is how to configure it so that it performs well. Being closely related to genetic algorithms (GAs), MAs will also perform horribly if initialized with the wrong parameters, and finding good ones is non-trivial. Therefore not only the parameters themselves but also the process of obtaining them should be shown.
+The second research question that should be answered, given that an MA has been selected as the approach, is how to configure it so that it performs well. Being closely related to genetic algorithms (GAs), MAs will also perform horribly if initialized with the wrong parameters, and finding good ones is non-trivial. Therefore, not only the parameters themselves but also the process of obtaining them should be shown.
 
-Finally in addressing the goal there needs to be a research question that asks to determine whether the MA independently can optimize a route in Trondheim for snow plowing. Answering this should reveal whether the goal has been completely reached, what (if any?) areas are left to explore in the future work, and whether the MA performs satisfactorily for the application.
+Finally, in addressing the goal there needs to be a research question that asks to determine whether the MA independently can optimize a route in Trondheim for snow plowing. Answering this should reveal whether the goal has been completely reached, what (if any?) areas are left to explore in the future work, and whether the MA performs satisfactorily for the application.
 
 \rowcolors{1}{gray!15}{white}
 \begin{table}[H]
@@ -40,7 +40,7 @@ RQ3  &  Determine whether the memetic algorithm independently can find a route i
 
 \section{Research Method}
 
-To address RQ1 large parts of Chapter \ref{theory} will be dedicated to presenting the relevant related work that was found in the pre-project of this thesis. This leads to our implementation in Chapter \ref{architecture_and_implementation}. RQ2 will be treated in Chapter \ref{cha:evolutionary_algorithm_configuration}, where the parameters are tuned in a set of quantitative experiments. Finally RQ3 is considered in Chapter \ref{cha:experiments_and_results}. In the chapter there will be a set of quantitative experiments to determine the quality of the routes produced by the MA. The generated routes will then be compared to the routes currently being driven. The comparison will be in terms of how the algorithm's fitness function perceives them. Once the comparisons are done, the best routes that have been found will be selected and shown to the municipality's domain experts. The assessment of the routes by the experts will then be presented in the thesis.
+To address RQ1 large parts of Chapter \ref{theory} will be dedicated to presenting the relevant related work that was found in the pre-project of this thesis. This leads to our implementation in Chapter \ref{architecture_and_implementation}. RQ2 will be treated in Chapter \ref{cha:evolutionary_algorithm_configuration}, where the parameters are tuned in a set of quantitative experiments. Finally, RQ3 is considered in Chapter \ref{cha:experiments_and_results}. In the chapter there will be a set of quantitative experiments to determine the quality of the routes produced by the MA. The generated routes will then be compared to the routes currently being driven. The comparison will be in terms of how the algorithm's fitness function perceives them. Once the comparisons are done, the best routes that have been found will be selected and shown to the municipality's domain experts. The assessment of the routes by the experts will then be presented in the thesis.
 
 \section{Thesis Structure}
 
